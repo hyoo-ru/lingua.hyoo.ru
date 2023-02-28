@@ -20,7 +20,7 @@ $hyoo_lingua_app $mol_page
 			value? <=> foreign_lang? \en
 			dictionary <= langs *
 	Body $mol_book2
-		bring? <=> bring?
+		bring <= bring
 		Placeholder null
 		pages /
 			<= Native_pane $mol_scroll sub /
@@ -31,4 +31,4 @@ $hyoo_lingua_app $mol_page
 				<= Foreign_text $mol_textarea
 					value? <=> foreign_text? \
 					hint \foreign language text
-					bring? => bring?
+					bring => bring
