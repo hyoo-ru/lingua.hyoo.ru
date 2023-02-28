@@ -4,21 +4,21 @@ $hyoo_lingua_app $mol_page
 		<= Theme $mol_theme_auto
 	head /
 		<= Native_lang $mol_select
-			hint \Native Language
+			hint @ \Native Language
 			value? <=> native_lang? \ru
 			dictionary <= langs *
 		<= Foreign_translate $mol_button_minor
-			hint \Translate to Native
+			hint @ \Translate to Native
 			click? <=> foreign_translate? null
 			sub /
 				<= Foreign_translate_icon $mol_icon_transfer_left
 		<= Native_translate $mol_button_minor
-			hint \Translate to Foreign
+			hint @ \Translate to Foreign
 			click? <=> native_translate? null
 			sub /
 				<= Native_translate_icon $mol_icon_transfer_right
 		<= Foreign_lang $mol_select
-			hint \Foreign Language
+			hint @ \Foreign Language
 			value? <=> foreign_lang? \en
 			dictionary <= langs *
 	foot /
@@ -32,9 +32,9 @@ $hyoo_lingua_app $mol_page
 			<= Native_pane $mol_scroll sub /
 				<= Native_text $mol_textarea
 					value? <=> native_text? \
-					hint \native language text
+					hint @ \native language text
 			<= Foreign_pane $mol_scroll sub /
 				<= Foreign_text $mol_textarea
 					value? <=> foreign_text? \
-					hint \foreign language text
+					hint @ \foreign language text
 					bring => bring
