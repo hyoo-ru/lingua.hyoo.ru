@@ -4,6 +4,10 @@ namespace $.$$ {
 	
 	$mol_style_define( $hyoo_lingua_app, {
 		
+		Title: {
+			justifyContent: 'center',
+		},
+		
 		Native_translate: {
 			flex: {
 				basis: rem(2),

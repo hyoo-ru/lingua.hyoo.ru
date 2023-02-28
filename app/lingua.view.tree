@@ -23,6 +23,7 @@ $hyoo_lingua_app $mol_page
 			dictionary <= langs *
 	foot /
 		<= Source $mol_link_source uri \https://github.com/hyoo-ru/lingua.hyoo.ru
+		<= Title
 		<= Lights $mol_lights_toggle
 	Body $mol_book2
 		bring <= bring
