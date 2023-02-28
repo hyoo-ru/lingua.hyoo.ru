@@ -10,11 +10,13 @@ $hyoo_lingua_app $mol_page
 		<= Foreign_translate $mol_button_minor
 			hint @ \Translate to Native
 			click? <=> foreign_translate? null
+			event_activate? => foreign_translate_activate?
 			sub /
 				<= Foreign_translate_icon $mol_icon_transfer_left
 		<= Native_translate $mol_button_minor
 			hint @ \Translate to Foreign
 			click? <=> native_translate? null
+			event_activate? => native_translate_activate?
 			sub /
 				<= Native_translate_icon $mol_icon_transfer_right
 		<= Foreign_lang $mol_select
@@ -31,10 +33,12 @@ $hyoo_lingua_app $mol_page
 		pages /
 			<= Native_pane $mol_scroll sub /
 				<= Native_text $mol_textarea
+					hint @ \native language 
 					value? <=> native_text? \
-					hint @ \native language text
+					submit? <=> native_translate_activate?
 			<= Foreign_pane $mol_scroll sub /
 				<= Foreign_text $mol_textarea
-					value? <=> foreign_text? \
 					hint @ \foreign language text
+					value? <=> foreign_text? \
 					bring => bring
+					submit? <=> foreign_translate_activate?
