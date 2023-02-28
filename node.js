@@ -7746,6 +7746,7 @@ var $;
         foot() {
             return [
                 this.Source(),
+                this.Title(),
                 this.Lights()
             ];
         }
@@ -8440,6 +8441,9 @@ var $;
     (function ($$) {
         const { rem } = $mol_style_unit;
         $mol_style_define($hyoo_lingua_app, {
+            Title: {
+                justifyContent: 'center',
+            },
             Native_translate: {
                 flex: {
                     basis: rem(2),
