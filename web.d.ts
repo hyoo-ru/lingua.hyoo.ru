@@ -1321,6 +1321,9 @@ declare namespace $ {
     class $mol_fetch_response extends $mol_object2 {
         readonly native: Response;
         constructor(native: Response);
+        status(): "success" | "unknown" | "inform" | "redirect" | "wrong" | "failed";
+        code(): number;
+        message(): string;
         headers(): Headers;
         mime(): string | null;
         stream(): ReadableStream<Uint8Array> | null;
@@ -1336,6 +1339,7 @@ declare namespace $ {
             destructor: () => void;
         };
         static response(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
+        static success(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
         static stream(input: RequestInfo, init?: RequestInit): ReadableStream<Uint8Array> | null;
         static text(input: RequestInfo, init?: RequestInit): string;
         static json(input: RequestInfo, init?: RequestInit): unknown;
@@ -2562,8 +2566,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    let $hyoo_lingua_translate_api: string;
-    function $hyoo_lingua_translate(lang: string, text: string): string;
+    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly string[]): readonly string[];
+    function $mol_huggingface_async(space: string, method: number, ...data: readonly string[]): Promise<[string]> & {
+        destructor: () => void;
+    };
+}
+
+declare namespace $ {
+    function $hyoo_lingua_translate(this: $, lang: string, text: string): string;
 }
 
 declare namespace $.$$ {

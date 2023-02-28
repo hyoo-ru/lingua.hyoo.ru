@@ -181,6 +181,7 @@
     "$hyoo_lingua_langs",
     "$mol_state_session",
     "$hyoo_lingua_translate",
+    "$mol_huggingface",
     "$mol_data_record",
     "$mol_data",
     "$mol_data_value",
@@ -194,8 +195,8 @@
     "$mol_diff_path",
     "$mol_diff",
     "$mol_data_string",
-    "$mol_fetch",
     "$mol_wire_sync",
+    "$mol_fetch",
     "$mol_dom_parse"
   ],
   "dependencies": {
