@@ -12,7 +12,7 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		foreign_lang( next?: string ) {
-			return this.$.$mol_state_session.value( 'foreign_lang', next ) ?? $mol_locale.lang()
+			return this.$.$mol_state_session.value( 'foreign_lang', next ) ?? 'en'
 		}
 		
 		@ $mol_mem
