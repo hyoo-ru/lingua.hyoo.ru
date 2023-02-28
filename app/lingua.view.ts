@@ -1,6 +1,10 @@
 namespace $.$$ {
 	export class $hyoo_lingua_app extends $.$hyoo_lingua_app {
 		
+		langs() {
+			return this.$.$hyoo_lingua_langs
+		}
+		
 		@ $mol_mem
 		native_lang( next?: string ) {
 			return this.$.$mol_state_session.value( 'native_lang', next ) ?? $mol_locale.lang()
