@@ -8477,7 +8477,7 @@ var $;
                 return this.$.$mol_state_session.value('native_lang', next) ?? $mol_locale.lang();
             }
             foreign_lang(next) {
-                return this.$.$mol_state_session.value('foreign_lang', next) ?? $mol_locale.lang();
+                return this.$.$mol_state_session.value('foreign_lang', next) ?? 'en';
             }
             native_text(next) {
                 return this.$.$mol_state_session.value('native_text', next) ?? '';
