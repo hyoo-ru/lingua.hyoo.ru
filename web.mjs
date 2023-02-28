@@ -7463,7 +7463,7 @@ var $;
         }
         Native_lang() {
             const obj = new this.$.$mol_select();
-            obj.hint = () => "Native Language";
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Native_lang_hint');
             obj.value = (next) => this.native_lang(next);
             obj.dictionary = () => this.langs();
             return obj;
@@ -7479,7 +7479,7 @@ var $;
         }
         Foreign_translate() {
             const obj = new this.$.$mol_button_minor();
-            obj.hint = () => "Translate to Native";
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Foreign_translate_hint');
             obj.click = (next) => this.foreign_translate(next);
             obj.sub = () => [
                 this.Foreign_translate_icon()
@@ -7497,7 +7497,7 @@ var $;
         }
         Native_translate() {
             const obj = new this.$.$mol_button_minor();
-            obj.hint = () => "Translate to Foreign";
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Native_translate_hint');
             obj.click = (next) => this.native_translate(next);
             obj.sub = () => [
                 this.Native_translate_icon()
@@ -7511,7 +7511,7 @@ var $;
         }
         Foreign_lang() {
             const obj = new this.$.$mol_select();
-            obj.hint = () => "Foreign Language";
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Foreign_lang_hint');
             obj.value = (next) => this.foreign_lang(next);
             obj.dictionary = () => this.langs();
             return obj;
@@ -7533,7 +7533,7 @@ var $;
         Native_text() {
             const obj = new this.$.$mol_textarea();
             obj.value = (next) => this.native_text(next);
-            obj.hint = () => "native language text";
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Native_text_hint');
             return obj;
         }
         Native_pane() {
@@ -7554,7 +7554,7 @@ var $;
         Foreign_text() {
             const obj = new this.$.$mol_textarea();
             obj.value = (next) => this.foreign_text(next);
-            obj.hint = () => "foreign language text";
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Foreign_text_hint');
             return obj;
         }
         Foreign_pane() {
@@ -7627,7 +7627,7 @@ var $;
     ], $hyoo_lingua_app.prototype, "Foreign_pane", null);
     $.$hyoo_lingua_app = $hyoo_lingua_app;
 })($ || ($ = {}));
-//hyoo/lingua/app/-view.tree/lingua.view.tree.ts
+//hyoo/lingua/app/-view.tree/app.view.tree.ts
 ;
 "use strict";
 var $;
@@ -7987,7 +7987,7 @@ var $;
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/lingua/app/lingua.view.css.ts
+//hyoo/lingua/app/app.view.css.ts
 ;
 "use strict";
 var $;
@@ -8040,7 +8040,7 @@ var $;
         $$.$hyoo_lingua_app = $hyoo_lingua_app;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/lingua/app/lingua.view.ts
+//hyoo/lingua/app/app.view.ts
 ;
 export default $
 //# sourceMappingURL=web.mjs.map
