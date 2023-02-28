@@ -1,5 +1,7 @@
 $hyoo_lingua_app $mol_page
 	title \Lingua Franca
+	plugins /
+		<= Theme $mol_theme_auto
 	head /
 		<= Native_lang $mol_select
 			hint \Native Language
@@ -19,6 +21,9 @@ $hyoo_lingua_app $mol_page
 			hint \Foreign Language
 			value? <=> foreign_lang? \en
 			dictionary <= langs *
+	foot /
+		<= Source $mol_link_source uri \https://github.com/hyoo-ru/lingua.hyoo.ru
+		<= Lights $mol_lights_toggle
 	Body $mol_book2
 		bring <= bring
 		Placeholder null

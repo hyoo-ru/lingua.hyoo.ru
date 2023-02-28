@@ -22,7 +22,7 @@ namespace $.$$ {
 		Foreign_pane: {
 			padding: $mol_gap.block,
 			flex: {
-				basis: rem(25),
+				basis: rem(21),
 				grow: 1,
 			},
 		},
@@ -30,7 +30,7 @@ namespace $.$$ {
 		Native_pane: {
 			padding: $mol_gap.block,
 			flex: {
-				basis: rem(25),
+				basis: rem(21),
 				grow: 1,
 			},
 		},
