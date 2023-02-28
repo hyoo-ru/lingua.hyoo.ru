@@ -4975,6 +4975,9 @@ var $;
                 return event;
             return null;
         }
+        submit_with_ctrl() {
+            return false;
+        }
         submit(event) {
             if (event !== undefined)
                 return event;
@@ -4982,6 +4985,7 @@ var $;
         }
         Submit() {
             const obj = new this.$.$mol_hotkey();
+            obj.mod_ctrl = () => this.submit_with_ctrl();
             obj.key = () => ({
                 enter: (event) => this.submit(event)
             });
@@ -7562,6 +7566,11 @@ var $;
                 return val;
             return [];
         }
+        submit(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
         bring() {
             return this.Edit().bring();
         }
@@ -7573,6 +7582,8 @@ var $;
             obj.spellcheck = () => this.spellcheck();
             obj.length_max = () => this.length_max();
             obj.selection = (val) => this.selection(val);
+            obj.submit = (next) => this.submit(next);
+            obj.submit_with_ctrl = () => true;
             return obj;
         }
         row_numb(id) {
@@ -7606,6 +7617,9 @@ var $;
     __decorate([
         $mol_mem
     ], $mol_textarea.prototype, "selection", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "submit", null);
     __decorate([
         $mol_mem
     ], $mol_textarea.prototype, "Edit", null);
@@ -7780,6 +7794,9 @@ var $;
             const obj = new this.$.$mol_icon_transfer_left();
             return obj;
         }
+        foreign_translate_activate(next) {
+            return this.Foreign_translate().event_activate(next);
+        }
         Foreign_translate() {
             const obj = new this.$.$mol_button_minor();
             obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Foreign_translate_hint');
@@ -7797,6 +7814,9 @@ var $;
         Native_translate_icon() {
             const obj = new this.$.$mol_icon_transfer_right();
             return obj;
+        }
+        native_translate_activate(next) {
+            return this.Native_translate().event_activate(next);
         }
         Native_translate() {
             const obj = new this.$.$mol_button_minor();
@@ -7835,8 +7855,9 @@ var $;
         }
         Native_text() {
             const obj = new this.$.$mol_textarea();
-            obj.value = (next) => this.native_text(next);
             obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Native_text_hint');
+            obj.value = (next) => this.native_text(next);
+            obj.submit = (next) => this.native_translate_activate(next);
             return obj;
         }
         Native_pane() {
@@ -7856,8 +7877,9 @@ var $;
         }
         Foreign_text() {
             const obj = new this.$.$mol_textarea();
-            obj.value = (next) => this.foreign_text(next);
             obj.hint = () => this.$.$mol_locale.text('$hyoo_lingua_app_Foreign_text_hint');
+            obj.value = (next) => this.foreign_text(next);
+            obj.submit = (next) => this.foreign_translate_activate(next);
             return obj;
         }
         Foreign_pane() {

@@ -1537,6 +1537,7 @@ declare namespace $ {
         length_max(): number;
         type(val?: any): string;
         event_change(event?: any): any;
+        submit_with_ctrl(): boolean;
         submit(event?: any): any;
         Submit(): $$.$mol_hotkey;
     }
@@ -2316,6 +2317,7 @@ declare namespace $ {
         spellcheck(): boolean;
         length_max(): number;
         selection(val?: any): readonly number[];
+        submit(next?: any): any;
         bring(): void;
         Edit(): $mol_textarea_edit;
         row_numb(id: any): number;
@@ -2365,9 +2367,11 @@ declare namespace $ {
         Native_lang(): $$.$mol_select;
         foreign_translate(next?: any): any;
         Foreign_translate_icon(): $mol_icon_transfer_left;
+        foreign_translate_activate(next?: any): any;
         Foreign_translate(): $mol_button_minor;
         native_translate(next?: any): any;
         Native_translate_icon(): $mol_icon_transfer_right;
+        native_translate_activate(next?: any): any;
         Native_translate(): $mol_button_minor;
         foreign_lang(next?: any): string;
         Foreign_lang(): $$.$mol_select;

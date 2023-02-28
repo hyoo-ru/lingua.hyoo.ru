@@ -163,6 +163,7 @@ $mol_string $mol_view
 		input?event <=> event_change?event null
 	plugins /
 		<= Submit $mol_hotkey
+			mod_ctrl <= submit_with_ctrl false
 			key * enter?event <=> submit?event null
 
 $mol_svg $mol_view
@@ -400,6 +401,8 @@ $mol_textarea $mol_stack
 			length_max <= length_max +Infinity
 			selection?val <=> selection?val /number
 			bring => bring
+			submit? <=> submit? null
+			submit_with_ctrl true
 		<= View $mol_text_code
 			text <= value
 			render_visible_only false
@@ -463,11 +466,13 @@ $hyoo_lingua_app $mol_page
 		<= Foreign_translate $mol_button_minor
 			hint @ \Translate to Native
 			click? <=> foreign_translate? null
+			event_activate? => foreign_translate_activate?
 			sub /
 				<= Foreign_translate_icon $mol_icon_transfer_left
 		<= Native_translate $mol_button_minor
 			hint @ \Translate to Foreign
 			click? <=> native_translate? null
+			event_activate? => native_translate_activate?
 			sub /
 				<= Native_translate_icon $mol_icon_transfer_right
 		<= Foreign_lang $mol_select
@@ -484,10 +489,12 @@ $hyoo_lingua_app $mol_page
 		pages /
 			<= Native_pane $mol_scroll sub /
 				<= Native_text $mol_textarea
+					hint @ \native language 
 					value? <=> native_text? \
-					hint @ \native language text
+					submit? <=> native_translate_activate?
 			<= Foreign_pane $mol_scroll sub /
 				<= Foreign_text $mol_textarea
-					value? <=> foreign_text? \
 					hint @ \foreign language text
+					value? <=> foreign_text? \
 					bring => bring
+					submit? <=> foreign_translate_activate?
