@@ -2566,8 +2566,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly string[]): readonly string[];
-    function $mol_huggingface_async(space: string, method: number, ...data: readonly string[]): Promise<[string]> & {
+    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly any[]): readonly string[];
+    function $mol_huggingface_async(space: string, method: number, ...data: readonly any[]): Promise<[string]> & {
         destructor: () => void;
     };
 }

@@ -8474,7 +8474,13 @@ var $;
         const fn_index = method;
         const socket = new WebSocket(`wss://${space}.hf.space/queue/join`);
         const promise = new Promise((done, fail) => {
-            socket.onerror = socket.onclose = fail;
+            socket.onclose = event => {
+                if (event.reason)
+                    fail(new Error(event.reason));
+            };
+            socket.onerror = event => {
+                fail(new Error('Scoket error'));
+            };
             socket.onmessage = event => {
                 const message = JSON.parse(event.data);
                 switch (message.msg) {
@@ -8485,7 +8491,12 @@ var $;
                         return socket.send(JSON.stringify({ session_hash, fn_index, data }));
                     case 'process_starts': return;
                     case 'process_completed':
-                        return done(message.output.data);
+                        if (message.success) {
+                            return done(message.output.data);
+                        }
+                        else {
+                            return fail(new Error(message.output.error ?? 'Unknown api error'));
+                        }
                     default:
                         fail(new Error(`Unknown message type ${message.msg}`));
                 }
