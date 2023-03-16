@@ -2273,8 +2273,8 @@ declare namespace $ {
     class $mol_button_copy extends $mol_button_minor {
         text(): string;
         sub(): readonly any[];
-        Icon(): $mol_icon_clipboard_outline;
         title(): string;
+        Icon(): $mol_icon_clipboard_outline;
     }
 }
 
