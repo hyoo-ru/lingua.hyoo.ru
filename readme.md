@@ -1,11 +1,9 @@
-# Template Repo
+# $hyoo_lingua
 
-Template repo to fast make new $hyoo apps.
+Usefull online translator which supports a lot of languages thanks to neural networks.
 
-## After Make
+## API
 
-- [ ] [Rename app then update index.html and CNAME](./demo).
-- [ ] [Update GitHub Workwlow](.github/workflows).
-- [ ] Update repo description and link to app at the GitHub.
-- [ ] [Add this repo to $hyoo namespace](https://github.com/hyoo-ru/mam_hyoo/blob/master/hyoo.meta.tree).
-- [ ] Rewrite this readme.
+```ts
+$.$hyoo_lingua_translate( 'ru', 'Hello' )
+```
