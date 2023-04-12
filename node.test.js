@@ -5284,6 +5284,8 @@ var $;
 var $;
 (function ($) {
     function $hyoo_lingua_translate(lang, text) {
+        if (!text.trim())
+            return '';
         const cache_key = `$hyoo_lingua_translate(${JSON.stringify(lang)},${JSON.stringify(text)})`;
         const cached = this.$mol_state_local.value(cache_key);
         if (cached)
