@@ -2,6 +2,8 @@ namespace $ {
 	
 	export function $hyoo_lingua_translate( this: $, lang: string, text: string ) {
 		
+		if( !text.trim() ) return ''
+		
 		const cache_key = `$hyoo_lingua_translate(${ JSON.stringify(lang) },${ JSON.stringify(text) })`
 		const cached = this.$mol_state_local.value( cache_key )
 		if( cached ) return String( cached )
