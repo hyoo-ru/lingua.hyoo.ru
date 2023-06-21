@@ -1,6 +1,6 @@
 $mol_scroll $mol_view
-	scroll_top?val 0
-	scroll_left?val 0
+	scroll_top? 0
+	scroll_left? 0
 	field *
 		^
 		tabIndex <= tabindex -1
@@ -26,7 +26,7 @@ $mol_page $mol_view
 				<= Tools $mol_view
 					sub <= tools /$mol_view_content
 		<= Body $mol_scroll
-			scroll_top?val => body_scroll_top?val
+			scroll_top? => body_scroll_top?
 			sub <= body /$mol_view_content
 		<= Foot $mol_view
 			dom_name \footer
@@ -43,7 +43,7 @@ $mol_theme_auto $mol_plugin
 	attr * mol_theme <= theme \
 
 $mol_pop $mol_view
-	showed?val false
+	showed? false
 	align_vert \
 	align_hor \
 	prefer \vert
@@ -123,7 +123,7 @@ $mol_pick $mol_pop
 		minimal_width 40
 		minimal_height 40
 		enabled <= trigger_enabled true
-		checked?val <=> showed?val
+		checked? <=> showed?
 		sub <= trigger_content /$mol_view_content
 			<= title
 		hint <= hint \
@@ -142,7 +142,7 @@ $mol_string $mol_view
 	enabled true
 	minimal_height 40
 	autocomplete false
-	selection?val /number
+	selection? /number
 		0
 		0
 	auto /
@@ -150,7 +150,7 @@ $mol_string $mol_view
 	field *
 		^
 		disabled <= disabled false
-		value <= value_changed?val <=> value?val \
+		value <= value_changed? <=> value? \
 		placeholder <= hint_visible <= hint \
 		spellcheck <= spellcheck true
 		autocomplete <= autocomplete_native \
@@ -161,7 +161,7 @@ $mol_string $mol_view
 	attr *
 		^
 		maxlength <= length_max +Infinity
-		type <= type?val \text
+		type <= type? \text
 	event *
 		^
 		input?event <=> event_change?event null
@@ -220,17 +220,17 @@ $mol_dimmer $mol_paragraph
 			<= string* \
 
 $mol_nav $mol_plugin
-	cycle?val false
+	cycle? false
 	-
 	mod_ctrl false
 	mod_shift false
 	mod_alt false
 	-
-	keys_x?val /
-	keys_y?val /
+	keys_x? /
+	keys_y? /
 	-
-	current_x?val null
-	current_y?val null
+	current_x? null
+	current_y? null
 	-
 	event_up?event null
 	event_down?event null
@@ -252,16 +252,16 @@ $mol_list $mol_view
 		0
 
 $mol_select $mol_pick
-	dictionary?val *
+	dictionary? *
 	options /string
-	value?val \
+	value? \
 	option_label_default \
 	Option_row* $mol_button_minor
 		event_click?event <=> event_select*?event null
 		sub <= option_content* /
 			<= Option_label* $mol_dimmer
 				haystack <= option_label* \
-				needle <= filter_pattern?val \
+				needle <= filter_pattern? \
 	No_options $mol_view
 		sub /
 			<= no_options_message @ \No options
@@ -270,7 +270,7 @@ $mol_select $mol_pick
 		<= Nav $mol_nav
 			keys_y <= nav_components /$mol_view
 			current_y?component <=> option_focused?component null
-			cycle?val <=> nav_cycle?val true
+			cycle? <=> nav_cycle? true
 	hint @ \Pick..
 	bubble_content /
 		<= Filter
@@ -278,7 +278,7 @@ $mol_select $mol_pick
 			<= Menu $mol_list
 				rows <= menu_content /$mol_view
 	Filter $mol_string
-		value?val <=> filter_pattern?val \
+		value? <=> filter_pattern? \
 		hint @ \Filter..
 		submit?event <=> submit?event null
 		enabled <= enabled true
@@ -319,7 +319,7 @@ $mol_icon_brightness_6 $mol_icon path \M12,18V6C15.31,6 18,8.69 18,12C18,15.31 1
 $mol_lights_toggle $mol_check_icon
 	Icon <= Lights_icon $mol_icon_brightness_6
 	hint @ \Toggle lights
-	checked?val <=> lights?val false
+	checked? <=> lights? false
 
 $mol_stack $mol_view
 
@@ -399,19 +399,19 @@ $mol_text_code $mol_stack
 $mol_textarea $mol_stack
 	attr *
 		^
-		mol_textarea_clickable <= clickable?val false
+		mol_textarea_clickable <= clickable? false
 		mol_textarea_sidebar_showed <= sidebar_showed false
 	event *
 		keydown?event <=> press?event null
 		pointermove?event <=> hover?event null
 	sub /
 		<= Edit $mol_textarea_edit
-			value?val <=> value?val \
+			value? <=> value? \
 			hint <= hint \ 
 			enabled <= enabled true
 			spellcheck <= spellcheck true
 			length_max <= length_max +Infinity
-			selection?val <=> selection?val /number
+			selection? <=> selection? /number
 			bring => bring
 			submit? <=> submit? null
 			submit_with_ctrl true
