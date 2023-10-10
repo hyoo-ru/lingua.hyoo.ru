@@ -331,6 +331,9 @@ $mol_icon_transfer_right $mol_icon path \M3,8H5V16H3V8M7,8H9V16H7V8M11,8H13V16H1
 $mol_link $mol_view
 	uri \
 	dom_name \a
+	uri_off \
+	uri_native null
+	external false
 	attr *
 		^
 		href <= uri_toggle \
