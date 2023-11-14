@@ -8727,6 +8727,11 @@ var $;
                     return;
                 document.execCommand('insertText', false, symbol);
             }
+            clickable(next) {
+                if (!this.enabled())
+                    return true;
+                return next ?? false;
+            }
             hover(event) {
                 this.clickable(event.ctrlKey);
             }
@@ -8751,6 +8756,9 @@ var $;
                 return index;
             }
         }
+        __decorate([
+            $mol_mem
+        ], $mol_textarea.prototype, "clickable", null);
         $$.$mol_textarea = $mol_textarea;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
