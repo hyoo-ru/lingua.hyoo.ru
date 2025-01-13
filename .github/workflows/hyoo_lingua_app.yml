@@ -20,8 +20,7 @@ jobs:
         package: 'hyoo/lingua'
         modules: 'app'
     
-    - uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
+    - uses: hyoo-ru/gh-deploy@v4.4.1
       if: github.ref == 'refs/heads/master'
       with:
-        repo-token: ${{ secrets.GH_PAT }}
-        site-directory: 'hyoo/lingua/app/-'
+        folder: 'hyoo/lingua/app/-'
