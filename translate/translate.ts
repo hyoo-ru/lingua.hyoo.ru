@@ -1,10 +1,7 @@
 namespace $ {
 	
 	const Response = $mol_data_record({
-		trans: $mol_data_string,
-		source_language: $mol_data_string,
-		source_language_code: $mol_data_string,
-		trust_level: $mol_data_number,
+		translatedText: $mol_data_string,
 	})
 	
 	export function $hyoo_lingua_translate( this: $, lang: string, text: string ) {
@@ -12,7 +9,7 @@ namespace $ {
 		if( !text.trim() ) return ''
 		
 		const res = this.$mol_fetch.json(
-			`https://google-translate113.p.rapidapi.com/api/v1/translator/text`,
+			`https://openl-translate.p.rapidapi.com/translate`,
 			{
 				method: 'POST',
 				headers: {
@@ -20,14 +17,13 @@ namespace $ {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					from: 'auto',
-					to: lang,
+					target_lang: lang,
 					text,
 				}),
 			},
 		)
 		
-		return Response( res as any ).trans
+		return Response( res as any ).translatedText
 	}
 	
 }
