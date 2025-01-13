@@ -9461,11 +9461,11 @@ var $;
             }
             native_translate() {
                 this.foreign_text(this.$.$hyoo_lingua_translate(this.foreign_lang(), this.native_text()));
-                this.Foreign_pane().bring();
+                this.Foreign_pane().dom_node().scrollIntoView({ behavior: 'smooth' });
             }
             foreign_translate() {
                 this.native_text(this.$.$hyoo_lingua_translate(this.native_lang(), this.foreign_text()));
-                this.Native_pane().bring();
+                this.Native_pane().dom_node().scrollIntoView({ behavior: 'smooth' });
             }
         }
         __decorate([
