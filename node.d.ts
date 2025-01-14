@@ -3443,28 +3443,16 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    type $mol_type_partial_undefined<Val> = $mol_type_merge<$mol_type_override<Partial<Val>, Pick<Val, {
+        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
+    }[keyof Val]>>>;
+}
+
+declare namespace $ {
     function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
         config: Config;
         Value: ReturnType<Value>;
     };
-}
-
-declare namespace $ {
-    class $mol_data_error extends $mol_error_mix {
-    }
-}
-
-declare namespace $ {
-    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][]) => readonly ReturnType<Sub>[]) & {
-        config: Sub;
-        Value: readonly ReturnType<Sub>[];
-    };
-}
-
-declare namespace $ {
-    type $mol_type_partial_undefined<Val> = $mol_type_merge<$mol_type_override<Partial<Val>, Pick<Val, {
-        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
-    }[keyof Val]>>>;
 }
 
 declare namespace $ {
@@ -3475,7 +3463,16 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
     let $mol_data_string: (val: string) => string;
+}
+
+declare namespace $ {
+    let $mol_data_number: (val: number) => number;
 }
 
 declare namespace $ {

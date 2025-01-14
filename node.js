@@ -9141,6 +9141,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     function $mol_data_setup(value, config) {
@@ -9151,42 +9154,6 @@ var $;
     }
     $.$mol_data_setup = $mol_data_setup;
 })($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_data_error extends $mol_error_mix {
-    }
-    $.$mol_data_error = $mol_data_error;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_data_array(sub) {
-        return $mol_data_setup((val) => {
-            if (!Array.isArray(val))
-                return $mol_fail(new $mol_data_error(`${val} is not an array`));
-            return val.map((item, index) => {
-                try {
-                    return sub(item);
-                }
-                catch (error) {
-                    if (error instanceof Promise)
-                        return $mol_fail_hidden(error);
-                    error.message = `[${index}] ${error.message}`;
-                    return $mol_fail(error);
-                }
-            });
-        }, sub);
-    }
-    $.$mol_data_array = $mol_data_array;
-})($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -9217,10 +9184,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_data_error extends $mol_error_mix {
+    }
+    $.$mol_data_error = $mol_data_error;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     $.$mol_data_string = (val) => {
         if (typeof val === 'string')
             return val;
         return $mol_fail(new $mol_data_error(`${val} is not a string`));
+    };
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_data_number = (val) => {
+        if (typeof val === 'number')
+            return val;
+        return $mol_fail(new $mol_data_error(`${val} is not a number`));
     };
 })($ || ($ = {}));
 
@@ -9399,26 +9386,28 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    const Response = $mol_data_array($mol_data_record({
-        "result": $mol_data_record({
-            "response": $mol_data_array($mol_data_array($mol_data_string))
-        })
-    }));
+    const Response = $mol_data_record({
+        "trans": $mol_data_string,
+        "source_language_code": $mol_data_string,
+        "source_language": $mol_data_string,
+        "trust_level": $mol_data_number,
+    });
     function $hyoo_lingua_translate(lang, text) {
         if (!text.trim())
             return '';
-        const res = this.$mol_fetch.json(`https://quick-translate.p.rapidapi.com/translate-single`, {
+        const res = this.$mol_fetch.json(`https://google-translate113.p.rapidapi.com/api/v1/translator/text`, {
             method: 'POST',
             headers: {
                 'x-rapidapi-key': 'ac9e15b3ffmsh0ca1100d872cde4p10d0a6jsn6d36584cc6c9',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                target: lang,
+                from: 'auto',
+                to: lang,
                 text,
             }),
         });
-        return Response(res)[0].result.response[0][0];
+        return Response(res).trans;
     }
     $.$hyoo_lingua_translate = $hyoo_lingua_translate;
 })($ || ($ = {}));
