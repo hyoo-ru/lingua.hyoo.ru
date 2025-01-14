@@ -1,23 +1,18 @@
 namespace $ {
 	
-	const Response = $mol_data_array(
-		$mol_data_record({
-			"result": $mol_data_record({
-				"response": $mol_data_array(
-					$mol_data_array(
-						$mol_data_string
-					)
-				)
-			})
-		})
-	)
+	const Response = $mol_data_record({
+		"trans": $mol_data_string,
+		"source_language_code": $mol_data_string,
+		"source_language": $mol_data_string,
+		"trust_level": $mol_data_number,
+	})
 	
 	export function $hyoo_lingua_translate( this: $, lang: string, text: string ) {
 		
 		if( !text.trim() ) return ''
 		
 		const res = this.$mol_fetch.json(
-			`https://quick-translate.p.rapidapi.com/translate-single`,
+			`https://google-translate113.p.rapidapi.com/api/v1/translator/text`,
 			{
 				method: 'POST',
 				headers: {
@@ -25,13 +20,14 @@ namespace $ {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					target: lang,
+					from: 'auto',
+					to: lang,
 					text,
 				}),
 			},
 		)
 		
-		return Response( res as any )[0].result.response[0][0]
+		return Response( res as any ).trans
 	}
 	
 }
