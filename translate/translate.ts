@@ -1,33 +1,78 @@
 namespace $ {
 	
-	const Response = $mol_data_record({
-		"trans": $mol_data_string,
-		"source_language_code": $mol_data_string,
-		"source_language": $mol_data_string,
-		"trust_level": $mol_data_number,
-	})
+	const $hyoo_lingua_translate_api = [
+		
+		// https://rapidapi.com/joshimuddin8212/api/free-google-translator
+		// 5k req/mon
+		( $:$, lang, text )=> $.$mol_rapidapi(
+			'free-google-translator',
+			'external-api/free-google-translator',
+			{
+				from: 'auto',
+				to: lang,
+				query: text,
+			},
+			{},
+		).translation,
+		
+		// https://rapidapi.com/nlpwrite/api/cheapest-google-deep-batch-translate
+		// 600k char/mon
+		( $:$, lang, text )=> $.$mol_rapidapi( 'cheapest-google-deep-batch-translate', 'google-translate', {}, {
+			text,
+			to: lang,
+			from: 'auto',
+			keepCurlyBraces: '1',
+		} ).trans,
+		
+		// https://rapidapi.com/robust-api-robust-api-default/api/google-translate113
+		// 1k req/mon
+		( $:$, lang, text )=> $.$mol_rapidapi( 'google-translate113', 'api/v1/translator/text', {}, {
+			text,
+			to: lang,
+			from: 'auto',
+		} ).trans,
+		
+		// https://rapidapi.com/andryerica1/api/google-translate-official
+		// 500 req/mon
+		( $:$, lang, text )=> $.$mol_rapidapi( 'google-translate-official', 'translate', {}, new URLSearchParams({
+			texte: text,
+			to_lang: lang,
+			source: 'auto',
+		}) ).translation_data.translation,
+		
+		// https://rapidapi.com/scrappa/api/unlimited-google-translate1
+		// 500 req/mon
+		( $:$, lang, text )=> $.$mol_rapidapi( 'unlimited-google-translate1', 'api/translate', {
+			text: text,
+			target: lang,
+			source: 'auto',
+		} ).translated_text,
+		
+		// https://rapidapi.com/sohailglt/api/translate-plus
+		// 500 req/mon
+		( $:$, lang, text )=> $.$mol_rapidapi( 'translate-plus', 'translate', {}, {
+			text,
+			target: lang,
+			source: 'auto',
+		} ).translation,
+		
+	] as readonly( ( $: $, lang: string, text: string )=> string )[]
 	
 	export function $hyoo_lingua_translate( this: $, lang: string, text: string ) {
 		
 		if( !text.trim() ) return ''
 		
-		const res = this.$mol_fetch.json(
-			`https://google-translate113.p.rapidapi.com/api/v1/translator/text`,
-			{
-				method: 'POST',
-				headers: {
-					'x-rapidapi-key': 'ac9e15b3ffmsh0ca1100d872cde4p10d0a6jsn6d36584cc6c9',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					from: 'auto',
-					to: lang,
-					text,
-				}),
-			},
-		)
+		const apis = $mol_array_shuffle_sync( $hyoo_lingua_translate_api )
+		for( const fetch of apis ) {
+			try {
+				return fetch( this, lang, text )
+			} catch( error ) {
+				if( $mol_promise_like( error ) ) $mol_fail_hidden( error )
+				$mol_fail_log( error )
+			}
+		}
 		
-		return Response( res as any ).trans
+		throw new Error( 'No alive API' )
 	}
 	
 }
