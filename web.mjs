@@ -8636,137 +8636,120 @@ var $;
 
 ;
 "use strict";
-
-;
-"use strict";
-
-;
-"use strict";
 var $;
 (function ($) {
-    function $mol_data_setup(value, config) {
-        return Object.assign(value, {
-            config,
-            Value: null
-        });
+    function $mol_array_lottery(list) {
+        return list[Math.floor(Math.random() * list.length)];
     }
-    $.$mol_data_setup = $mol_data_setup;
+    $.$mol_array_lottery = $mol_array_lottery;
 })($ || ($ = {}));
 
 ;
 "use strict";
 var $;
 (function ($) {
-    function $mol_data_record(sub) {
-        return $mol_data_setup((val) => {
-            let res = {};
-            for (const field in sub) {
-                try {
-                    res[field] =
-                        sub[field](val[field]);
-                }
-                catch (error) {
-                    if (error instanceof Promise)
-                        return $mol_fail_hidden(error);
-                    error.message = `[${JSON.stringify(field)}] ${error.message}`;
-                    return $mol_fail(error);
-                }
-            }
-            return res;
-        }, sub);
+    $.$mol_array_lottery_sync = $mol_wire_sync($mol_array_lottery);
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_rapidapi_keys = [
+        'ac9e15b3ffmsh0ca1100d872cde4p10d0a6jsn6d36584cc6c9'
+    ];
+    function $mol_rapidapi(name, path, query, body) {
+        const url = new URL('?' + new URLSearchParams(query), `https://${name}.p.rapidapi.com/${path}`).toString();
+        const headers = {
+            'x-rapidapi-key': $mol_array_lottery_sync($.$mol_rapidapi_keys),
+            'Content-Type': body instanceof URLSearchParams ? 'application/x-www-form-urlencoded' : 'application/json'
+        };
+        const method = body ? 'POST' : 'GET';
+        if (body && !(body instanceof URLSearchParams))
+            body = JSON.stringify(body);
+        return this.$mol_fetch.json(url, { method, headers, body });
     }
-    $.$mol_data_record = $mol_data_record;
+    $.$mol_rapidapi = $mol_rapidapi;
 })($ || ($ = {}));
 
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mol_error_mix extends AggregateError {
-        cause;
-        name = $$.$mol_func_name(this.constructor).replace(/^\$/, '') + '_Error';
-        constructor(message, cause = {}, ...errors) {
-            super(errors, message, { cause });
-            this.cause = cause;
-            const stack_get = Object.getOwnPropertyDescriptor(this, 'stack')?.get ?? (() => super.stack);
-            Object.defineProperty(this, 'stack', {
-                get: () => (stack_get.call(this) ?? this.message) + '\n' + [JSON.stringify(this.cause, null, '  ') ?? 'no cause', ...this.errors.map(e => e.stack)].map(e => e.trim()
-                    .replace(/at /gm, '   at ')
-                    .replace(/^(?!    +at )(.*)/gm, '    at | $1 (#)')).join('\n')
-            });
+    function $mol_array_shuffle(array) {
+        const res = array.slice();
+        for (let index = res.length - 1; index > 0; index--) {
+            const index_swap = Math.floor(Math.random() * (index + 1));
+            const temp = res[index];
+            res[index] = res[index_swap];
+            res[index_swap] = temp;
         }
-        static [Symbol.toPrimitive]() {
-            return this.toString();
-        }
-        static toString() {
-            return $$.$mol_func_name(this);
-        }
-        static make(...params) {
-            return new this(...params);
-        }
+        return res;
     }
-    $.$mol_error_mix = $mol_error_mix;
+    $.$mol_array_shuffle = $mol_array_shuffle;
 })($ || ($ = {}));
 
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mol_data_error extends $mol_error_mix {
-    }
-    $.$mol_data_error = $mol_data_error;
+    $.$mol_array_shuffle_sync = $mol_wire_sync($mol_array_shuffle);
 })($ || ($ = {}));
 
 ;
 "use strict";
 var $;
-(function ($) {
-    $.$mol_data_string = (val) => {
-        if (typeof val === 'string')
-            return val;
-        return $mol_fail(new $mol_data_error(`${val} is not a string`));
-    };
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_data_number = (val) => {
-        if (typeof val === 'number')
-            return val;
-        return $mol_fail(new $mol_data_error(`${val} is not a number`));
-    };
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    const Response = $mol_data_record({
-        "trans": $mol_data_string,
-        "source_language_code": $mol_data_string,
-        "source_language": $mol_data_string,
-        "trust_level": $mol_data_number,
-    });
+(function ($_1) {
+    const $hyoo_lingua_translate_api = [
+        ($, lang, text) => $.$mol_rapidapi('free-google-translator', 'external-api/free-google-translator', {
+            from: 'auto',
+            to: lang,
+            query: text,
+        }, {}).translation,
+        ($, lang, text) => $.$mol_rapidapi('cheapest-google-deep-batch-translate', 'google-translate', {}, {
+            text,
+            to: lang,
+            from: 'auto',
+            keepCurlyBraces: '1',
+        }).trans,
+        ($, lang, text) => $.$mol_rapidapi('google-translate113', 'api/v1/translator/text', {}, {
+            text,
+            to: lang,
+            from: 'auto',
+        }).trans,
+        ($, lang, text) => $.$mol_rapidapi('google-translate-official', 'translate', {}, new URLSearchParams({
+            texte: text,
+            to_lang: lang,
+            source: 'auto',
+        })).translation_data.translation,
+        ($, lang, text) => $.$mol_rapidapi('unlimited-google-translate1', 'api/translate', {
+            text: text,
+            target: lang,
+            source: 'auto',
+        }).translated_text,
+        ($, lang, text) => $.$mol_rapidapi('translate-plus', 'translate', {}, {
+            text,
+            target: lang,
+            source: 'auto',
+        }).translation,
+    ];
     function $hyoo_lingua_translate(lang, text) {
         if (!text.trim())
             return '';
-        const res = this.$mol_fetch.json(`https://google-translate113.p.rapidapi.com/api/v1/translator/text`, {
-            method: 'POST',
-            headers: {
-                'x-rapidapi-key': 'ac9e15b3ffmsh0ca1100d872cde4p10d0a6jsn6d36584cc6c9',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                from: 'auto',
-                to: lang,
-                text,
-            }),
-        });
-        return Response(res).trans;
+        const apis = $mol_array_shuffle_sync($hyoo_lingua_translate_api);
+        for (const fetch of apis) {
+            try {
+                return fetch(this, lang, text);
+            }
+            catch (error) {
+                if ($mol_promise_like(error))
+                    $mol_fail_hidden(error);
+                $mol_fail_log(error);
+            }
+        }
+        throw new Error('No alive API');
     }
-    $.$hyoo_lingua_translate = $hyoo_lingua_translate;
+    $_1.$hyoo_lingua_translate = $hyoo_lingua_translate;
 })($ || ($ = {}));
 
 ;
