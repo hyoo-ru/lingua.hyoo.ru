@@ -9096,12 +9096,16 @@ var $;
 			(obj.submit) = (next) => ((this.native_translate_activate(next)));
 			return obj;
 		}
+		alt_title(id){
+			return "";
+		}
 		native_alt_link(id){
 			return "";
 		}
 		Native_alt_link(id){
 			const obj = new this.$.$mol_link_iconed();
 			(obj.title) = () => ("");
+			(obj.hint) = () => ((this.alt_title(id)));
 			(obj.uri) = () => ((this.native_alt_link(id)));
 			return obj;
 		}
@@ -9143,6 +9147,7 @@ var $;
 		Foreign_alt_link(id){
 			const obj = new this.$.$mol_link_iconed();
 			(obj.title) = () => ("");
+			(obj.hint) = () => ((this.alt_title(id)));
 			(obj.uri) = () => ((this.foreign_alt_link(id)));
 			return obj;
 		}
@@ -9167,13 +9172,13 @@ var $;
 		title(){
 			return "$hyoo_lingua";
 		}
-		alt_uris(){
-			return [
-				"https://translate.google.com/?sl=auto&tl={lang}&text={text}", 
-				"https://translate.yandex.ru/?target_lang={lang}&text={text}", 
-				"https://deepl.com/ru/translator//{text}/{lang}", 
-				"https://www.bing.com/translator?to={lang}&text={text}"
-			];
+		alt_services(){
+			return {
+				"Google": "https://translate.google.com/?sl=auto&tl={lang}&text={text}", 
+				"Yandex": "https://translate.yandex.ru/?target_lang={lang}&text={text}", 
+				"DeepL": "https://deepl.com/ru/translator//{text}/{lang}", 
+				"Bing": "https://www.bing.com/translator?to={lang}&text={text}"
+			};
 		}
 		plugins(){
 			return [(this.Theme())];
@@ -9777,18 +9782,21 @@ var $;
                 this.Native_pane().dom_node().scrollIntoView({ behavior: 'smooth' });
             }
             native_alt_list() {
-                return this.alt_uris().map((_, index) => this.Native_alt_link(index));
+                return Object.keys(this.alt_services()).map(service => this.Native_alt_link(service));
             }
             foreign_alt_list() {
-                return this.alt_uris().map((_, index) => this.Foreign_alt_link(index));
+                return Object.keys(this.alt_services()).map(service => this.Foreign_alt_link(service));
             }
-            native_alt_link(index) {
-                return this.alt_uris()[index]
+            alt_title(service) {
+                return service;
+            }
+            native_alt_link(service) {
+                return this.alt_services()[service]
                     .replace('{lang}', this.native_lang())
                     .replace('{text}', this.foreign_text());
             }
-            foreign_alt_link(index) {
-                return this.alt_uris()[index]
+            foreign_alt_link(service) {
+                return this.alt_services()[service]
                     .replace('{lang}', this.foreign_lang())
                     .replace('{text}', this.native_text());
             }
@@ -9874,6 +9882,9 @@ var $;
                 align: {
                     self: 'stretch',
                 },
+            },
+            Native_alt_list: {
+                direction: 'rtl',
             },
         });
     })($$ = $.$$ || ($.$$ = {}));

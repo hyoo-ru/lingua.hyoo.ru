@@ -3605,77 +3605,87 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link_iconed['title'] >
 	>
-	type $mol_link_iconed__uri_hyoo_lingua_app_22 = $mol_type_enforce<
+	type $mol_link_iconed__hint_hyoo_lingua_app_22 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['alt_title'] >
+		,
+		ReturnType< $mol_link_iconed['hint'] >
+	>
+	type $mol_link_iconed__uri_hyoo_lingua_app_23 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_alt_link'] >
 		,
 		ReturnType< $mol_link_iconed['uri'] >
 	>
-	type $mol_view__sub_hyoo_lingua_app_23 = $mol_type_enforce<
+	type $mol_view__sub_hyoo_lingua_app_24 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_alt_list'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_list__rows_hyoo_lingua_app_24 = $mol_type_enforce<
+	type $mol_list__rows_hyoo_lingua_app_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_scroll__sub_hyoo_lingua_app_25 = $mol_type_enforce<
+	type $mol_scroll__sub_hyoo_lingua_app_26 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_scroll['sub'] >
 	>
-	type $mol_textarea__hint_hyoo_lingua_app_26 = $mol_type_enforce<
+	type $mol_textarea__hint_hyoo_lingua_app_27 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_textarea['hint'] >
 	>
-	type $mol_textarea__value_hyoo_lingua_app_27 = $mol_type_enforce<
+	type $mol_textarea__value_hyoo_lingua_app_28 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_text'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_textarea__submit_hyoo_lingua_app_28 = $mol_type_enforce<
+	type $mol_textarea__submit_hyoo_lingua_app_29 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_translate_activate'] >
 		,
 		ReturnType< $mol_textarea['submit'] >
 	>
-	type $mol_link_iconed__title_hyoo_lingua_app_29 = $mol_type_enforce<
+	type $mol_link_iconed__title_hyoo_lingua_app_30 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_iconed['title'] >
 	>
-	type $mol_link_iconed__uri_hyoo_lingua_app_30 = $mol_type_enforce<
+	type $mol_link_iconed__hint_hyoo_lingua_app_31 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['alt_title'] >
+		,
+		ReturnType< $mol_link_iconed['hint'] >
+	>
+	type $mol_link_iconed__uri_hyoo_lingua_app_32 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_alt_link'] >
 		,
 		ReturnType< $mol_link_iconed['uri'] >
 	>
-	type $mol_view__sub_hyoo_lingua_app_31 = $mol_type_enforce<
+	type $mol_view__sub_hyoo_lingua_app_33 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_alt_list'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_list__rows_hyoo_lingua_app_32 = $mol_type_enforce<
+	type $mol_list__rows_hyoo_lingua_app_34 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_scroll__sub_hyoo_lingua_app_33 = $mol_type_enforce<
+	type $mol_scroll__sub_hyoo_lingua_app_35 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_scroll['sub'] >
 	>
-	type $mol_book2__bring_hyoo_lingua_app_34 = $mol_type_enforce<
+	type $mol_book2__bring_hyoo_lingua_app_36 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['bring'] >
 		,
 		ReturnType< $mol_book2['bring'] >
 	>
-	type $mol_book2__Placeholder_hyoo_lingua_app_35 = $mol_type_enforce<
+	type $mol_book2__Placeholder_hyoo_lingua_app_37 = $mol_type_enforce<
 		any
 		,
 		ReturnType< $mol_book2['Placeholder'] >
 	>
-	type $mol_book2__pages_hyoo_lingua_app_36 = $mol_type_enforce<
+	type $mol_book2__pages_hyoo_lingua_app_38 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_book2['pages'] >
@@ -3701,6 +3711,7 @@ declare namespace $ {
 		Lights( ): $mol_lights_toggle
 		native_text( next?: string ): string
 		Native_text( ): $mol_textarea
+		alt_title( id: any): string
 		native_alt_link( id: any): string
 		Native_alt_link( id: any): $mol_link_iconed
 		native_alt_list( ): readonly(any)[]
@@ -3717,7 +3728,7 @@ declare namespace $ {
 		Foreign_pane_content( ): $mol_list
 		Foreign_pane( ): $mol_scroll
 		title( ): string
-		alt_uris( ): readonly(any)[]
+		alt_services( ): Record<string, string>
 		plugins( ): readonly(any)[]
 		head( ): readonly(any)[]
 		foot( ): readonly(any)[]
@@ -3922,8 +3933,9 @@ declare namespace $.$$ {
         foreign_translate(): void;
         native_alt_list(): $.$mol_link_iconed[];
         foreign_alt_list(): $.$mol_link_iconed[];
-        native_alt_link(index: number): any;
-        foreign_alt_link(index: number): any;
+        alt_title(service: string): string;
+        native_alt_link(service: string): string;
+        foreign_alt_link(service: string): string;
     }
 }
 
