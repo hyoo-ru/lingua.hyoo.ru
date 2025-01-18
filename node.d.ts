@@ -1221,7 +1221,7 @@ declare namespace $ {
         static go(next: {
             [key: string]: string | null;
         }): void;
-        static clone(): void;
+        static commit(): void;
         constructor(prefix?: string);
         value(key: string, next?: string): string | null;
         sub(postfix: string): $mol_state_arg;
@@ -3291,6 +3291,74 @@ declare namespace $ {
 
 declare namespace $ {
 
+	export class $mol_image extends $mol_view {
+		uri( ): string
+		loading( ): string
+		decoding( ): string
+		cors( ): any
+		natural_width( ): number
+		natural_height( ): number
+		load( next?: any ): any
+		dom_name( ): string
+		field( ): Record<string, any> & ReturnType< $mol_view['field'] >
+		attr( ): Record<string, any> & ReturnType< $mol_view['attr'] >
+		event( ): Record<string, any>
+		minimal_width( ): number
+		minimal_height( ): number
+	}
+	
+}
+
+//# sourceMappingURL=image.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_image extends $.$mol_image {
+        natural_width(next?: null): number;
+        natural_height(next?: null): number;
+        load(): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_image__uri_mol_link_iconed_1 = $mol_type_enforce<
+		ReturnType< $mol_link_iconed['icon'] >
+		,
+		ReturnType< $mol_image['uri'] >
+	>
+	type $mol_image__title_mol_link_iconed_2 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_image['title'] >
+	>
+	export class $mol_link_iconed extends $mol_link {
+		icon( ): string
+		Icon( ): $mol_image
+		title( ): ReturnType< $mol_link_iconed['uri'] >
+		sub( ): readonly(any)[]
+		content( ): readonly(any)[]
+		host( ): string
+	}
+	
+}
+
+//# sourceMappingURL=iconed.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_link_iconed extends $.$mol_link_iconed {
+        icon(): string;
+        host(): string;
+        title(): string;
+        sub(): readonly any[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
 	type $mol_view__title_mol_book2_1 = $mol_type_enforce<
 		string
 		,
@@ -3598,42 +3666,82 @@ declare namespace $ {
 		,
 		ReturnType< $mol_textarea['submit'] >
 	>
-	type $mol_scroll__sub_hyoo_lingua_app_21 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_scroll['sub'] >
-	>
-	type $mol_textarea__hint_hyoo_lingua_app_22 = $mol_type_enforce<
+	type $mol_link_iconed__title_hyoo_lingua_app_21 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_textarea['hint'] >
+		ReturnType< $mol_link_iconed['title'] >
 	>
-	type $mol_textarea__value_hyoo_lingua_app_23 = $mol_type_enforce<
-		ReturnType< $hyoo_lingua_app['foreign_text'] >
+	type $mol_link_iconed__uri_hyoo_lingua_app_22 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['native_alt_link'] >
 		,
-		ReturnType< $mol_textarea['value'] >
+		ReturnType< $mol_link_iconed['uri'] >
 	>
-	type $mol_textarea__submit_hyoo_lingua_app_24 = $mol_type_enforce<
-		ReturnType< $hyoo_lingua_app['foreign_translate_activate'] >
+	type $mol_view__sub_hyoo_lingua_app_23 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['native_alt_list'] >
 		,
-		ReturnType< $mol_textarea['submit'] >
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_list__rows_hyoo_lingua_app_24 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
 	>
 	type $mol_scroll__sub_hyoo_lingua_app_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_scroll['sub'] >
 	>
-	type $mol_book2__bring_hyoo_lingua_app_26 = $mol_type_enforce<
+	type $mol_textarea__hint_hyoo_lingua_app_26 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_textarea['hint'] >
+	>
+	type $mol_textarea__value_hyoo_lingua_app_27 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['foreign_text'] >
+		,
+		ReturnType< $mol_textarea['value'] >
+	>
+	type $mol_textarea__submit_hyoo_lingua_app_28 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['foreign_translate_activate'] >
+		,
+		ReturnType< $mol_textarea['submit'] >
+	>
+	type $mol_link_iconed__title_hyoo_lingua_app_29 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link_iconed['title'] >
+	>
+	type $mol_link_iconed__uri_hyoo_lingua_app_30 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['foreign_alt_link'] >
+		,
+		ReturnType< $mol_link_iconed['uri'] >
+	>
+	type $mol_view__sub_hyoo_lingua_app_31 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['foreign_alt_list'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_list__rows_hyoo_lingua_app_32 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_scroll__sub_hyoo_lingua_app_33 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_scroll['sub'] >
+	>
+	type $mol_book2__bring_hyoo_lingua_app_34 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['bring'] >
 		,
 		ReturnType< $mol_book2['bring'] >
 	>
-	type $mol_book2__Placeholder_hyoo_lingua_app_27 = $mol_type_enforce<
+	type $mol_book2__Placeholder_hyoo_lingua_app_35 = $mol_type_enforce<
 		any
 		,
 		ReturnType< $mol_book2['Placeholder'] >
 	>
-	type $mol_book2__pages_hyoo_lingua_app_28 = $mol_type_enforce<
+	type $mol_book2__pages_hyoo_lingua_app_36 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_book2['pages'] >
@@ -3659,12 +3767,23 @@ declare namespace $ {
 		Lights( ): $mol_lights_toggle
 		native_text( next?: string ): string
 		Native_text( ): $mol_textarea
+		native_alt_link( id: any): string
+		Native_alt_link( id: any): $mol_link_iconed
+		native_alt_list( ): readonly(any)[]
+		Native_alt_list( ): $mol_view
+		Native_pane_content( ): $mol_list
 		Native_pane( ): $mol_scroll
 		foreign_text( next?: string ): string
 		bring( ): ReturnType< ReturnType< $hyoo_lingua_app['Foreign_text'] >['bring'] >
 		Foreign_text( ): $mol_textarea
+		foreign_alt_link( id: any): string
+		Foreign_alt_link( id: any): $mol_link_iconed
+		foreign_alt_list( ): readonly(any)[]
+		Foreign_alt_list( ): $mol_view
+		Foreign_pane_content( ): $mol_list
 		Foreign_pane( ): $mol_scroll
 		title( ): string
+		alt_uris( ): readonly(any)[]
 		plugins( ): readonly(any)[]
 		head( ): readonly(any)[]
 		foot( ): readonly(any)[]
@@ -3784,6 +3903,10 @@ declare namespace $.$$ {
         foreign_text(next?: string): string;
         native_translate(): void;
         foreign_translate(): void;
+        native_alt_list(): $.$mol_link_iconed[];
+        foreign_alt_list(): $.$mol_link_iconed[];
+        native_alt_link(index: number): any;
+        foreign_alt_link(index: number): any;
     }
 }
 

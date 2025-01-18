@@ -518,6 +518,33 @@ $mol_textarea_edit $mol_string
 		^
 		scrollTop 0
 
+$mol_image $mol_view
+	dom_name \img
+	field *any
+		^
+		src <= uri \
+		alt <= title
+		loading <= loading \eager
+		decoding <= decoding \async
+		crossOrigin <= cors null
+	attr *any
+		^
+		width <= natural_width 0
+		height <= natural_height 0
+	event *any
+		load? <=> load? null
+	minimal_width 16
+	minimal_height 16
+
+$mol_link_iconed $mol_link
+	sub /
+		<= Icon $mol_image
+			uri <= icon \
+			title \
+	content /
+		<= title <= uri
+	host \
+
 $mol_book2 $mol_scroll
 	menu_title \
 	sub <= pages /$mol_view
@@ -527,6 +554,11 @@ $mol_book2 $mol_scroll
 
 $hyoo_lingua_app $mol_page
 	title \$hyoo_lingua
+	alt_uris /
+		\https://translate.google.com/?sl=auto&tl={lang}&text={text}
+		\https://translate.yandex.ru/?target_lang={lang}&text={text}
+		\https://deepl.com/ru/translator//{text}/{lang}
+		\https://www.bing.com/translator?to={lang}&text={text}
 	plugins /
 		<= Theme $mol_theme_auto
 	head /
@@ -563,13 +595,25 @@ $hyoo_lingua_app $mol_page
 		Placeholder null
 		pages /
 			<= Native_pane $mol_scroll sub /
-				<= Native_text $mol_textarea
-					hint @ \native language 
-					value? <=> native_text? \
-					submit? <=> native_translate_activate?
+				<= Native_pane_content $mol_list rows /
+					<= Native_text $mol_textarea
+						hint @ \native language 
+						value? <=> native_text? \
+						submit? <=> native_translate_activate?
+					<= Native_alt_list $mol_view
+						sub <= native_alt_list /
+							<= Native_alt_link*0 $mol_link_iconed
+								title \
+								uri <= native_alt_link* \
 			<= Foreign_pane $mol_scroll sub /
-				<= Foreign_text $mol_textarea
-					hint @ \foreign language text
-					value? <=> foreign_text? \
-					bring => bring
-					submit? <=> foreign_translate_activate?
+				<= Foreign_pane_content $mol_list rows /
+					<= Foreign_text $mol_textarea
+						hint @ \foreign language text
+						value? <=> foreign_text? \
+						bring => bring
+						submit? <=> foreign_translate_activate?
+					<= Foreign_alt_list $mol_view
+						sub <= foreign_alt_list /
+							<= Foreign_alt_link*0 $mol_link_iconed
+								title \
+								uri <= foreign_alt_link* \

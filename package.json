@@ -201,6 +201,8 @@
     "$mol_text_code_line",
     "$mol_text_code_token",
     "$mol_syntax2_md",
+    "$mol_link_iconed",
+    "$mol_image",
     "$mol_book2",
     "$hyoo_lingua_langs",
     "$hyoo_lingua_translate",
