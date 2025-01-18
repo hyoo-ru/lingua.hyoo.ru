@@ -9093,58 +9093,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_state_session extends $mol_object {
-        static 'native()';
-        static native() {
-            if (this['native()'])
-                return this['native()'];
-            check: try {
-                const native = $mol_dom_context.sessionStorage;
-                if (!native)
-                    break check;
-                native.setItem('', '');
-                native.removeItem('');
-                return this['native()'] = native;
-            }
-            catch (error) {
-                console.warn(error);
-            }
-            return this['native()'] = {
-                getItem(key) {
-                    return this[':' + key];
-                },
-                setItem(key, value) {
-                    this[':' + key] = value;
-                },
-                removeItem(key) {
-                    this[':' + key] = void 0;
-                }
-            };
-        }
-        static value(key, next) {
-            if (next === void 0)
-                return JSON.parse(this.native().getItem(key) || 'null');
-            if (next === null)
-                this.native().removeItem(key);
-            else
-                this.native().setItem(key, JSON.stringify(next));
-            return next;
-        }
-        prefix() { return ''; }
-        value(key, next) {
-            return $mol_state_session.value(this.prefix() + '.' + key, next);
-        }
-    }
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_session, "value", null);
-    $.$mol_state_session = $mol_state_session;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
     function $mol_array_lottery(list) {
         return list[Math.floor(Math.random() * list.length)];
     }
@@ -9464,22 +9412,24 @@ var $;
                 return this.$.$hyoo_lingua_langs;
             }
             native_lang(next) {
-                return this.$.$mol_state_session.value('native_lang', next) ?? $mol_locale.lang();
+                return this.$.$mol_state_arg.value('native_lang', next) ?? $mol_locale.lang();
             }
             foreign_lang(next) {
-                return this.$.$mol_state_session.value('foreign_lang', next) ?? 'en';
+                return this.$.$mol_state_arg.value('foreign_lang', next) ?? 'en';
             }
             native_text(next) {
-                return this.$.$mol_state_session.value('native_text', next) ?? '';
+                return this.$.$mol_state_arg.value('native_text', next) ?? '';
             }
             foreign_text(next) {
-                return this.$.$mol_state_session.value('foreign_text', next) ?? '';
+                return this.$.$mol_state_arg.value('foreign_text', next) ?? '';
             }
             native_translate() {
+                this.$.$mol_state_arg.go({});
                 this.foreign_text(this.$.$hyoo_lingua_translate(this.foreign_lang(), this.native_text()));
                 this.Foreign_pane().dom_node().scrollIntoView({ behavior: 'smooth' });
             }
             foreign_translate() {
+                this.$.$mol_state_arg.go({});
                 this.native_text(this.$.$hyoo_lingua_translate(this.native_lang(), this.foreign_text()));
                 this.Native_pane().dom_node().scrollIntoView({ behavior: 'smooth' });
             }
@@ -13067,25 +13017,6 @@ var $;
                 ['table', '| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n', ['| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n', '\n'], 0],
                 ['table', '| Cell11 | Cell12\n| Cell21 | Cell22\n', ['| Cell11 | Cell12\n| Cell21 | Cell22\n', ''], 68],
             ]);
-        },
-    });
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'null by default'() {
-            const key = String(Math.random());
-            $mol_assert_equal($mol_state_session.value(key), null);
-        },
-        'storing'() {
-            const key = String(Math.random());
-            $mol_state_session.value(key, '$mol_state_session_test');
-            $mol_assert_equal($mol_state_session.value(key), '$mol_state_session_test');
-            $mol_state_session.value(key, null);
-            $mol_assert_equal($mol_state_session.value(key), null);
         },
     });
 })($ || ($ = {}));
