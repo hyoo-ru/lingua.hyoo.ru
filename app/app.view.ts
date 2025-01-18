@@ -7,32 +7,34 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		native_lang( next?: string ) {
-			return this.$.$mol_state_session.value( 'native_lang', next ) ?? $mol_locale.lang()
+			return this.$.$mol_state_arg.value( 'native_lang', next ) ?? $mol_locale.lang()
 		}
 		
 		@ $mol_mem
 		foreign_lang( next?: string ) {
-			return this.$.$mol_state_session.value( 'foreign_lang', next ) ?? 'en'
+			return this.$.$mol_state_arg.value( 'foreign_lang', next ) ?? 'en'
 		}
 		
 		@ $mol_mem
 		native_text( next?: string ) {
-			return this.$.$mol_state_session.value( 'native_text', next ) ?? ''
+			return this.$.$mol_state_arg.value( 'native_text', next ) ?? ''
 		}
 		
 		@ $mol_mem
 		foreign_text( next?: string ) {
-			return this.$.$mol_state_session.value( 'foreign_text', next ) ?? ''
+			return this.$.$mol_state_arg.value( 'foreign_text', next ) ?? ''
 		}
 		
 		@ $mol_action
 		native_translate() {
+			this.$.$mol_state_arg.go({})
 			this.foreign_text( this.$.$hyoo_lingua_translate( this.foreign_lang(), this.native_text() ) )
 			this.Foreign_pane().bring()
 		}
 		
 		@ $mol_action
 		foreign_translate() {
+			this.$.$mol_state_arg.go({})
 			this.native_text( this.$.$hyoo_lingua_translate( this.native_lang(), this.foreign_text() ) )
 			this.Native_pane().bring()
 		}
