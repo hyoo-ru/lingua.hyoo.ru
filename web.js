@@ -8908,7 +8908,7 @@ var $;
             to: lang,
             from: 'auto',
             keepCurlyBraces: '1',
-        }).trans,
+        }).data.translations[0],
         ($, lang, text) => $.$mol_rapidapi('google-translate113', 'api/v1/translator/text', {}, {
             text,
             to: lang,
@@ -8928,7 +8928,7 @@ var $;
             text,
             target: lang,
             source: 'auto',
-        }).translation,
+        }).translations.translation,
     ];
     function $hyoo_lingua_translate(lang, text) {
         if (!text.trim())
@@ -8936,7 +8936,10 @@ var $;
         const apis = $mol_array_shuffle_sync($hyoo_lingua_translate_api);
         for (const fetch of apis) {
             try {
-                return fetch(this, lang, text);
+                const res = fetch(this, lang, text);
+                if (res === undefined)
+                    $mol_fail(new Error('Broken API'));
+                return res;
             }
             catch (error) {
                 if ($mol_promise_like(error))
