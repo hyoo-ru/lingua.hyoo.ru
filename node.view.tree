@@ -526,7 +526,7 @@ $mol_book2 $mol_scroll
 	Gap* $mol_view title \
 
 $hyoo_lingua_app $mol_page
-	title \Lingua Franca
+	title \$hyoo_lingua
 	plugins /
 		<= Theme $mol_theme_auto
 	head /

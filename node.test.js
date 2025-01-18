@@ -8927,7 +8927,7 @@ var $;
 			return obj;
 		}
 		title(){
-			return "Lingua Franca";
+			return "$hyoo_lingua";
 		}
 		plugins(){
 			return [(this.Theme())];
@@ -9412,10 +9412,12 @@ var $;
                 return this.$.$hyoo_lingua_langs;
             }
             native_lang(next) {
-                return this.$.$mol_state_arg.value('native_lang', next) ?? $mol_locale.lang();
+                const local = this.$.$mol_state_local.value('native_lang', next);
+                return this.$.$mol_state_arg.value('native_lang', next) ?? local ?? $mol_locale.lang();
             }
             foreign_lang(next) {
-                return this.$.$mol_state_arg.value('foreign_lang', next) ?? 'en';
+                const local = this.$.$mol_state_local.value('foreign_lang', next);
+                return this.$.$mol_state_arg.value('foreign_lang', next) ?? local ?? 'en';
             }
             native_text(next) {
                 return this.$.$mol_state_arg.value('native_text', next) ?? '';
