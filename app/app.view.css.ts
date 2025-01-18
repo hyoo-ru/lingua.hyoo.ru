@@ -51,6 +51,10 @@ namespace $.$$ {
 			},
 		},
 		
+		Native_alt_list: {
+			direction: 'rtl',
+		},
+		
 	} )
 	
 }

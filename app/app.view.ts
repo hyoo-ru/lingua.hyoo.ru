@@ -45,24 +45,28 @@ namespace $.$$ {
 
 		@ $mol_mem
 		native_alt_list() {
-			return this.alt_uris().map( ( _, index )=> this.Native_alt_link( index ) )
+			return Object.keys( this.alt_services() ).map( service => this.Native_alt_link( service ) )
 		}
 		
 		@ $mol_mem
 		foreign_alt_list() {
-			return this.alt_uris().map( ( _, index )=> this.Foreign_alt_link( index ) )
+			return Object.keys( this.alt_services() ).map( service => this.Foreign_alt_link( service ) )
 		}
 		
+		alt_title( service: string ) {
+			return service
+		}
+
 		@ $mol_mem_key
-		native_alt_link( index: number ) {
-			return this.alt_uris()[ index ]
+		native_alt_link( service: string ) {
+			return this.alt_services()[ service ]
 				.replace( '{lang}', this.native_lang() )
 				.replace( '{text}', this.foreign_text() )
 		}
 		
 		@ $mol_mem_key
-		foreign_alt_link( index: number ) {
-			return this.alt_uris()[ index ]
+		foreign_alt_link( service: string ) {
+			return this.alt_services()[ service ]
 				.replace( '{lang}', this.foreign_lang() )
 				.replace( '{text}', this.native_text() )
 		}

@@ -1,10 +1,10 @@
 $hyoo_lingua_app $mol_page
 	title \$hyoo_lingua
-	alt_uris /
-		\https://translate.google.com/?sl=auto&tl={lang}&text={text}
-		\https://translate.yandex.ru/?target_lang={lang}&text={text}
-		\https://deepl.com/ru/translator//{text}/{lang}
-		\https://www.bing.com/translator?to={lang}&text={text}
+	alt_services *string
+		Google \https://translate.google.com/?sl=auto&tl={lang}&text={text}
+		Yandex \https://translate.yandex.ru/?target_lang={lang}&text={text}
+		DeepL\https://deepl.com/ru/translator//{text}/{lang}
+		Bing \https://www.bing.com/translator?to={lang}&text={text}
 	plugins /
 		<= Theme $mol_theme_auto
 	head /
@@ -50,6 +50,7 @@ $hyoo_lingua_app $mol_page
 						sub <= native_alt_list /
 							<= Native_alt_link*0 $mol_link_iconed
 								title \
+								hint <= alt_title* \
 								uri <= native_alt_link* \
 			<= Foreign_pane $mol_scroll sub /
 				<= Foreign_pane_content $mol_list rows /
@@ -62,4 +63,5 @@ $hyoo_lingua_app $mol_page
 						sub <= foreign_alt_list /
 							<= Foreign_alt_link*0 $mol_link_iconed
 								title \
+								hint <= alt_title* \
 								uri <= foreign_alt_link* \
