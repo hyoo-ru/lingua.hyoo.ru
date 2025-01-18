@@ -29,16 +29,42 @@ namespace $.$$ {
 		
 		@ $mol_action
 		native_translate() {
-			this.$.$mol_state_arg.clone()
-			this.foreign_text( this.$.$hyoo_lingua_translate( this.foreign_lang(), this.native_text() ) )
+			const res = this.$.$hyoo_lingua_translate( this.foreign_lang(), this.native_text() )
+			this.foreign_text( res )
+			this.$.$mol_state_arg.commit()
 			this.Foreign_pane().dom_node().scrollIntoView({ behavior: 'smooth' })
 		}
 		
 		@ $mol_action
 		foreign_translate() {
-			this.$.$mol_state_arg.clone()
-			this.native_text( this.$.$hyoo_lingua_translate( this.native_lang(), this.foreign_text() ) )
+			const res = this.$.$hyoo_lingua_translate( this.native_lang(), this.foreign_text() )
+			this.native_text( res )
+			this.$.$mol_state_arg.commit()
 			this.Native_pane().dom_node().scrollIntoView({ behavior: 'smooth' })
+		}
+
+		@ $mol_mem
+		native_alt_list() {
+			return this.alt_uris().map( ( _, index )=> this.Native_alt_link( index ) )
+		}
+		
+		@ $mol_mem
+		foreign_alt_list() {
+			return this.alt_uris().map( ( _, index )=> this.Foreign_alt_link( index ) )
+		}
+		
+		@ $mol_mem_key
+		native_alt_link( index: number ) {
+			return this.alt_uris()[ index ]
+				.replace( '{lang}', this.native_lang() )
+				.replace( '{text}', this.foreign_text() )
+		}
+		
+		@ $mol_mem_key
+		foreign_alt_link( index: number ) {
+			return this.alt_uris()[ index ]
+				.replace( '{lang}', this.foreign_lang() )
+				.replace( '{text}', this.native_text() )
 		}
 		
 	}

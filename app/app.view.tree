@@ -1,5 +1,10 @@
 $hyoo_lingua_app $mol_page
 	title \$hyoo_lingua
+	alt_uris /
+		\https://translate.google.com/?sl=auto&tl={lang}&text={text}
+		\https://translate.yandex.ru/?target_lang={lang}&text={text}
+		\https://deepl.com/ru/translator//{text}/{lang}
+		\https://www.bing.com/translator?to={lang}&text={text}
 	plugins /
 		<= Theme $mol_theme_auto
 	head /
@@ -36,13 +41,25 @@ $hyoo_lingua_app $mol_page
 		Placeholder null
 		pages /
 			<= Native_pane $mol_scroll sub /
-				<= Native_text $mol_textarea
-					hint @ \native language 
-					value? <=> native_text? \
-					submit? <=> native_translate_activate?
+				<= Native_pane_content $mol_list rows /
+					<= Native_text $mol_textarea
+						hint @ \native language 
+						value? <=> native_text? \
+						submit? <=> native_translate_activate?
+					<= Native_alt_list $mol_view
+						sub <= native_alt_list /
+							<= Native_alt_link*0 $mol_link_iconed
+								title \
+								uri <= native_alt_link* \
 			<= Foreign_pane $mol_scroll sub /
-				<= Foreign_text $mol_textarea
-					hint @ \foreign language text
-					value? <=> foreign_text? \
-					bring => bring
-					submit? <=> foreign_translate_activate?
+				<= Foreign_pane_content $mol_list rows /
+					<= Foreign_text $mol_textarea
+						hint @ \foreign language text
+						value? <=> foreign_text? \
+						bring => bring
+						submit? <=> foreign_translate_activate?
+					<= Foreign_alt_list $mol_view
+						sub <= foreign_alt_list /
+							<= Foreign_alt_link*0 $mol_link_iconed
+								title \
+								uri <= foreign_alt_link* \

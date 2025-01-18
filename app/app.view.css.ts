@@ -39,6 +39,18 @@ namespace $.$$ {
 			},
 		},
 		
+		Native_pane_content: {
+			align: {
+				self: 'stretch',
+			},
+		},
+		
+		Foreign_pane_content: {
+			align: {
+				self: 'stretch',
+			},
+		},
+		
 	} )
 	
 }
