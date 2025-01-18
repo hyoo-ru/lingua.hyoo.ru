@@ -29,14 +29,14 @@ namespace $.$$ {
 		native_translate() {
 			this.$.$mol_state_arg.go({})
 			this.foreign_text( this.$.$hyoo_lingua_translate( this.foreign_lang(), this.native_text() ) )
-			this.Foreign_pane().bring()
+			this.Foreign_pane().dom_node().scrollIntoView({ behavior: 'smooth' })
 		}
 		
 		@ $mol_action
 		foreign_translate() {
 			this.$.$mol_state_arg.go({})
 			this.native_text( this.$.$hyoo_lingua_translate( this.native_lang(), this.foreign_text() ) )
-			this.Native_pane().bring()
+			this.Native_pane().dom_node().scrollIntoView({ behavior: 'smooth' })
 		}
 		
 	}

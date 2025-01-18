@@ -3,6 +3,8 @@ $hyoo_lingua_app $mol_page
 	plugins /
 		<= Theme $mol_theme_auto
 	head /
+		<= Native_copy $mol_button_copy
+			text <= native_text
 		<= Native_lang $mol_select
 			hint @ \Native Language
 			value? <=> native_lang? \ru
@@ -23,6 +25,8 @@ $hyoo_lingua_app $mol_page
 			hint @ \Foreign Language
 			value? <=> foreign_lang? \en
 			dictionary <= langs *
+		<= Foreign_copy $mol_button_copy
+			text <= foreign_text
 	foot /
 		<= Source $mol_link_source uri \https://github.com/hyoo-ru/lingua.hyoo.ru
 		<= Title
