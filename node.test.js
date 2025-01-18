@@ -3901,6 +3901,7 @@ var $;
         static go(next) {
             this.href(this.link(next));
         }
+        static clone() { }
         constructor(prefix = '') {
             super();
             this.prefix = prefix;
@@ -9426,12 +9427,12 @@ var $;
                 return this.$.$mol_state_arg.value('foreign_text', next) ?? '';
             }
             native_translate() {
-                this.$.$mol_state_arg.go({});
+                this.$.$mol_state_arg.clone();
                 this.foreign_text(this.$.$hyoo_lingua_translate(this.foreign_lang(), this.native_text()));
                 this.Foreign_pane().dom_node().scrollIntoView({ behavior: 'smooth' });
             }
             foreign_translate() {
-                this.$.$mol_state_arg.go({});
+                this.$.$mol_state_arg.clone();
                 this.native_text(this.$.$hyoo_lingua_translate(this.native_lang(), this.foreign_text()));
                 this.Native_pane().dom_node().scrollIntoView({ behavior: 'smooth' });
             }
