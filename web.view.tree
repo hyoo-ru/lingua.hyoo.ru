@@ -37,6 +37,65 @@ $mol_page $mol_view
 $mol_theme_auto $mol_plugin
 	attr * mol_theme <= theme \
 
+$mol_link $mol_view
+	uri \
+	dom_name \a
+	uri_off \
+	uri_native null
+	external false
+	attr *
+		^
+		href <= uri_toggle \
+		title <= hint_safe <= hint \
+		target <= target \_self
+		download <= file_name \
+		mol_link_current <= current false
+		rel <= relation \
+	sub /$mol_view_content
+		<= title
+	arg *
+	event *
+		^
+		click?event <=> click?event <=> event_click?event null
+
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+	font_size 16
+	font_family \
+	style_size *
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	minimal_width 16
+	minimal_height 16
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
+
+$mol_icon_script $mol_icon path \M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2H8C6.3,2 5,3.3 5,5V16H16V17C16,17.6 16.4,18 17,18H18V5C18,4.4 18.4,4 19,4C19.6,4 20,4.4 20,5V6H22V5C22,3.3 20.7,2 19,2Z
+
+$mol_icon_script_text $mol_icon path \M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2C20.7,2 22,3.3 22,5V6H20V5C20,4.4 19.6,4 19,4C18.4,4 18,4.4 18,5V18H17C16.4,18 16,17.6 16,17V16H5V5C5,3.3 6.3,2 8,2H19M8,6V8H15V6H8M8,10V12H14V10H8Z
+
+$mol_link_source $mol_link
+	hint @ \Source code
+	sub /
+		<= Icon $mol_icon_script_text
+
 $mol_speck $mol_view
 	attr *
 		^
@@ -73,34 +132,27 @@ $mol_button_typed $mol_button
 
 $mol_button_minor $mol_button_typed
 
-$mol_svg $mol_view
-	dom_name \svg
-	dom_name_space \http://www.w3.org/2000/svg
-	font_size 16
-	font_family \
-	style_size *
-
-$mol_svg_root $mol_svg
-	dom_name \svg
+$mol_check $mol_button_minor
 	attr *
 		^
-		viewBox <= view_box \0 0 100 100
-		preserveAspectRatio <= aspect \xMidYMid
+		mol_check_checked <= checked? false
+		aria-checked <= aria_checked \false
+		role <= aria_role \checkbox
+	sub /$mol_view_content
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
 
-$mol_svg_path $mol_svg
-	dom_name \path
-	attr *
-		^
-		d <= geometry \
+$mol_check_icon $mol_check
 
+$mol_icon_brightness_4 $mol_icon path \M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z
 
-$mol_icon $mol_svg_root
-	view_box \0 0 24 24
-	minimal_width 16
-	minimal_height 16
-	sub /
-		<= Path $mol_svg_path
-			geometry <= path \
+$mol_lights_toggle $mol_check_icon
+	Icon <= Lights_icon $mol_icon_brightness_4
+	hint @ \Toggle lights
+	checked? <=> lights? false
 
 $mol_icon_clipboard $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3
 
@@ -143,19 +195,6 @@ $mol_pop_bubble $mol_view
 		^
 		mol_pop_align <= align \
 		tabindex 0
-
-$mol_check $mol_button_minor
-	attr *
-		^
-		mol_check_checked <= checked? false
-		aria-checked <= aria_checked \false
-		role <= aria_role \checkbox
-	sub /$mol_view_content
-		<= Icon null
-		<= label /
-			<= Title $mol_view
-				sub /
-					<= title \
 
 $mol_pick $mol_pop
 	event *
@@ -345,46 +384,34 @@ $mol_icon_transfer $mol_icon path \M8 4A2 2 0 0 0 6 6V10H8V6H16V9H13.5L17 12.5L2
 
 $mol_icon_transfer_left $mol_icon path \M21,16H19V8H21V16M17,16H15V8H17V16M13,16H11V8H13V16M9,5V19L2,12L9,5Z
 
-$mol_icon_transfer_right $mol_icon path \M3,8H5V16H3V8M7,8H9V16H7V8M11,8H13V16H11V8M15,19.25V4.75L22.25,12L15,19.25Z
-
-$mol_link $mol_view
-	uri \
-	dom_name \a
-	uri_off \
-	uri_native null
-	external false
-	attr *
+$mol_image $mol_view
+	dom_name \img
+	field *any
 		^
-		href <= uri_toggle \
-		title <= hint_safe <= hint \
-		target <= target \_self
-		download <= file_name \
-		mol_link_current <= current false
-		rel <= relation \
-	sub /$mol_view_content
-		<= title
-	arg *
-	event *
+		src <= uri \
+		alt <= title
+		loading <= loading \eager
+		decoding <= decoding \async
+		crossOrigin <= cors null
+	attr *any
 		^
-		click?event <=> click?event <=> event_click?event null
+		width <= natural_width 0
+		height <= natural_height 0
+	event *any
+		load? <=> load? null
+	minimal_width 16
+	minimal_height 16
 
-$mol_icon_script $mol_icon path \M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2H8C6.3,2 5,3.3 5,5V16H16V17C16,17.6 16.4,18 17,18H18V5C18,4.4 18.4,4 19,4C19.6,4 20,4.4 20,5V6H22V5C22,3.3 20.7,2 19,2Z
-
-$mol_icon_script_text $mol_icon path \M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2C20.7,2 22,3.3 22,5V6H20V5C20,4.4 19.6,4 19,4C18.4,4 18,4.4 18,5V18H17C16.4,18 16,17.6 16,17V16H5V5C5,3.3 6.3,2 8,2H19M8,6V8H15V6H8M8,10V12H14V10H8Z
-
-$mol_link_source $mol_link
-	hint @ \Source code
+$mol_link_iconed $mol_link
 	sub /
-		<= Icon $mol_icon_script_text
+		<= Icon $mol_image
+			uri <= icon \
+			title \
+	content /
+		<= title <= uri
+	host \
 
-$mol_check_icon $mol_check
-
-$mol_icon_brightness_4 $mol_icon path \M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z
-
-$mol_lights_toggle $mol_check_icon
-	Icon <= Lights_icon $mol_icon_brightness_4
-	hint @ \Toggle lights
-	checked? <=> lights? false
+$mol_icon_transfer_right $mol_icon path \M3,8H5V16H3V8M7,8H9V16H7V8M11,8H13V16H11V8M15,19.25V4.75L22.25,12L15,19.25Z
 
 $mol_stack $mol_view
 
@@ -518,33 +545,6 @@ $mol_textarea_edit $mol_string
 		^
 		scrollTop 0
 
-$mol_image $mol_view
-	dom_name \img
-	field *any
-		^
-		src <= uri \
-		alt <= title
-		loading <= loading \eager
-		decoding <= decoding \async
-		crossOrigin <= cors null
-	attr *any
-		^
-		width <= natural_width 0
-		height <= natural_height 0
-	event *any
-		load? <=> load? null
-	minimal_width 16
-	minimal_height 16
-
-$mol_link_iconed $mol_link
-	sub /
-		<= Icon $mol_image
-			uri <= icon \
-			title \
-	content /
-		<= title <= uri
-	host \
-
 $mol_book2 $mol_scroll
 	menu_title \
 	sub <= pages /$mol_view
@@ -556,66 +556,67 @@ $hyoo_lingua_app $mol_page
 	title \$hyoo_lingua
 	alt_services *string
 		Google \https://translate.google.com/?sl=auto&tl={lang}&text={text}
-		Yandex \https://translate.yandex.ru/?target_lang={lang}&text={text}
-		DeepL\https://deepl.com/ru/translator//{text}/{lang}
-		Bing \https://www.bing.com/translator?to={lang}&text={text}
+		Yandex \https://translate.yandex.com/?target_lang={lang}&text={text}
+		- DeepL \https://deepl.com/en/translator//{text}/{lang} && fails on dots
+		- Bing \https://www.bing.com/translator?to={lang}&text={text} && bad translation
 	plugins /
 		<= Theme $mol_theme_auto
-	head /
-		<= Native_copy $mol_button_copy
-			text <= native_text
-		<= Native_lang $mol_select
-			hint @ \Native Language
-			value? <=> native_lang? \ru
-			dictionary <= langs *
-		<= Foreign_translate $mol_button_minor
-			hint @ \Translate to Native
-			click? <=> foreign_translate? null
-			event_activate? => foreign_translate_activate?
-			sub /
-				<= Foreign_translate_icon $mol_icon_transfer_left
-		<= Native_translate $mol_button_minor
-			hint @ \Translate to Foreign
-			click? <=> native_translate? null
-			event_activate? => native_translate_activate?
-			sub /
-				<= Native_translate_icon $mol_icon_transfer_right
-		<= Foreign_lang $mol_select
-			hint @ \Foreign Language
-			value? <=> foreign_lang? \en
-			dictionary <= langs *
-		<= Foreign_copy $mol_button_copy
-			text <= foreign_text
-	foot /
+	tools /
 		<= Source $mol_link_source uri \https://github.com/hyoo-ru/lingua.hyoo.ru
-		<= Title
 		<= Lights $mol_lights_toggle
+	foot /
+		<= Native_bar $mol_view sub /
+			<= Native_tools $mol_view sub /
+				<= Native_copy $mol_button_copy
+					text <= native_text
+				<= Native_lang $mol_select
+					hint @ \Native Language
+					value? <=> native_lang? \ru
+					dictionary <= langs *
+				<= Foreign_translate $mol_button_minor
+					hint @ \Translate to Native
+					click? <=> foreign_translate? null
+					event_activate? => foreign_translate_activate?
+					sub /
+						<= Foreign_translate_icon $mol_icon_transfer_left
+			<= Native_alt_list $mol_view
+				sub <= native_alt_list /
+					<= Native_alt_link*0 $mol_link_iconed
+						title \
+						hint <= alt_title* \
+						uri <= native_alt_link* \
+		<= Foreign_bar $mol_view sub /
+			<= Foreign_tools $mol_view sub /
+				<= Native_translate $mol_button_minor
+					hint @ \Translate to Foreign
+					click? <=> native_translate? null
+					event_activate? => native_translate_activate?
+					sub /
+						<= Native_translate_icon $mol_icon_transfer_right
+				<= Foreign_lang $mol_select
+					hint @ \Foreign Language
+					value? <=> foreign_lang? \en
+					dictionary <= langs *
+				<= Foreign_copy $mol_button_copy
+					text <= foreign_text
+			<= Foreign_alt_list $mol_view
+				sub <= foreign_alt_list /
+					<= Foreign_alt_link*0 $mol_link_iconed
+						title \
+						hint <= alt_title* \
+						uri <= foreign_alt_link* \
 	Body $mol_book2
 		bring <= bring
 		Placeholder null
 		pages /
 			<= Native_pane $mol_scroll sub /
-				<= Native_pane_content $mol_list rows /
-					<= Native_text $mol_textarea
-						hint @ \native language 
-						value? <=> native_text? \
-						submit? <=> native_translate_activate?
-					<= Native_alt_list $mol_view
-						sub <= native_alt_list /
-							<= Native_alt_link*0 $mol_link_iconed
-								title \
-								hint <= alt_title* \
-								uri <= native_alt_link* \
+				<= Native_text $mol_textarea
+					hint @ \native language 
+					value? <=> native_text? \
+					submit? <=> native_translate_activate?
 			<= Foreign_pane $mol_scroll sub /
-				<= Foreign_pane_content $mol_list rows /
-					<= Foreign_text $mol_textarea
-						hint @ \foreign language text
-						value? <=> foreign_text? \
-						bring => bring
-						submit? <=> foreign_translate_activate?
-					<= Foreign_alt_list $mol_view
-						sub <= foreign_alt_list /
-							<= Foreign_alt_link*0 $mol_link_iconed
-								title \
-								hint <= alt_title* \
-								uri <= foreign_alt_link* \
+				<= Foreign_text $mol_textarea
+					hint @ \foreign language text
+					value? <=> foreign_text? \
+					bring => bring
+					submit? <=> foreign_translate_activate?

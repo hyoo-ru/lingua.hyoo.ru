@@ -4857,6 +4857,475 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_link) = class $mol_link extends ($.$mol_view) {
+		uri_toggle(){
+			return "";
+		}
+		hint(){
+			return "";
+		}
+		hint_safe(){
+			return (this.hint());
+		}
+		target(){
+			return "_self";
+		}
+		file_name(){
+			return "";
+		}
+		current(){
+			return false;
+		}
+		relation(){
+			return "";
+		}
+		event_click(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		click(next){
+			return (this.event_click(next));
+		}
+		uri(){
+			return "";
+		}
+		dom_name(){
+			return "a";
+		}
+		uri_off(){
+			return "";
+		}
+		uri_native(){
+			return null;
+		}
+		external(){
+			return false;
+		}
+		attr(){
+			return {
+				...(super.attr()), 
+				"href": (this.uri_toggle()), 
+				"title": (this.hint_safe()), 
+				"target": (this.target()), 
+				"download": (this.file_name()), 
+				"mol_link_current": (this.current()), 
+				"rel": (this.relation())
+			};
+		}
+		sub(){
+			return [(this.title())];
+		}
+		arg(){
+			return {};
+		}
+		event(){
+			return {...(super.event()), "click": (next) => (this.click(next))};
+		}
+	};
+	($mol_mem(($.$mol_link.prototype), "event_click"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_link extends $.$mol_link {
+            uri_toggle() {
+                return this.current() ? this.uri_off() : this.uri();
+            }
+            uri() {
+                return new this.$.$mol_state_arg(this.state_key()).link(this.arg());
+            }
+            uri_off() {
+                const arg2 = {};
+                for (let i in this.arg())
+                    arg2[i] = null;
+                return new this.$.$mol_state_arg(this.state_key()).link(arg2);
+            }
+            uri_native() {
+                const base = this.$.$mol_state_arg.href();
+                return new URL(this.uri(), base);
+            }
+            current() {
+                const base = this.$.$mol_state_arg.href_normal();
+                const target = this.uri_native().toString();
+                if (base === target)
+                    return true;
+                const args = this.arg();
+                const keys = Object.keys(args).filter(key => args[key] != null);
+                if (keys.length === 0)
+                    return false;
+                for (const key of keys) {
+                    if (this.$.$mol_state_arg.value(key) != args[key])
+                        return false;
+                }
+                return true;
+            }
+            file_name() {
+                return null;
+            }
+            minimal_height() {
+                return Math.max(super.minimal_height(), 24);
+            }
+            external() {
+                return this.uri_native().origin !== $mol_dom_context.location.origin;
+            }
+            target() {
+                return this.external() ? '_blank' : '_self';
+            }
+            hint_safe() {
+                try {
+                    return this.hint();
+                }
+                catch (error) {
+                    $mol_fail_log(error);
+                    return '';
+                }
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_link.prototype, "uri_toggle", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link.prototype, "uri", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link.prototype, "uri_off", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link.prototype, "uri_native", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link.prototype, "current", null);
+        $$.$mol_link = $mol_link;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    const { rem } = $mol_style_unit;
+    $mol_style_define($mol_link, {
+        textDecoration: 'none',
+        color: $mol_theme.control,
+        stroke: 'currentcolor',
+        cursor: 'pointer',
+        padding: $mol_gap.text,
+        boxSizing: 'border-box',
+        position: 'relative',
+        minWidth: rem(2.5),
+        gap: $mol_gap.space,
+        border: {
+            radius: $mol_gap.round,
+        },
+        ':hover': {
+            background: {
+                color: $mol_theme.hover,
+            },
+        },
+        ':focus-visible': {
+            outline: 'none',
+            background: {
+                color: $mol_theme.hover,
+            },
+        },
+        ':active': {
+            color: $mol_theme.focus,
+        },
+        '@': {
+            mol_link_current: {
+                'true': {
+                    color: $mol_theme.current,
+                    textShadow: '0 0',
+                }
+            }
+        },
+    });
+})($ || ($ = {}));
+
+;
+	($.$mol_svg) = class $mol_svg extends ($.$mol_view) {
+		dom_name(){
+			return "svg";
+		}
+		dom_name_space(){
+			return "http://www.w3.org/2000/svg";
+		}
+		font_size(){
+			return 16;
+		}
+		font_family(){
+			return "";
+		}
+		style_size(){
+			return {};
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_state_time extends $mol_object {
+        static task(precision, reset) {
+            if (precision) {
+                return new $mol_after_timeout(precision, () => this.task(precision, null));
+            }
+            else {
+                return new $mol_after_frame(() => this.task(precision, null));
+            }
+        }
+        static now(precision) {
+            this.task(precision);
+            return Date.now();
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_time, "task", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_time, "now", null);
+    $.$mol_state_time = $mol_state_time;
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_svg extends $.$mol_svg {
+            computed_style() {
+                const win = this.$.$mol_dom_context;
+                const style = win.getComputedStyle(this.dom_node());
+                if (!style['font-size'])
+                    $mol_state_time.now(0);
+                return style;
+            }
+            font_size() {
+                return parseInt(this.computed_style()['font-size']) || 16;
+            }
+            font_family() {
+                return this.computed_style()['font-family'];
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_svg.prototype, "computed_style", null);
+        __decorate([
+            $mol_mem
+        ], $mol_svg.prototype, "font_size", null);
+        __decorate([
+            $mol_mem
+        ], $mol_svg.prototype, "font_family", null);
+        $$.$mol_svg = $mol_svg;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$mol_svg_root) = class $mol_svg_root extends ($.$mol_svg) {
+		view_box(){
+			return "0 0 100 100";
+		}
+		aspect(){
+			return "xMidYMid";
+		}
+		dom_name(){
+			return "svg";
+		}
+		attr(){
+			return {
+				...(super.attr()), 
+				"viewBox": (this.view_box()), 
+				"preserveAspectRatio": (this.aspect())
+			};
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/svg/root/root.view.css", "[mol_svg_root] {\n\toverflow: hidden;\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+	($.$mol_svg_path) = class $mol_svg_path extends ($.$mol_svg) {
+		geometry(){
+			return "";
+		}
+		dom_name(){
+			return "path";
+		}
+		attr(){
+			return {...(super.attr()), "d": (this.geometry())};
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon) = class $mol_icon extends ($.$mol_svg_root) {
+		path(){
+			return "";
+		}
+		Path(){
+			const obj = new this.$.$mol_svg_path();
+			(obj.geometry) = () => ((this.path()));
+			return obj;
+		}
+		view_box(){
+			return "0 0 24 24";
+		}
+		minimal_width(){
+			return 16;
+		}
+		minimal_height(){
+			return 16;
+		}
+		sub(){
+			return [(this.Path())];
+		}
+	};
+	($mol_mem(($.$mol_icon.prototype), "Path"));
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/icon/icon.view.css", "[mol_icon] {\n\tfill: currentColor;\n\tstroke: none;\n\twidth: 1em;\n\theight: 1.5em;\n\tflex: 0 0 auto;\n\tvertical-align: top;\n\tdisplay: inline-block;\n\tfilter: drop-shadow(0px 1px 1px var(--mol_theme_back));\n\ttransform-origin: center;\n}\n\n[mol_icon_path] {\n\ttransform-origin: center;\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+	($.$mol_icon_script) = class $mol_icon_script extends ($.$mol_icon) {
+		path(){
+			return "M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2H8C6.3,2 5,3.3 5,5V16H16V17C16,17.6 16.4,18 17,18H18V5C18,4.4 18.4,4 19,4C19.6,4 20,4.4 20,5V6H22V5C22,3.3 20.7,2 19,2Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_icon_script_text) = class $mol_icon_script_text extends ($.$mol_icon) {
+		path(){
+			return "M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2C20.7,2 22,3.3 22,5V6H20V5C20,4.4 19.6,4 19,4C18.4,4 18,4.4 18,5V18H17C16.4,18 16,17.6 16,17V16H5V5C5,3.3 6.3,2 8,2H19M8,6V8H15V6H8M8,10V12H14V10H8Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_locale extends $mol_object {
+        static lang_default() {
+            return 'en';
+        }
+        static lang(next) {
+            return this.$.$mol_state_local.value('locale', next) || $mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
+        }
+        static source(lang) {
+            return JSON.parse(this.$.$mol_file.relative(`web.locale=${lang}.json`).text().toString());
+        }
+        static texts(lang, next) {
+            if (next)
+                return next;
+            try {
+                return this.source(lang).valueOf();
+            }
+            catch (error) {
+                if ($mol_fail_catch(error)) {
+                    const def = this.lang_default();
+                    if (lang === def)
+                        throw error;
+                }
+            }
+            return {};
+        }
+        static text(key) {
+            const lang = this.lang();
+            const target = this.texts(lang)[key];
+            if (target)
+                return target;
+            this.warn(key);
+            const en = this.texts('en')[key];
+            if (!en)
+                return key;
+            return en;
+        }
+        static warn(key) {
+            console.warn(`Not translated to "${this.lang()}": ${key}`);
+            return null;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_locale, "lang_default", null);
+    __decorate([
+        $mol_mem
+    ], $mol_locale, "lang", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "source", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "texts", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "text", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "warn", null);
+    $.$mol_locale = $mol_locale;
+})($ || ($ = {}));
+
+;
+	($.$mol_link_source) = class $mol_link_source extends ($.$mol_link) {
+		Icon(){
+			const obj = new this.$.$mol_icon_script_text();
+			return obj;
+		}
+		hint(){
+			return (this.$.$mol_locale.text("$mol_link_source_hint"));
+		}
+		sub(){
+			return [(this.Icon())];
+		}
+	};
+	($mol_mem(($.$mol_link_source.prototype), "Icon"));
+
+
+;
+"use strict";
+
+;
 	($.$mol_speck) = class $mol_speck extends ($.$mol_view) {
 		theme(){
 			return "$mol_theme_accent";
@@ -5201,57 +5670,62 @@ var $;
 "use strict";
 
 ;
+	($.$mol_check) = class $mol_check extends ($.$mol_button_minor) {
+		checked(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		aria_checked(){
+			return "false";
+		}
+		aria_role(){
+			return "checkbox";
+		}
+		Icon(){
+			return null;
+		}
+		title(){
+			return "";
+		}
+		Title(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.title())]);
+			return obj;
+		}
+		label(){
+			return [(this.Title())];
+		}
+		attr(){
+			return {
+				...(super.attr()), 
+				"mol_check_checked": (this.checked()), 
+				"aria-checked": (this.aria_checked()), 
+				"role": (this.aria_role())
+			};
+		}
+		sub(){
+			return [(this.Icon()), (this.label())];
+		}
+	};
+	($mol_mem(($.$mol_check.prototype), "checked"));
+	($mol_mem(($.$mol_check.prototype), "Title"));
+
+
+;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_blob = ($node.buffer?.Blob ?? $mol_dom_context.Blob);
+    function $mol_maybe(value) {
+        return (value == null) ? [] : [value];
+    }
+    $.$mol_maybe = $mol_maybe;
 })($ || ($ = {}));
 
 ;
-	($.$mol_svg) = class $mol_svg extends ($.$mol_view) {
-		dom_name(){
-			return "svg";
-		}
-		dom_name_space(){
-			return "http://www.w3.org/2000/svg";
-		}
-		font_size(){
-			return 16;
-		}
-		font_family(){
-			return "";
-		}
-		style_size(){
-			return {};
-		}
-	};
-
-
-;
 "use strict";
 var $;
 (function ($) {
-    class $mol_state_time extends $mol_object {
-        static task(precision, reset) {
-            if (precision) {
-                return new $mol_after_timeout(precision, () => this.task(precision, null));
-            }
-            else {
-                return new $mol_after_frame(() => this.task(precision, null));
-            }
-        }
-        static now(precision) {
-            this.task(precision);
-            return Date.now();
-        }
-    }
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_time, "task", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_time, "now", null);
-    $.$mol_state_time = $mol_state_time;
+    $mol_style_attach("mol/check/check.css", "[mol_check] {\n\tflex: 0 0 auto;\n\tjustify-content: flex-start;\n\talign-content: center;\n\t/* align-items: flex-start; */\n\tborder: none;\n\tfont-weight: inherit;\n\tbox-shadow: none;\n\ttext-align: left;\n\tdisplay: inline-flex;\n\tflex-wrap: nowrap;\n}\n\n[mol_check_title] {\n\tflex-shrink: 1;\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -5263,75 +5737,49 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $mol_svg extends $.$mol_svg {
-            computed_style() {
-                const win = this.$.$mol_dom_context;
-                const style = win.getComputedStyle(this.dom_node());
-                if (!style['font-size'])
-                    $mol_state_time.now(0);
-                return style;
+        class $mol_check extends $.$mol_check {
+            click(next) {
+                if (next?.defaultPrevented)
+                    return;
+                this.checked(!this.checked());
+                if (next)
+                    next.preventDefault();
             }
-            font_size() {
-                return parseInt(this.computed_style()['font-size']) || 16;
+            sub() {
+                return [
+                    ...$mol_maybe(this.Icon()),
+                    ...this.label(),
+                ];
             }
-            font_family() {
-                return this.computed_style()['font-family'];
+            label() {
+                return this.title() ? super.label() : [];
+            }
+            aria_checked() {
+                return String(this.checked());
             }
         }
-        __decorate([
-            $mol_mem
-        ], $mol_svg.prototype, "computed_style", null);
-        __decorate([
-            $mol_mem
-        ], $mol_svg.prototype, "font_size", null);
-        __decorate([
-            $mol_mem
-        ], $mol_svg.prototype, "font_family", null);
-        $$.$mol_svg = $mol_svg;
+        $$.$mol_check = $mol_check;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
 ;
-	($.$mol_svg_root) = class $mol_svg_root extends ($.$mol_svg) {
-		view_box(){
-			return "0 0 100 100";
-		}
-		aspect(){
-			return "xMidYMid";
-		}
-		dom_name(){
-			return "svg";
-		}
-		attr(){
-			return {
-				...(super.attr()), 
-				"viewBox": (this.view_box()), 
-				"preserveAspectRatio": (this.aspect())
-			};
-		}
-	};
+	($.$mol_check_icon) = class $mol_check_icon extends ($.$mol_check) {};
 
 
 ;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/svg/root/root.view.css", "[mol_svg_root] {\n\toverflow: hidden;\n}\n");
+    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
 })($ || ($ = {}));
 
 ;
 "use strict";
 
 ;
-	($.$mol_svg_path) = class $mol_svg_path extends ($.$mol_svg) {
-		geometry(){
-			return "";
-		}
-		dom_name(){
-			return "path";
-		}
-		attr(){
-			return {...(super.attr()), "d": (this.geometry())};
+	($.$mol_icon_brightness_4) = class $mol_icon_brightness_4 extends ($.$mol_icon) {
+		path(){
+			return "M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z";
 		}
 	};
 
@@ -5340,40 +5788,53 @@ var $;
 "use strict";
 
 ;
-	($.$mol_icon) = class $mol_icon extends ($.$mol_svg_root) {
-		path(){
-			return "";
-		}
-		Path(){
-			const obj = new this.$.$mol_svg_path();
-			(obj.geometry) = () => ((this.path()));
+	($.$mol_lights_toggle) = class $mol_lights_toggle extends ($.$mol_check_icon) {
+		Lights_icon(){
+			const obj = new this.$.$mol_icon_brightness_4();
 			return obj;
 		}
-		view_box(){
-			return "0 0 24 24";
+		lights(next){
+			if(next !== undefined) return next;
+			return false;
 		}
-		minimal_width(){
-			return 16;
+		Icon(){
+			return (this.Lights_icon());
 		}
-		minimal_height(){
-			return 16;
+		hint(){
+			return (this.$.$mol_locale.text("$mol_lights_toggle_hint"));
 		}
-		sub(){
-			return [(this.Path())];
+		checked(next){
+			return (this.lights(next));
 		}
 	};
-	($mol_mem(($.$mol_icon.prototype), "Path"));
+	($mol_mem(($.$mol_lights_toggle.prototype), "Lights_icon"));
+	($mol_mem(($.$mol_lights_toggle.prototype), "lights"));
 
+
+;
+"use strict";
 
 ;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/icon/icon.view.css", "[mol_icon] {\n\tfill: currentColor;\n\tstroke: none;\n\twidth: 1em;\n\theight: 1.5em;\n\tflex: 0 0 auto;\n\tvertical-align: top;\n\tdisplay: inline-block;\n\tfilter: drop-shadow(0px 1px 1px var(--mol_theme_back));\n\ttransform-origin: center;\n}\n\n[mol_icon_path] {\n\ttransform-origin: center;\n}\n");
+    var $$;
+    (function ($$) {
+        class $mol_lights_toggle extends $.$mol_lights_toggle {
+            lights(next) {
+                return this.$.$mol_lights(next);
+            }
+        }
+        $$.$mol_lights_toggle = $mol_lights_toggle;
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
 ;
 "use strict";
+var $;
+(function ($) {
+    $.$mol_blob = ($node.buffer?.Blob ?? $mol_dom_context.Blob);
+})($ || ($ = {}));
 
 ;
 	($.$mol_icon_clipboard) = class $mol_icon_clipboard extends ($.$mol_icon) {
@@ -5660,99 +6121,6 @@ var $;
 var $;
 (function ($) {
     $mol_style_attach("mol/pop/pop.view.css", "[mol_pop] {\n\tposition: relative;\n\tdisplay: inline-flex;\n}\n\n[mol_pop_bubble] {\n\tbox-shadow: 0 0 1rem hsla(0,0%,0%,.5);\n\tborder-radius: var(--mol_gap_round);\n\tposition: absolute;\n\tz-index: var(--mol_layer_popup);\n\tbackground: var(--mol_theme_back);\n\tmax-width: none;\n\tmax-height: none;\n\t/* overflow: hidden;\n\toverflow-y: scroll;\n\toverflow-y: overlay; */\n\tword-break: normal;\n\twidth: max-content;\n\theight: max-content;\n\tflex-direction: column;\n\tmax-width: 80vw;\n\tmax-height: 80vw;\n\tcontain: paint;\n\ttransition-property: opacity;\n}\n\n:where( [mol_pop_bubble] > * ) {\n\tbackground: var(--mol_theme_card);\n}\n\n[mol_pop_bubble][mol_scroll] {\n\tbackground: var(--mol_theme_back);\n}\n\n[mol_pop_bubble]:focus {\n\toutline: none;\n}\n\n[mol_pop_align=\"suspense_suspense\"] {\n\topacity: 0;\n}\n\n[mol_pop_align=\"left_top\"] {\n\ttransform: translate(-100%);\n\tleft: 0;\n\tbottom: 0;\n}\n\n[mol_pop_align=\"left_center\"] {\n\ttransform: translate(-100%, -50%);\n\tleft: 0;\n\ttop: 50%;\n}\n\n[mol_pop_align=\"left_bottom\"] {\n\ttransform: translate(-100%);\n\tleft: 0;\n\ttop: 0;\n}\n\n[mol_pop_align=\"right_top\"] {\n\ttransform: translate(100%);\n\tright: 0;\n\tbottom: 0;\n}\n\n[mol_pop_align=\"right_center\"] {\n\ttransform: translate(100%, -50%);\n\tright: 0;\n\ttop: 50%;\n}\n\n[mol_pop_align=\"right_bottom\"] {\n\ttransform: translate(100%);\n\tright: 0;\n\ttop: 0;\n}\n\n[mol_pop_align=\"center\"] {\n\tleft: 50%;\n\ttop: 50%;\n\ttransform: translate(-50%, -50%);\n}\n\n[mol_pop_align=\"top_left\"] {\n\tright: 0;\n\tbottom: 100%;\n}\n\n[mol_pop_align=\"top_center\"] {\n\ttransform: translate(-50%);\n\tleft: 50%;\n\tbottom: 100%;\n}\n\n[mol_pop_align=\"top_right\"] {\n\tleft: 0;\n\tbottom: 100%;\n}\n\n[mol_pop_align=\"bottom_left\"] {\n\tright: 0;\n\ttop: 100%;\n}\n\n[mol_pop_align=\"bottom_center\"] {\n\ttransform: translate(-50%);\n\tleft: 50%;\n\ttop: 100%;\n}\n\n[mol_pop_align=\"bottom_right\"] {\n\tleft: 0;\n\ttop: 100%;\n}\n");
-})($ || ($ = {}));
-
-;
-	($.$mol_check) = class $mol_check extends ($.$mol_button_minor) {
-		checked(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		aria_checked(){
-			return "false";
-		}
-		aria_role(){
-			return "checkbox";
-		}
-		Icon(){
-			return null;
-		}
-		title(){
-			return "";
-		}
-		Title(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.title())]);
-			return obj;
-		}
-		label(){
-			return [(this.Title())];
-		}
-		attr(){
-			return {
-				...(super.attr()), 
-				"mol_check_checked": (this.checked()), 
-				"aria-checked": (this.aria_checked()), 
-				"role": (this.aria_role())
-			};
-		}
-		sub(){
-			return [(this.Icon()), (this.label())];
-		}
-	};
-	($mol_mem(($.$mol_check.prototype), "checked"));
-	($mol_mem(($.$mol_check.prototype), "Title"));
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_maybe(value) {
-        return (value == null) ? [] : [value];
-    }
-    $.$mol_maybe = $mol_maybe;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/check.css", "[mol_check] {\n\tflex: 0 0 auto;\n\tjustify-content: flex-start;\n\talign-content: center;\n\t/* align-items: flex-start; */\n\tborder: none;\n\tfont-weight: inherit;\n\tbox-shadow: none;\n\ttext-align: left;\n\tdisplay: inline-flex;\n\tflex-wrap: nowrap;\n}\n\n[mol_check_title] {\n\tflex-shrink: 1;\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_check extends $.$mol_check {
-            click(next) {
-                if (next?.defaultPrevented)
-                    return;
-                this.checked(!this.checked());
-                if (next)
-                    next.preventDefault();
-            }
-            sub() {
-                return [
-                    ...$mol_maybe(this.Icon()),
-                    ...this.label(),
-                ];
-            }
-            label() {
-                return this.title() ? super.label() : [];
-            }
-            aria_checked() {
-                return String(this.checked());
-            }
-        }
-        $$.$mol_check = $mol_check;
-    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
 ;
@@ -6280,72 +6648,6 @@ var $;
 var $;
 (function ($) {
     $mol_style_attach("mol/dimmer/dimmer.view.css", "[mol_dimmer] {\n\tdisplay: block;\n\tmax-width: 100%;\n}\n\n[mol_dimmer_low] {\n\tdisplay: inline;\n\topacity: 0.8;\n}\n\n[mol_dimmer_high] {\n\tdisplay: inline;\n\tcolor: var(--mol_theme_focus);\n\ttext-shadow: 0 0;\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_locale extends $mol_object {
-        static lang_default() {
-            return 'en';
-        }
-        static lang(next) {
-            return this.$.$mol_state_local.value('locale', next) || $mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
-        }
-        static source(lang) {
-            return JSON.parse(this.$.$mol_file.relative(`web.locale=${lang}.json`).text().toString());
-        }
-        static texts(lang, next) {
-            if (next)
-                return next;
-            try {
-                return this.source(lang).valueOf();
-            }
-            catch (error) {
-                if ($mol_fail_catch(error)) {
-                    const def = this.lang_default();
-                    if (lang === def)
-                        throw error;
-                }
-            }
-            return {};
-        }
-        static text(key) {
-            const lang = this.lang();
-            const target = this.texts(lang)[key];
-            if (target)
-                return target;
-            this.warn(key);
-            const en = this.texts('en')[key];
-            if (!en)
-                return key;
-            return en;
-        }
-        static warn(key) {
-            console.warn(`Not translated to "${this.lang()}": ${key}`);
-            return null;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_locale, "lang_default", null);
-    __decorate([
-        $mol_mem
-    ], $mol_locale, "lang", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "source", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "texts", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "text", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "warn", null);
-    $.$mol_locale = $mol_locale;
 })($ || ($ = {}));
 
 ;
@@ -7528,6 +7830,190 @@ var $;
 "use strict";
 
 ;
+	($.$mol_image) = class $mol_image extends ($.$mol_view) {
+		uri(){
+			return "";
+		}
+		loading(){
+			return "eager";
+		}
+		decoding(){
+			return "async";
+		}
+		cors(){
+			return null;
+		}
+		natural_width(){
+			return 0;
+		}
+		natural_height(){
+			return 0;
+		}
+		load(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		dom_name(){
+			return "img";
+		}
+		field(){
+			return {
+				...(super.field()), 
+				"src": (this.uri()), 
+				"alt": (this.title()), 
+				"loading": (this.loading()), 
+				"decoding": (this.decoding()), 
+				"crossOrigin": (this.cors())
+			};
+		}
+		attr(){
+			return {
+				...(super.attr()), 
+				"width": (this.natural_width()), 
+				"height": (this.natural_height())
+			};
+		}
+		event(){
+			return {"load": (next) => (this.load(next))};
+		}
+		minimal_width(){
+			return 16;
+		}
+		minimal_height(){
+			return 16;
+		}
+	};
+	($mol_mem(($.$mol_image.prototype), "load"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_image extends $.$mol_image {
+            natural_width(next) {
+                const dom = this.dom_node();
+                if (dom.naturalWidth)
+                    return dom.naturalWidth;
+                const found = this.uri().match(/\bwidth=(\d+)/);
+                return found ? Number(found[1]) : null;
+            }
+            natural_height(next) {
+                const dom = this.dom_node();
+                if (dom.naturalHeight)
+                    return dom.naturalHeight;
+                const found = this.uri().match(/\bheight=(\d+)/);
+                return found ? Number(found[1]) : null;
+            }
+            load() {
+                this.natural_width(null);
+                this.natural_height(null);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_image.prototype, "natural_width", null);
+        __decorate([
+            $mol_mem
+        ], $mol_image.prototype, "natural_height", null);
+        $$.$mol_image = $mol_image;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/image/image.view.css", "[mol_image] {\n\tborder-radius: var(--mol_gap_round);\n\toverflow: hidden;\n\tflex: 0 1 auto;\n\tmax-width: 100%;\n\tobject-fit: cover;\n\theight: fit-content;\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_link_iconed) = class $mol_link_iconed extends ($.$mol_link) {
+		icon(){
+			return "";
+		}
+		Icon(){
+			const obj = new this.$.$mol_image();
+			(obj.uri) = () => ((this.icon()));
+			(obj.title) = () => ("");
+			return obj;
+		}
+		title(){
+			return (this.uri());
+		}
+		sub(){
+			return [(this.Icon())];
+		}
+		content(){
+			return [(this.title())];
+		}
+		host(){
+			return "";
+		}
+	};
+	($mol_mem(($.$mol_link_iconed.prototype), "Icon"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_link_iconed extends $.$mol_link_iconed {
+            icon() {
+                return `https://favicon.yandex.net/favicon/${this.host()}?color=0,0,0,0&size=32&stub=1`;
+            }
+            host() {
+                const base = this.$.$mol_state_arg.href();
+                const url = new URL(this.uri(), base);
+                return url.hostname;
+            }
+            title() {
+                const uri = this.uri();
+                const host = this.host();
+                const suffix = (host ? uri.split(this.host(), 2)[1] : uri)?.replace(/^[\/\?#!]+/, '');
+                return decodeURIComponent(suffix || host).replace(/^\//, ' ');
+            }
+            sub() {
+                return [
+                    ...this.host() ? [this.Icon()] : [],
+                    ...this.content() ? [' ', ...this.content()] : [],
+                ];
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_link_iconed.prototype, "icon", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link_iconed.prototype, "host", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link_iconed.prototype, "title", null);
+        __decorate([
+            $mol_mem
+        ], $mol_link_iconed.prototype, "sub", null);
+        $$.$mol_link_iconed = $mol_link_iconed;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/link/iconed/iconed.view.css", "[mol_link_iconed] {\n\talign-items: baseline;\n\tdisplay: inline-flex;\n\tpadding: var(--mol_gap_text);\n}\n\n[mol_link_iconed_icon] {\n\tbox-shadow: none;\n\theight: 1.5em;\n\twidth: 1em;\n\tflex: 0 0 auto;\n\tdisplay: inline-block;\n\talign-self: normal;\n\tvertical-align: top;\n\tborder-radius: 0;\n\tobject-fit: scale-down;\n\topacity: .75;\n}\n\n[mol_theme=\"$mol_theme_dark\"] [mol_link_iconed_icon] {\n\tfilter: var(--mol_theme_image);\n}\n");
+})($ || ($ = {}));
+
+;
 	($.$mol_icon_transfer_right) = class $mol_icon_transfer_right extends ($.$mol_icon) {
 		path(){
 			return "M3,8H5V16H3V8M7,8H9V16H7V8M11,8H13V16H11V8M15,19.25V4.75L22.25,12L15,19.25Z";
@@ -7537,308 +8023,6 @@ var $;
 
 ;
 "use strict";
-
-;
-	($.$mol_link) = class $mol_link extends ($.$mol_view) {
-		uri_toggle(){
-			return "";
-		}
-		hint(){
-			return "";
-		}
-		hint_safe(){
-			return (this.hint());
-		}
-		target(){
-			return "_self";
-		}
-		file_name(){
-			return "";
-		}
-		current(){
-			return false;
-		}
-		relation(){
-			return "";
-		}
-		event_click(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		click(next){
-			return (this.event_click(next));
-		}
-		uri(){
-			return "";
-		}
-		dom_name(){
-			return "a";
-		}
-		uri_off(){
-			return "";
-		}
-		uri_native(){
-			return null;
-		}
-		external(){
-			return false;
-		}
-		attr(){
-			return {
-				...(super.attr()), 
-				"href": (this.uri_toggle()), 
-				"title": (this.hint_safe()), 
-				"target": (this.target()), 
-				"download": (this.file_name()), 
-				"mol_link_current": (this.current()), 
-				"rel": (this.relation())
-			};
-		}
-		sub(){
-			return [(this.title())];
-		}
-		arg(){
-			return {};
-		}
-		event(){
-			return {...(super.event()), "click": (next) => (this.click(next))};
-		}
-	};
-	($mol_mem(($.$mol_link.prototype), "event_click"));
-
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_link extends $.$mol_link {
-            uri_toggle() {
-                return this.current() ? this.uri_off() : this.uri();
-            }
-            uri() {
-                return new this.$.$mol_state_arg(this.state_key()).link(this.arg());
-            }
-            uri_off() {
-                const arg2 = {};
-                for (let i in this.arg())
-                    arg2[i] = null;
-                return new this.$.$mol_state_arg(this.state_key()).link(arg2);
-            }
-            uri_native() {
-                const base = this.$.$mol_state_arg.href();
-                return new URL(this.uri(), base);
-            }
-            current() {
-                const base = this.$.$mol_state_arg.href_normal();
-                const target = this.uri_native().toString();
-                if (base === target)
-                    return true;
-                const args = this.arg();
-                const keys = Object.keys(args).filter(key => args[key] != null);
-                if (keys.length === 0)
-                    return false;
-                for (const key of keys) {
-                    if (this.$.$mol_state_arg.value(key) != args[key])
-                        return false;
-                }
-                return true;
-            }
-            file_name() {
-                return null;
-            }
-            minimal_height() {
-                return Math.max(super.minimal_height(), 24);
-            }
-            external() {
-                return this.uri_native().origin !== $mol_dom_context.location.origin;
-            }
-            target() {
-                return this.external() ? '_blank' : '_self';
-            }
-            hint_safe() {
-                try {
-                    return this.hint();
-                }
-                catch (error) {
-                    $mol_fail_log(error);
-                    return '';
-                }
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_link.prototype, "uri_toggle", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link.prototype, "uri", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link.prototype, "uri_off", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link.prototype, "uri_native", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link.prototype, "current", null);
-        $$.$mol_link = $mol_link;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    const { rem } = $mol_style_unit;
-    $mol_style_define($mol_link, {
-        textDecoration: 'none',
-        color: $mol_theme.control,
-        stroke: 'currentcolor',
-        cursor: 'pointer',
-        padding: $mol_gap.text,
-        boxSizing: 'border-box',
-        position: 'relative',
-        minWidth: rem(2.5),
-        gap: $mol_gap.space,
-        border: {
-            radius: $mol_gap.round,
-        },
-        ':hover': {
-            background: {
-                color: $mol_theme.hover,
-            },
-        },
-        ':focus-visible': {
-            outline: 'none',
-            background: {
-                color: $mol_theme.hover,
-            },
-        },
-        ':active': {
-            color: $mol_theme.focus,
-        },
-        '@': {
-            mol_link_current: {
-                'true': {
-                    color: $mol_theme.current,
-                    textShadow: '0 0',
-                }
-            }
-        },
-    });
-})($ || ($ = {}));
-
-;
-	($.$mol_icon_script) = class $mol_icon_script extends ($.$mol_icon) {
-		path(){
-			return "M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2H8C6.3,2 5,3.3 5,5V16H16V17C16,17.6 16.4,18 17,18H18V5C18,4.4 18.4,4 19,4C19.6,4 20,4.4 20,5V6H22V5C22,3.3 20.7,2 19,2Z";
-		}
-	};
-
-
-;
-"use strict";
-
-;
-	($.$mol_icon_script_text) = class $mol_icon_script_text extends ($.$mol_icon) {
-		path(){
-			return "M17.8,20C17.4,21.2 16.3,22 15,22H5C3.3,22 2,20.7 2,19V18H5L14.2,18C14.6,19.2 15.7,20 17,20H17.8M19,2C20.7,2 22,3.3 22,5V6H20V5C20,4.4 19.6,4 19,4C18.4,4 18,4.4 18,5V18H17C16.4,18 16,17.6 16,17V16H5V5C5,3.3 6.3,2 8,2H19M8,6V8H15V6H8M8,10V12H14V10H8Z";
-		}
-	};
-
-
-;
-"use strict";
-
-;
-	($.$mol_link_source) = class $mol_link_source extends ($.$mol_link) {
-		Icon(){
-			const obj = new this.$.$mol_icon_script_text();
-			return obj;
-		}
-		hint(){
-			return (this.$.$mol_locale.text("$mol_link_source_hint"));
-		}
-		sub(){
-			return [(this.Icon())];
-		}
-	};
-	($mol_mem(($.$mol_link_source.prototype), "Icon"));
-
-
-;
-"use strict";
-
-;
-	($.$mol_check_icon) = class $mol_check_icon extends ($.$mol_check) {};
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
-	($.$mol_icon_brightness_4) = class $mol_icon_brightness_4 extends ($.$mol_icon) {
-		path(){
-			return "M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z";
-		}
-	};
-
-
-;
-"use strict";
-
-;
-	($.$mol_lights_toggle) = class $mol_lights_toggle extends ($.$mol_check_icon) {
-		Lights_icon(){
-			const obj = new this.$.$mol_icon_brightness_4();
-			return obj;
-		}
-		lights(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		Icon(){
-			return (this.Lights_icon());
-		}
-		hint(){
-			return (this.$.$mol_locale.text("$mol_lights_toggle_hint"));
-		}
-		checked(next){
-			return (this.lights(next));
-		}
-	};
-	($mol_mem(($.$mol_lights_toggle.prototype), "Lights_icon"));
-	($mol_mem(($.$mol_lights_toggle.prototype), "lights"));
-
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_lights_toggle extends $.$mol_lights_toggle {
-            lights(next) {
-                return this.$.$mol_lights(next);
-            }
-        }
-        $$.$mol_lights_toggle = $mol_lights_toggle;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
 
 ;
 	($.$mol_stack) = class $mol_stack extends ($.$mol_view) {};
@@ -8718,190 +8902,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_image) = class $mol_image extends ($.$mol_view) {
-		uri(){
-			return "";
-		}
-		loading(){
-			return "eager";
-		}
-		decoding(){
-			return "async";
-		}
-		cors(){
-			return null;
-		}
-		natural_width(){
-			return 0;
-		}
-		natural_height(){
-			return 0;
-		}
-		load(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		dom_name(){
-			return "img";
-		}
-		field(){
-			return {
-				...(super.field()), 
-				"src": (this.uri()), 
-				"alt": (this.title()), 
-				"loading": (this.loading()), 
-				"decoding": (this.decoding()), 
-				"crossOrigin": (this.cors())
-			};
-		}
-		attr(){
-			return {
-				...(super.attr()), 
-				"width": (this.natural_width()), 
-				"height": (this.natural_height())
-			};
-		}
-		event(){
-			return {"load": (next) => (this.load(next))};
-		}
-		minimal_width(){
-			return 16;
-		}
-		minimal_height(){
-			return 16;
-		}
-	};
-	($mol_mem(($.$mol_image.prototype), "load"));
-
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_image extends $.$mol_image {
-            natural_width(next) {
-                const dom = this.dom_node();
-                if (dom.naturalWidth)
-                    return dom.naturalWidth;
-                const found = this.uri().match(/\bwidth=(\d+)/);
-                return found ? Number(found[1]) : null;
-            }
-            natural_height(next) {
-                const dom = this.dom_node();
-                if (dom.naturalHeight)
-                    return dom.naturalHeight;
-                const found = this.uri().match(/\bheight=(\d+)/);
-                return found ? Number(found[1]) : null;
-            }
-            load() {
-                this.natural_width(null);
-                this.natural_height(null);
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_image.prototype, "natural_width", null);
-        __decorate([
-            $mol_mem
-        ], $mol_image.prototype, "natural_height", null);
-        $$.$mol_image = $mol_image;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/image/image.view.css", "[mol_image] {\n\tborder-radius: var(--mol_gap_round);\n\toverflow: hidden;\n\tflex: 0 1 auto;\n\tmax-width: 100%;\n\tobject-fit: cover;\n\theight: fit-content;\n}\n");
-})($ || ($ = {}));
-
-;
-	($.$mol_link_iconed) = class $mol_link_iconed extends ($.$mol_link) {
-		icon(){
-			return "";
-		}
-		Icon(){
-			const obj = new this.$.$mol_image();
-			(obj.uri) = () => ((this.icon()));
-			(obj.title) = () => ("");
-			return obj;
-		}
-		title(){
-			return (this.uri());
-		}
-		sub(){
-			return [(this.Icon())];
-		}
-		content(){
-			return [(this.title())];
-		}
-		host(){
-			return "";
-		}
-	};
-	($mol_mem(($.$mol_link_iconed.prototype), "Icon"));
-
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_link_iconed extends $.$mol_link_iconed {
-            icon() {
-                return `https://favicon.yandex.net/favicon/${this.host()}?color=0,0,0,0&size=32&stub=1`;
-            }
-            host() {
-                const base = this.$.$mol_state_arg.href();
-                const url = new URL(this.uri(), base);
-                return url.hostname;
-            }
-            title() {
-                const uri = this.uri();
-                const host = this.host();
-                const suffix = (host ? uri.split(this.host(), 2)[1] : uri)?.replace(/^[\/\?#!]+/, '');
-                return decodeURIComponent(suffix || host).replace(/^\//, ' ');
-            }
-            sub() {
-                return [
-                    ...this.host() ? [this.Icon()] : [],
-                    ...this.content() ? [' ', ...this.content()] : [],
-                ];
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_link_iconed.prototype, "icon", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link_iconed.prototype, "host", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link_iconed.prototype, "title", null);
-        __decorate([
-            $mol_mem
-        ], $mol_link_iconed.prototype, "sub", null);
-        $$.$mol_link_iconed = $mol_link_iconed;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/link/iconed/iconed.view.css", "[mol_link_iconed] {\n\talign-items: baseline;\n\tdisplay: inline-flex;\n\tpadding: var(--mol_gap_text);\n}\n\n[mol_link_iconed_icon] {\n\tbox-shadow: none;\n\theight: 1.5em;\n\twidth: 1em;\n\tflex: 0 0 auto;\n\tdisplay: inline-block;\n\talign-self: normal;\n\tvertical-align: top;\n\tborder-radius: 0;\n\tobject-fit: scale-down;\n\topacity: .75;\n}\n\n[mol_theme=\"$mol_theme_dark\"] [mol_link_iconed_icon] {\n\tfilter: var(--mol_theme_image);\n}\n");
-})($ || ($ = {}));
-
-;
 	($.$mol_book2) = class $mol_book2 extends ($.$mol_scroll) {
 		pages(){
 			return [];
@@ -9005,6 +9005,15 @@ var $;
 			const obj = new this.$.$mol_theme_auto();
 			return obj;
 		}
+		Source(){
+			const obj = new this.$.$mol_link_source();
+			(obj.uri) = () => ("https://github.com/hyoo-ru/lingua.hyoo.ru");
+			return obj;
+		}
+		Lights(){
+			const obj = new this.$.$mol_lights_toggle();
+			return obj;
+		}
 		Native_copy(){
 			const obj = new this.$.$mol_button_copy();
 			(obj.text) = () => ((this.native_text()));
@@ -9042,6 +9051,41 @@ var $;
 			(obj.sub) = () => ([(this.Foreign_translate_icon())]);
 			return obj;
 		}
+		Native_tools(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.Native_copy()), 
+				(this.Native_lang()), 
+				(this.Foreign_translate())
+			]);
+			return obj;
+		}
+		alt_title(id){
+			return "";
+		}
+		native_alt_link(id){
+			return "";
+		}
+		Native_alt_link(id){
+			const obj = new this.$.$mol_link_iconed();
+			(obj.title) = () => ("");
+			(obj.hint) = () => ((this.alt_title(id)));
+			(obj.uri) = () => ((this.native_alt_link(id)));
+			return obj;
+		}
+		native_alt_list(){
+			return [(this.Native_alt_link("0"))];
+		}
+		Native_alt_list(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ((this.native_alt_list()));
+			return obj;
+		}
+		Native_bar(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Native_tools()), (this.Native_alt_list())]);
+			return obj;
+		}
 		native_translate(next){
 			if(next !== undefined) return next;
 			return null;
@@ -9076,69 +9120,13 @@ var $;
 			(obj.text) = () => ((this.foreign_text()));
 			return obj;
 		}
-		Source(){
-			const obj = new this.$.$mol_link_source();
-			(obj.uri) = () => ("https://github.com/hyoo-ru/lingua.hyoo.ru");
-			return obj;
-		}
-		Lights(){
-			const obj = new this.$.$mol_lights_toggle();
-			return obj;
-		}
-		native_text(next){
-			if(next !== undefined) return next;
-			return "";
-		}
-		Native_text(){
-			const obj = new this.$.$mol_textarea();
-			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_lingua_app_Native_text_hint")));
-			(obj.value) = (next) => ((this.native_text(next)));
-			(obj.submit) = (next) => ((this.native_translate_activate(next)));
-			return obj;
-		}
-		alt_title(id){
-			return "";
-		}
-		native_alt_link(id){
-			return "";
-		}
-		Native_alt_link(id){
-			const obj = new this.$.$mol_link_iconed();
-			(obj.title) = () => ("");
-			(obj.hint) = () => ((this.alt_title(id)));
-			(obj.uri) = () => ((this.native_alt_link(id)));
-			return obj;
-		}
-		native_alt_list(){
-			return [(this.Native_alt_link("0"))];
-		}
-		Native_alt_list(){
+		Foreign_tools(){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ((this.native_alt_list()));
-			return obj;
-		}
-		Native_pane_content(){
-			const obj = new this.$.$mol_list();
-			(obj.rows) = () => ([(this.Native_text()), (this.Native_alt_list())]);
-			return obj;
-		}
-		Native_pane(){
-			const obj = new this.$.$mol_scroll();
-			(obj.sub) = () => ([(this.Native_pane_content())]);
-			return obj;
-		}
-		foreign_text(next){
-			if(next !== undefined) return next;
-			return "";
-		}
-		bring(){
-			return (this.Foreign_text().bring());
-		}
-		Foreign_text(){
-			const obj = new this.$.$mol_textarea();
-			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_lingua_app_Foreign_text_hint")));
-			(obj.value) = (next) => ((this.foreign_text(next)));
-			(obj.submit) = (next) => ((this.foreign_translate_activate(next)));
+			(obj.sub) = () => ([
+				(this.Native_translate()), 
+				(this.Foreign_lang()), 
+				(this.Foreign_copy())
+			]);
 			return obj;
 		}
 		foreign_alt_link(id){
@@ -9159,46 +9147,60 @@ var $;
 			(obj.sub) = () => ((this.foreign_alt_list()));
 			return obj;
 		}
-		Foreign_pane_content(){
-			const obj = new this.$.$mol_list();
-			(obj.rows) = () => ([(this.Foreign_text()), (this.Foreign_alt_list())]);
+		Foreign_bar(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Foreign_tools()), (this.Foreign_alt_list())]);
+			return obj;
+		}
+		native_text(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		Native_text(){
+			const obj = new this.$.$mol_textarea();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_lingua_app_Native_text_hint")));
+			(obj.value) = (next) => ((this.native_text(next)));
+			(obj.submit) = (next) => ((this.native_translate_activate(next)));
+			return obj;
+		}
+		Native_pane(){
+			const obj = new this.$.$mol_scroll();
+			(obj.sub) = () => ([(this.Native_text())]);
+			return obj;
+		}
+		foreign_text(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		bring(){
+			return (this.Foreign_text().bring());
+		}
+		Foreign_text(){
+			const obj = new this.$.$mol_textarea();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_lingua_app_Foreign_text_hint")));
+			(obj.value) = (next) => ((this.foreign_text(next)));
+			(obj.submit) = (next) => ((this.foreign_translate_activate(next)));
 			return obj;
 		}
 		Foreign_pane(){
 			const obj = new this.$.$mol_scroll();
-			(obj.sub) = () => ([(this.Foreign_pane_content())]);
+			(obj.sub) = () => ([(this.Foreign_text())]);
 			return obj;
 		}
 		title(){
 			return "$hyoo_lingua";
 		}
 		alt_services(){
-			return {
-				"Google": "https://translate.google.com/?sl=auto&tl={lang}&text={text}", 
-				"Yandex": "https://translate.yandex.ru/?target_lang={lang}&text={text}", 
-				"DeepL": "https://deepl.com/ru/translator//{text}/{lang}", 
-				"Bing": "https://www.bing.com/translator?to={lang}&text={text}"
-			};
+			return {"Google": "https://translate.google.com/?sl=auto&tl={lang}&text={text}", "Yandex": "https://translate.yandex.com/?target_lang={lang}&text={text}"};
 		}
 		plugins(){
 			return [(this.Theme())];
 		}
-		head(){
-			return [
-				(this.Native_copy()), 
-				(this.Native_lang()), 
-				(this.Foreign_translate()), 
-				(this.Native_translate()), 
-				(this.Foreign_lang()), 
-				(this.Foreign_copy())
-			];
+		tools(){
+			return [(this.Source()), (this.Lights())];
 		}
 		foot(){
-			return [
-				(this.Source()), 
-				(this.Title()), 
-				(this.Lights())
-			];
+			return [(this.Native_bar()), (this.Foreign_bar())];
 		}
 		Body(){
 			const obj = new this.$.$mol_book2();
@@ -9209,31 +9211,33 @@ var $;
 		}
 	};
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Theme"));
+	($mol_mem(($.$hyoo_lingua_app.prototype), "Source"));
+	($mol_mem(($.$hyoo_lingua_app.prototype), "Lights"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_copy"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "native_lang"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_lang"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "foreign_translate"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_translate_icon"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_translate"));
+	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_tools"));
+	($mol_mem_key(($.$hyoo_lingua_app.prototype), "Native_alt_link"));
+	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_alt_list"));
+	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_bar"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "native_translate"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_translate_icon"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_translate"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "foreign_lang"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_lang"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_copy"));
-	($mol_mem(($.$hyoo_lingua_app.prototype), "Source"));
-	($mol_mem(($.$hyoo_lingua_app.prototype), "Lights"));
+	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_tools"));
+	($mol_mem_key(($.$hyoo_lingua_app.prototype), "Foreign_alt_link"));
+	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_alt_list"));
+	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_bar"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "native_text"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_text"));
-	($mol_mem_key(($.$hyoo_lingua_app.prototype), "Native_alt_link"));
-	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_alt_list"));
-	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_pane_content"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Native_pane"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "foreign_text"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_text"));
-	($mol_mem_key(($.$hyoo_lingua_app.prototype), "Foreign_alt_link"));
-	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_alt_list"));
-	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_pane_content"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Foreign_pane"));
 	($mol_mem(($.$hyoo_lingua_app.prototype), "Body"));
 
@@ -9793,12 +9797,12 @@ var $;
             native_alt_link(service) {
                 return this.alt_services()[service]
                     .replace('{lang}', this.native_lang())
-                    .replace('{text}', this.foreign_text());
+                    .replace('{text}', encodeURIComponent(this.native_text()));
             }
             foreign_alt_link(service) {
                 return this.alt_services()[service]
                     .replace('{lang}', this.foreign_lang())
-                    .replace('{text}', this.native_text());
+                    .replace('{text}', encodeURIComponent(this.native_text()));
             }
         }
         __decorate([
@@ -9843,9 +9847,6 @@ var $;
     (function ($$) {
         const { rem } = $mol_style_unit;
         $mol_style_define($hyoo_lingua_app, {
-            Title: {
-                justifyContent: 'center',
-            },
             Native_translate: {
                 flex: {
                     basis: rem(2),
@@ -9873,18 +9874,47 @@ var $;
                     grow: 1,
                 },
             },
-            Native_pane_content: {
-                align: {
-                    self: 'stretch',
-                },
-            },
-            Foreign_pane_content: {
-                align: {
-                    self: 'stretch',
+            Foot: {
+                flex: {
+                    wrap: 'wrap',
                 },
             },
             Native_alt_list: {
                 direction: 'rtl',
+            },
+            Native_bar: {
+                flex: {
+                    wrap: 'wrap',
+                    basis: '50%',
+                    direction: 'row-reverse',
+                },
+                justify: {
+                    content: 'flex-end',
+                },
+            },
+            Foreign_bar: {
+                flex: {
+                    wrap: 'wrap',
+                    basis: '50%',
+                },
+                justify: {
+                    content: 'flex-end',
+                },
+            },
+            Native_tools: {
+                flex: {
+                    grow: 1,
+                    basis: '12rem',
+                },
+                justify: {
+                    content: 'flex-end',
+                },
+            },
+            Foreign_tools: {
+                flex: {
+                    grow: 1,
+                    basis: '12rem',
+                },
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
