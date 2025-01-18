@@ -2,66 +2,67 @@ $hyoo_lingua_app $mol_page
 	title \$hyoo_lingua
 	alt_services *string
 		Google \https://translate.google.com/?sl=auto&tl={lang}&text={text}
-		Yandex \https://translate.yandex.ru/?target_lang={lang}&text={text}
-		DeepL\https://deepl.com/ru/translator//{text}/{lang}
-		Bing \https://www.bing.com/translator?to={lang}&text={text}
+		Yandex \https://translate.yandex.com/?target_lang={lang}&text={text}
+		- DeepL \https://deepl.com/en/translator//{text}/{lang} && fails on dots
+		- Bing \https://www.bing.com/translator?to={lang}&text={text} && bad translation
 	plugins /
 		<= Theme $mol_theme_auto
-	head /
-		<= Native_copy $mol_button_copy
-			text <= native_text
-		<= Native_lang $mol_select
-			hint @ \Native Language
-			value? <=> native_lang? \ru
-			dictionary <= langs *
-		<= Foreign_translate $mol_button_minor
-			hint @ \Translate to Native
-			click? <=> foreign_translate? null
-			event_activate? => foreign_translate_activate?
-			sub /
-				<= Foreign_translate_icon $mol_icon_transfer_left
-		<= Native_translate $mol_button_minor
-			hint @ \Translate to Foreign
-			click? <=> native_translate? null
-			event_activate? => native_translate_activate?
-			sub /
-				<= Native_translate_icon $mol_icon_transfer_right
-		<= Foreign_lang $mol_select
-			hint @ \Foreign Language
-			value? <=> foreign_lang? \en
-			dictionary <= langs *
-		<= Foreign_copy $mol_button_copy
-			text <= foreign_text
-	foot /
+	tools /
 		<= Source $mol_link_source uri \https://github.com/hyoo-ru/lingua.hyoo.ru
-		<= Title
 		<= Lights $mol_lights_toggle
+	foot /
+		<= Native_bar $mol_view sub /
+			<= Native_tools $mol_view sub /
+				<= Native_copy $mol_button_copy
+					text <= native_text
+				<= Native_lang $mol_select
+					hint @ \Native Language
+					value? <=> native_lang? \ru
+					dictionary <= langs *
+				<= Foreign_translate $mol_button_minor
+					hint @ \Translate to Native
+					click? <=> foreign_translate? null
+					event_activate? => foreign_translate_activate?
+					sub /
+						<= Foreign_translate_icon $mol_icon_transfer_left
+			<= Native_alt_list $mol_view
+				sub <= native_alt_list /
+					<= Native_alt_link*0 $mol_link_iconed
+						title \
+						hint <= alt_title* \
+						uri <= native_alt_link* \
+		<= Foreign_bar $mol_view sub /
+			<= Foreign_tools $mol_view sub /
+				<= Native_translate $mol_button_minor
+					hint @ \Translate to Foreign
+					click? <=> native_translate? null
+					event_activate? => native_translate_activate?
+					sub /
+						<= Native_translate_icon $mol_icon_transfer_right
+				<= Foreign_lang $mol_select
+					hint @ \Foreign Language
+					value? <=> foreign_lang? \en
+					dictionary <= langs *
+				<= Foreign_copy $mol_button_copy
+					text <= foreign_text
+			<= Foreign_alt_list $mol_view
+				sub <= foreign_alt_list /
+					<= Foreign_alt_link*0 $mol_link_iconed
+						title \
+						hint <= alt_title* \
+						uri <= foreign_alt_link* \
 	Body $mol_book2
 		bring <= bring
 		Placeholder null
 		pages /
 			<= Native_pane $mol_scroll sub /
-				<= Native_pane_content $mol_list rows /
-					<= Native_text $mol_textarea
-						hint @ \native language 
-						value? <=> native_text? \
-						submit? <=> native_translate_activate?
-					<= Native_alt_list $mol_view
-						sub <= native_alt_list /
-							<= Native_alt_link*0 $mol_link_iconed
-								title \
-								hint <= alt_title* \
-								uri <= native_alt_link* \
+				<= Native_text $mol_textarea
+					hint @ \native language 
+					value? <=> native_text? \
+					submit? <=> native_translate_activate?
 			<= Foreign_pane $mol_scroll sub /
-				<= Foreign_pane_content $mol_list rows /
-					<= Foreign_text $mol_textarea
-						hint @ \foreign language text
-						value? <=> foreign_text? \
-						bring => bring
-						submit? <=> foreign_translate_activate?
-					<= Foreign_alt_list $mol_view
-						sub <= foreign_alt_list /
-							<= Foreign_alt_link*0 $mol_link_iconed
-								title \
-								hint <= alt_title* \
-								uri <= foreign_alt_link* \
+				<= Foreign_text $mol_textarea
+					hint @ \foreign language text
+					value? <=> foreign_text? \
+					bring => bring
+					submit? <=> foreign_translate_activate?

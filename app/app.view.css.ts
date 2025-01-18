@@ -4,10 +4,6 @@ namespace $.$$ {
 	
 	$mol_style_define( $hyoo_lingua_app, {
 		
-		Title: {
-			justifyContent: 'center',
-		},
-		
 		Native_translate: {
 			flex: {
 				basis: rem(2),
@@ -38,21 +34,53 @@ namespace $.$$ {
 				grow: 1,
 			},
 		},
-		
-		Native_pane_content: {
-			align: {
-				self: 'stretch',
-			},
-		},
-		
-		Foreign_pane_content: {
-			align: {
-				self: 'stretch',
+
+		Foot: {
+			flex: {
+				wrap: 'wrap',
 			},
 		},
 		
 		Native_alt_list: {
 			direction: 'rtl',
+		},
+
+		Native_bar: {
+			flex: {
+				wrap: 'wrap',
+				basis: '50%',
+				direction: 'row-reverse',
+			},
+			justify: {
+				content: 'flex-end',
+			},
+		},
+		
+		Foreign_bar: {
+			flex: {
+				wrap: 'wrap',
+				basis: '50%',
+			},
+			justify: {
+				content: 'flex-end',
+			},
+		},
+		
+		Native_tools: {
+			flex: {
+				grow: 1,
+				basis: '12rem',
+			},
+			justify: {
+				content: 'flex-end',
+			},
+		},
+		
+		Foreign_tools: {
+			flex: {
+				grow: 1,
+				basis: '12rem',
+			},
 		},
 		
 	} )

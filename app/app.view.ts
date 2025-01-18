@@ -61,14 +61,14 @@ namespace $.$$ {
 		native_alt_link( service: string ) {
 			return this.alt_services()[ service ]
 				.replace( '{lang}', this.native_lang() )
-				.replace( '{text}', this.foreign_text() )
+				.replace( '{text}', encodeURIComponent( this.native_text() ) )
 		}
 		
 		@ $mol_mem_key
 		foreign_alt_link( service: string ) {
 			return this.alt_services()[ service ]
 				.replace( '{lang}', this.foreign_lang() )
-				.replace( '{text}', this.native_text() )
+				.replace( '{text}', encodeURIComponent( this.native_text() ) )
 		}
 		
 	}
