@@ -7,12 +7,14 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		native_lang( next?: string ) {
-			return this.$.$mol_state_arg.value( 'native_lang', next ) ?? $mol_locale.lang()
+			const local = this.$.$mol_state_local.value( 'native_lang', next )
+			return this.$.$mol_state_arg.value( 'native_lang', next ) ?? local ?? $mol_locale.lang()
 		}
 		
 		@ $mol_mem
 		foreign_lang( next?: string ) {
-			return this.$.$mol_state_arg.value( 'foreign_lang', next ) ?? 'en'
+			const local = this.$.$mol_state_local.value( 'foreign_lang', next )
+			return this.$.$mol_state_arg.value( 'foreign_lang', next ) ?? local ?? 'en'
 		}
 		
 		@ $mol_mem

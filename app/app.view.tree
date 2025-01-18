@@ -1,5 +1,5 @@
 $hyoo_lingua_app $mol_page
-	title \Lingua Franca
+	title \$hyoo_lingua
 	plugins /
 		<= Theme $mol_theme_auto
 	head /
