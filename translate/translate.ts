@@ -22,7 +22,7 @@ namespace $ {
 			to: lang,
 			from: 'auto',
 			keepCurlyBraces: '1',
-		} ).trans,
+		} ).data.translations[0],
 		
 		// https://rapidapi.com/robust-api-robust-api-default/api/google-translate113
 		// 1k req/mon
@@ -54,7 +54,7 @@ namespace $ {
 			text,
 			target: lang,
 			source: 'auto',
-		} ).translation,
+		} ).translations.translation,
 		
 	] as readonly( ( $: $, lang: string, text: string )=> string )[]
 	
@@ -65,10 +65,16 @@ namespace $ {
 		const apis = $mol_array_shuffle_sync( $hyoo_lingua_translate_api )
 		for( const fetch of apis ) {
 			try {
-				return fetch( this, lang, text )
+
+				const res = fetch( this, lang, text )
+				if( res === undefined ) $mol_fail( new Error( 'Broken API' ) )
+				return res
+
 			} catch( error ) {
+
 				if( $mol_promise_like( error ) ) $mol_fail_hidden( error )
 				$mol_fail_log( error )
+
 			}
 		}
 		
