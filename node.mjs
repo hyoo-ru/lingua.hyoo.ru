@@ -9797,7 +9797,7 @@ var $;
             native_alt_link(service) {
                 return this.alt_services()[service]
                     .replace('{lang}', this.native_lang())
-                    .replace('{text}', encodeURIComponent(this.native_text()));
+                    .replace('{text}', encodeURIComponent(this.foreign_text()));
             }
             foreign_alt_link(service) {
                 return this.alt_services()[service]
