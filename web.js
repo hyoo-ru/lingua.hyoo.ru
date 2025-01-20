@@ -1164,12 +1164,12 @@ var $;
             if (pending)
                 pending();
             let tpl = '%c';
-            const chunks = Object.values(event);
+            const chunks = Object.entries(event);
             for (let i = 0; i < chunks.length; ++i) {
-                tpl += (typeof chunks[i] === 'string') ? ' ▫ %s' : ' ▫ %o';
+                tpl += (typeof chunks[i][1] === 'string') ? '%s: %s\n' : '%s: %o\n';
             }
             const style = `color:${color};font-weight:bolder`;
-            this.console[level](tpl, style, ...chunks);
+            this.console[level](tpl, style, ...[].concat(...chunks));
             const self = this;
             return () => self.console.groupEnd();
         };
@@ -8946,6 +8946,7 @@ var $;
     $.$mol_rapidapi_keys = [
         'ac9e15b3ffmsh0ca1100d872cde4p10d0a6jsn6d36584cc6c9',
         '35a6c33051mshcaec4228121469fp1309e2jsn59eaba641870',
+        '2yNSyKBbKsmshVi1ObCaUKWbgTdhp128lDAjsnLwyPk8ZqxN52',
     ];
     function $mol_rapidapi(name, path, query, body) {
         const url = new URL('?' + new URLSearchParams(query), `https://${name}.p.rapidapi.com/${path}`).toString();
