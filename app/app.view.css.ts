@@ -1,6 +1,7 @@
 namespace $.$$ {
 	
 	const {rem} = $mol_style_unit
+	const {calc} = $mol_style_func
 	
 	$mol_style_define( $hyoo_lingua_app, {
 		
@@ -57,7 +58,7 @@ namespace $.$$ {
 		Native_bar: {
 			flex: {
 				wrap: 'wrap',
-				basis: 'calc( 50% - var(--mol_gap_block) )',
+				basis: calc( `50% - var(--mol_gap_block)` ),
 				direction: 'row-reverse',
 			},
 			justify: {
