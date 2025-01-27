@@ -1,9 +1,10 @@
 {
+	"$hyoo_lingua_app_Clear_hint": "Стереть тексты",
 	"$hyoo_lingua_app_Foreign_lang_hint": "Чужой язык",
-	"$hyoo_lingua_app_Foreign_text_hint": "текст на чужом языке",
+	"$hyoo_lingua_app_Foreign_text_hint": "На чужом языке",
 	"$hyoo_lingua_app_Foreign_translate_hint": "Перевести на родной",
 	"$hyoo_lingua_app_Native_lang_hint": "Родной язык",
-	"$hyoo_lingua_app_Native_text_hint": "текст на родном языке",
+	"$hyoo_lingua_app_Native_text_hint": "На родном языке",
 	"$hyoo_lingua_app_Native_translate_hint": "Перевести на чужой",
 	"$mol_lights_toggle_hint": "Переключить освещение",
 	"$mol_link_source_hint": "Исходные коды",
