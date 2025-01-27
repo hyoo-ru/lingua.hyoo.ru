@@ -1144,59 +1144,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-
-	export class $mol_link extends $mol_view {
-		uri_toggle( ): string
-		hint( ): string
-		hint_safe( ): ReturnType< $mol_link['hint'] >
-		target( ): string
-		file_name( ): string
-		current( ): boolean
-		relation( ): string
-		event_click( next?: any ): any
-		click( next?: ReturnType< $mol_link['event_click'] > ): ReturnType< $mol_link['event_click'] >
-		uri( ): string
-		dom_name( ): string
-		uri_off( ): string
-		uri_native( ): any
-		external( ): boolean
-		attr( ): ({ 
-			'href': ReturnType< $mol_link['uri_toggle'] >,
-			'title': ReturnType< $mol_link['hint_safe'] >,
-			'target': ReturnType< $mol_link['target'] >,
-			'download': ReturnType< $mol_link['file_name'] >,
-			'mol_link_current': ReturnType< $mol_link['current'] >,
-			'rel': ReturnType< $mol_link['relation'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		sub( ): readonly($mol_view_content)[]
-		arg( ): Record<string, any>
-		event( ): ({ 
-			click( next?: ReturnType< $mol_link['click'] > ): ReturnType< $mol_link['click'] >,
-		})  & ReturnType< $mol_view['event'] >
-	}
-	
-}
-
-//# sourceMappingURL=link.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_link extends $.$mol_link {
-        uri_toggle(): string;
-        uri(): string;
-        uri_off(): string;
-        uri_native(): URL;
-        current(): boolean;
-        file_name(): string;
-        minimal_height(): number;
-        external(): boolean;
-        target(): '_self' | '_blank' | '_top' | '_parent' | string;
-        hint_safe(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_state_time extends $mol_object {
         static task(precision: number, reset?: null): $mol_after_timeout | $mol_after_frame;
         static now(precision: number): number;
@@ -1279,22 +1226,231 @@ declare namespace $ {
 //# sourceMappingURL=icon.view.tree.d.ts.map
 declare namespace $ {
 
-	export class $mol_icon_script extends $mol_icon {
+	export class $mol_icon_trash_can extends $mol_icon {
 		path( ): string
 	}
 	
 }
 
-//# sourceMappingURL=script.view.tree.d.ts.map
+//# sourceMappingURL=can.view.tree.d.ts.map
 declare namespace $ {
 
-	export class $mol_icon_script_text extends $mol_icon {
+	export class $mol_icon_trash_can_outline extends $mol_icon {
 		path( ): string
 	}
 	
 }
 
-//# sourceMappingURL=text.view.tree.d.ts.map
+//# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $ {
+    let $mol_layer: Record<"focus" | "float" | "hover" | "speck" | "popup", $mol_style_func<"var", unknown>>;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_speck extends $mol_view {
+		theme( ): string
+		value( ): any
+		attr( ): ({ 
+			'mol_theme': ReturnType< $mol_speck['theme'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		style( ): ({ 
+			'minHeight': string,
+		})  & ReturnType< $mol_view['style'] >
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=speck.view.tree.d.ts.map
+declare namespace $ {
+    enum $mol_keyboard_code {
+        backspace = 8,
+        tab = 9,
+        enter = 13,
+        shift = 16,
+        ctrl = 17,
+        alt = 18,
+        pause = 19,
+        capsLock = 20,
+        escape = 27,
+        space = 32,
+        pageUp = 33,
+        pageDown = 34,
+        end = 35,
+        home = 36,
+        left = 37,
+        up = 38,
+        right = 39,
+        down = 40,
+        insert = 45,
+        delete = 46,
+        key0 = 48,
+        key1 = 49,
+        key2 = 50,
+        key3 = 51,
+        key4 = 52,
+        key5 = 53,
+        key6 = 54,
+        key7 = 55,
+        key8 = 56,
+        key9 = 57,
+        A = 65,
+        B = 66,
+        C = 67,
+        D = 68,
+        E = 69,
+        F = 70,
+        G = 71,
+        H = 72,
+        I = 73,
+        J = 74,
+        K = 75,
+        L = 76,
+        M = 77,
+        N = 78,
+        O = 79,
+        P = 80,
+        Q = 81,
+        R = 82,
+        S = 83,
+        T = 84,
+        U = 85,
+        V = 86,
+        W = 87,
+        X = 88,
+        Y = 89,
+        Z = 90,
+        metaLeft = 91,
+        metaRight = 92,
+        select = 93,
+        numpad0 = 96,
+        numpad1 = 97,
+        numpad2 = 98,
+        numpad3 = 99,
+        numpad4 = 100,
+        numpad5 = 101,
+        numpad6 = 102,
+        numpad7 = 103,
+        numpad8 = 104,
+        numpad9 = 105,
+        multiply = 106,
+        add = 107,
+        subtract = 109,
+        decimal = 110,
+        divide = 111,
+        F1 = 112,
+        F2 = 113,
+        F3 = 114,
+        F4 = 115,
+        F5 = 116,
+        F6 = 117,
+        F7 = 118,
+        F8 = 119,
+        F9 = 120,
+        F10 = 121,
+        F11 = 122,
+        F12 = 123,
+        numLock = 144,
+        scrollLock = 145,
+        semicolon = 186,
+        equals = 187,
+        comma = 188,
+        dash = 189,
+        period = 190,
+        forwardSlash = 191,
+        graveAccent = 192,
+        bracketOpen = 219,
+        slashBack = 220,
+        slashBackLeft = 226,
+        bracketClose = 221,
+        quoteSingle = 222
+    }
+}
+
+declare namespace $ {
+
+	type $mol_speck__value_mol_button_1 = $mol_type_enforce<
+		ReturnType< $mol_button['error'] >
+		,
+		ReturnType< $mol_speck['value'] >
+	>
+	export class $mol_button extends $mol_view {
+		event_activate( next?: any ): any
+		clicks( next?: any ): any
+		event_key_press( next?: any ): any
+		disabled( ): boolean
+		tab_index( ): number
+		hint( ): string
+		hint_safe( ): ReturnType< $mol_button['hint'] >
+		error( ): string
+		enabled( ): boolean
+		click( next?: any ): any
+		event_click( next?: any ): any
+		event( ): ({ 
+			click( next?: ReturnType< $mol_button['event_activate'] > ): ReturnType< $mol_button['event_activate'] >,
+			dblclick( next?: ReturnType< $mol_button['clicks'] > ): ReturnType< $mol_button['clicks'] >,
+			keydown( next?: ReturnType< $mol_button['event_key_press'] > ): ReturnType< $mol_button['event_key_press'] >,
+		})  & ReturnType< $mol_view['event'] >
+		attr( ): ({ 
+			'disabled': ReturnType< $mol_button['disabled'] >,
+			'role': string,
+			'tabindex': ReturnType< $mol_button['tab_index'] >,
+			'title': ReturnType< $mol_button['hint_safe'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		sub( ): readonly($mol_view_content)[]
+		Speck( ): $mol_speck
+	}
+	
+}
+
+//# sourceMappingURL=button.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_button extends $.$mol_button {
+        status(next?: any[]): any[];
+        disabled(): boolean;
+        event_activate(next: Event): void;
+        event_key_press(event: KeyboardEvent): void;
+        tab_index(): number;
+        error(): string;
+        hint_safe(): string;
+        sub_visible(): ($mol_view_content | $mol_speck)[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_button_typed extends $mol_button {
+		minimal_height( ): number
+		minimal_width( ): number
+	}
+	
+}
+
+//# sourceMappingURL=typed.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_button_minor extends $mol_button_typed {
+	}
+	
+}
+
+//# sourceMappingURL=minor.view.tree.d.ts.map
 declare namespace $ {
     class $mol_lock extends $mol_object {
         protected promise: null | Promise<void>;
@@ -1515,6 +1671,77 @@ declare namespace $ {
 
 declare namespace $ {
 
+	export class $mol_link extends $mol_view {
+		uri_toggle( ): string
+		hint( ): string
+		hint_safe( ): ReturnType< $mol_link['hint'] >
+		target( ): string
+		file_name( ): string
+		current( ): boolean
+		relation( ): string
+		event_click( next?: any ): any
+		click( next?: ReturnType< $mol_link['event_click'] > ): ReturnType< $mol_link['event_click'] >
+		uri( ): string
+		dom_name( ): string
+		uri_off( ): string
+		uri_native( ): any
+		external( ): boolean
+		attr( ): ({ 
+			'href': ReturnType< $mol_link['uri_toggle'] >,
+			'title': ReturnType< $mol_link['hint_safe'] >,
+			'target': ReturnType< $mol_link['target'] >,
+			'download': ReturnType< $mol_link['file_name'] >,
+			'mol_link_current': ReturnType< $mol_link['current'] >,
+			'rel': ReturnType< $mol_link['relation'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		sub( ): readonly($mol_view_content)[]
+		arg( ): Record<string, any>
+		event( ): ({ 
+			click( next?: ReturnType< $mol_link['click'] > ): ReturnType< $mol_link['click'] >,
+		})  & ReturnType< $mol_view['event'] >
+	}
+	
+}
+
+//# sourceMappingURL=link.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_link extends $.$mol_link {
+        uri_toggle(): string;
+        uri(): string;
+        uri_off(): string;
+        uri_native(): URL;
+        current(): boolean;
+        file_name(): string;
+        minimal_height(): number;
+        external(): boolean;
+        target(): '_self' | '_blank' | '_top' | '_parent' | string;
+        hint_safe(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_icon_script extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=script.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_script_text extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=text.view.tree.d.ts.map
+declare namespace $ {
+
 	export class $mol_link_source extends $mol_link {
 		Icon( ): $mol_icon_script_text
 		hint( ): string
@@ -1524,215 +1751,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=source.view.tree.d.ts.map
-declare namespace $ {
-    let $mol_layer: Record<"focus" | "float" | "hover" | "speck" | "popup", $mol_style_func<"var", unknown>>;
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_speck extends $mol_view {
-		theme( ): string
-		value( ): any
-		attr( ): ({ 
-			'mol_theme': ReturnType< $mol_speck['theme'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		style( ): ({ 
-			'minHeight': string,
-		})  & ReturnType< $mol_view['style'] >
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=speck.view.tree.d.ts.map
-declare namespace $ {
-    enum $mol_keyboard_code {
-        backspace = 8,
-        tab = 9,
-        enter = 13,
-        shift = 16,
-        ctrl = 17,
-        alt = 18,
-        pause = 19,
-        capsLock = 20,
-        escape = 27,
-        space = 32,
-        pageUp = 33,
-        pageDown = 34,
-        end = 35,
-        home = 36,
-        left = 37,
-        up = 38,
-        right = 39,
-        down = 40,
-        insert = 45,
-        delete = 46,
-        key0 = 48,
-        key1 = 49,
-        key2 = 50,
-        key3 = 51,
-        key4 = 52,
-        key5 = 53,
-        key6 = 54,
-        key7 = 55,
-        key8 = 56,
-        key9 = 57,
-        A = 65,
-        B = 66,
-        C = 67,
-        D = 68,
-        E = 69,
-        F = 70,
-        G = 71,
-        H = 72,
-        I = 73,
-        J = 74,
-        K = 75,
-        L = 76,
-        M = 77,
-        N = 78,
-        O = 79,
-        P = 80,
-        Q = 81,
-        R = 82,
-        S = 83,
-        T = 84,
-        U = 85,
-        V = 86,
-        W = 87,
-        X = 88,
-        Y = 89,
-        Z = 90,
-        metaLeft = 91,
-        metaRight = 92,
-        select = 93,
-        numpad0 = 96,
-        numpad1 = 97,
-        numpad2 = 98,
-        numpad3 = 99,
-        numpad4 = 100,
-        numpad5 = 101,
-        numpad6 = 102,
-        numpad7 = 103,
-        numpad8 = 104,
-        numpad9 = 105,
-        multiply = 106,
-        add = 107,
-        subtract = 109,
-        decimal = 110,
-        divide = 111,
-        F1 = 112,
-        F2 = 113,
-        F3 = 114,
-        F4 = 115,
-        F5 = 116,
-        F6 = 117,
-        F7 = 118,
-        F8 = 119,
-        F9 = 120,
-        F10 = 121,
-        F11 = 122,
-        F12 = 123,
-        numLock = 144,
-        scrollLock = 145,
-        semicolon = 186,
-        equals = 187,
-        comma = 188,
-        dash = 189,
-        period = 190,
-        forwardSlash = 191,
-        graveAccent = 192,
-        bracketOpen = 219,
-        slashBack = 220,
-        slashBackLeft = 226,
-        bracketClose = 221,
-        quoteSingle = 222
-    }
-}
-
-declare namespace $ {
-
-	type $mol_speck__value_mol_button_1 = $mol_type_enforce<
-		ReturnType< $mol_button['error'] >
-		,
-		ReturnType< $mol_speck['value'] >
-	>
-	export class $mol_button extends $mol_view {
-		event_activate( next?: any ): any
-		clicks( next?: any ): any
-		event_key_press( next?: any ): any
-		disabled( ): boolean
-		tab_index( ): number
-		hint( ): string
-		hint_safe( ): ReturnType< $mol_button['hint'] >
-		error( ): string
-		enabled( ): boolean
-		click( next?: any ): any
-		event_click( next?: any ): any
-		event( ): ({ 
-			click( next?: ReturnType< $mol_button['event_activate'] > ): ReturnType< $mol_button['event_activate'] >,
-			dblclick( next?: ReturnType< $mol_button['clicks'] > ): ReturnType< $mol_button['clicks'] >,
-			keydown( next?: ReturnType< $mol_button['event_key_press'] > ): ReturnType< $mol_button['event_key_press'] >,
-		})  & ReturnType< $mol_view['event'] >
-		attr( ): ({ 
-			'disabled': ReturnType< $mol_button['disabled'] >,
-			'role': string,
-			'tabindex': ReturnType< $mol_button['tab_index'] >,
-			'title': ReturnType< $mol_button['hint_safe'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		sub( ): readonly($mol_view_content)[]
-		Speck( ): $mol_speck
-	}
-	
-}
-
-//# sourceMappingURL=button.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_button extends $.$mol_button {
-        status(next?: any[]): any[];
-        disabled(): boolean;
-        event_activate(next: Event): void;
-        event_key_press(event: KeyboardEvent): void;
-        tab_index(): number;
-        error(): string;
-        hint_safe(): string;
-        sub_visible(): ($mol_view_content | $mol_speck)[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_button_typed extends $mol_button {
-		minimal_height( ): number
-		minimal_width( ): number
-	}
-	
-}
-
-//# sourceMappingURL=typed.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_button_minor extends $mol_button_typed {
-	}
-	
-}
-
-//# sourceMappingURL=minor.view.tree.d.ts.map
 declare namespace $ {
 }
 
@@ -2699,6 +2717,18 @@ declare namespace $ {
 
 //# sourceMappingURL=left.view.tree.d.ts.map
 declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_button_major extends $mol_button_minor {
+		theme( ): string
+	}
+	
+}
+
+//# sourceMappingURL=major.view.tree.d.ts.map
+declare namespace $ {
 
 	export class $mol_image extends $mol_view {
 		uri( ): string
@@ -3500,208 +3530,226 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_link_source__uri_hyoo_lingua_app_1 = $mol_type_enforce<
+	type $mol_button_minor__hint_hyoo_lingua_app_1 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_minor['hint'] >
+	>
+	type $mol_button_minor__click_hyoo_lingua_app_2 = $mol_type_enforce<
+		ReturnType< $hyoo_lingua_app['clear'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub_hyoo_lingua_app_3 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_link_source__uri_hyoo_lingua_app_4 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_source['uri'] >
 	>
-	type $mol_button_copy__text_hyoo_lingua_app_2 = $mol_type_enforce<
+	type $mol_button_copy__text_hyoo_lingua_app_5 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_text'] >
 		,
 		ReturnType< $mol_button_copy['text'] >
 	>
-	type $mol_select__hint_hyoo_lingua_app_3 = $mol_type_enforce<
+	type $mol_select__hint_hyoo_lingua_app_6 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_select['hint'] >
 	>
-	type $mol_select__value_hyoo_lingua_app_4 = $mol_type_enforce<
+	type $mol_select__value_hyoo_lingua_app_7 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_lang'] >
 		,
 		ReturnType< $mol_select['value'] >
 	>
-	type $mol_select__dictionary_hyoo_lingua_app_5 = $mol_type_enforce<
+	type $mol_select__dictionary_hyoo_lingua_app_8 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['langs'] >
 		,
 		ReturnType< $mol_select['dictionary'] >
 	>
-	type __hyoo_lingua_app_6 = $mol_type_enforce<
+	type __hyoo_lingua_app_9 = $mol_type_enforce<
 		Parameters< $hyoo_lingua_app['foreign_translate_activate'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_lingua_app['Foreign_translate'] >['event_activate'] >[0]
 	>
-	type $mol_button_minor__hint_hyoo_lingua_app_7 = $mol_type_enforce<
+	type $mol_button_major__hint_hyoo_lingua_app_10 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_button_minor['hint'] >
+		ReturnType< $mol_button_major['hint'] >
 	>
-	type $mol_button_minor__click_hyoo_lingua_app_8 = $mol_type_enforce<
+	type $mol_button_major__click_hyoo_lingua_app_11 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_translate'] >
 		,
-		ReturnType< $mol_button_minor['click'] >
+		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_button_minor__sub_hyoo_lingua_app_9 = $mol_type_enforce<
+	type $mol_button_major__sub_hyoo_lingua_app_12 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_button_minor['sub'] >
+		ReturnType< $mol_button_major['sub'] >
 	>
-	type $mol_view__sub_hyoo_lingua_app_10 = $mol_type_enforce<
+	type $mol_view__sub_hyoo_lingua_app_13 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_link_iconed__title_hyoo_lingua_app_11 = $mol_type_enforce<
+	type $mol_link_iconed__title_hyoo_lingua_app_14 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_iconed['title'] >
 	>
-	type $mol_link_iconed__hint_hyoo_lingua_app_12 = $mol_type_enforce<
+	type $mol_link_iconed__hint_hyoo_lingua_app_15 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['alt_title'] >
 		,
 		ReturnType< $mol_link_iconed['hint'] >
 	>
-	type $mol_link_iconed__uri_hyoo_lingua_app_13 = $mol_type_enforce<
+	type $mol_link_iconed__uri_hyoo_lingua_app_16 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_alt_link'] >
 		,
 		ReturnType< $mol_link_iconed['uri'] >
 	>
-	type $mol_view__sub_hyoo_lingua_app_14 = $mol_type_enforce<
+	type $mol_view__sub_hyoo_lingua_app_17 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_alt_list'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_hyoo_lingua_app_15 = $mol_type_enforce<
+	type $mol_view__sub_hyoo_lingua_app_18 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type __hyoo_lingua_app_16 = $mol_type_enforce<
+	type __hyoo_lingua_app_19 = $mol_type_enforce<
 		Parameters< $hyoo_lingua_app['native_translate_activate'] >[0]
 		,
 		Parameters< ReturnType< $hyoo_lingua_app['Native_translate'] >['event_activate'] >[0]
 	>
-	type $mol_button_minor__hint_hyoo_lingua_app_17 = $mol_type_enforce<
+	type $mol_button_major__hint_hyoo_lingua_app_20 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_button_minor['hint'] >
+		ReturnType< $mol_button_major['hint'] >
 	>
-	type $mol_button_minor__click_hyoo_lingua_app_18 = $mol_type_enforce<
+	type $mol_button_major__click_hyoo_lingua_app_21 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_translate'] >
 		,
-		ReturnType< $mol_button_minor['click'] >
+		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_button_minor__sub_hyoo_lingua_app_19 = $mol_type_enforce<
+	type $mol_button_major__sub_hyoo_lingua_app_22 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_button_minor['sub'] >
+		ReturnType< $mol_button_major['sub'] >
 	>
-	type $mol_select__hint_hyoo_lingua_app_20 = $mol_type_enforce<
+	type $mol_select__hint_hyoo_lingua_app_23 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_select['hint'] >
 	>
-	type $mol_select__value_hyoo_lingua_app_21 = $mol_type_enforce<
+	type $mol_select__value_hyoo_lingua_app_24 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_lang'] >
 		,
 		ReturnType< $mol_select['value'] >
 	>
-	type $mol_select__dictionary_hyoo_lingua_app_22 = $mol_type_enforce<
+	type $mol_select__dictionary_hyoo_lingua_app_25 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['langs'] >
 		,
 		ReturnType< $mol_select['dictionary'] >
 	>
-	type $mol_button_copy__text_hyoo_lingua_app_23 = $mol_type_enforce<
+	type $mol_button_copy__text_hyoo_lingua_app_26 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_text'] >
 		,
 		ReturnType< $mol_button_copy['text'] >
 	>
-	type $mol_view__sub_hyoo_lingua_app_24 = $mol_type_enforce<
+	type $mol_view__sub_hyoo_lingua_app_27 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_link_iconed__title_hyoo_lingua_app_25 = $mol_type_enforce<
+	type $mol_link_iconed__title_hyoo_lingua_app_28 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_iconed['title'] >
 	>
-	type $mol_link_iconed__hint_hyoo_lingua_app_26 = $mol_type_enforce<
+	type $mol_link_iconed__hint_hyoo_lingua_app_29 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['alt_title'] >
 		,
 		ReturnType< $mol_link_iconed['hint'] >
 	>
-	type $mol_link_iconed__uri_hyoo_lingua_app_27 = $mol_type_enforce<
+	type $mol_link_iconed__uri_hyoo_lingua_app_30 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_alt_link'] >
 		,
 		ReturnType< $mol_link_iconed['uri'] >
 	>
-	type $mol_view__sub_hyoo_lingua_app_28 = $mol_type_enforce<
+	type $mol_view__sub_hyoo_lingua_app_31 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_alt_list'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_hyoo_lingua_app_29 = $mol_type_enforce<
+	type $mol_view__sub_hyoo_lingua_app_32 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_textarea__hint_hyoo_lingua_app_30 = $mol_type_enforce<
+	type $mol_textarea__hint_hyoo_lingua_app_33 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_textarea['hint'] >
 	>
-	type $mol_textarea__value_hyoo_lingua_app_31 = $mol_type_enforce<
+	type $mol_textarea__value_hyoo_lingua_app_34 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_text'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_textarea__submit_hyoo_lingua_app_32 = $mol_type_enforce<
+	type $mol_textarea__submit_hyoo_lingua_app_35 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['native_translate_activate'] >
 		,
 		ReturnType< $mol_textarea['submit'] >
 	>
-	type $mol_scroll__sub_hyoo_lingua_app_33 = $mol_type_enforce<
+	type $mol_scroll__sub_hyoo_lingua_app_36 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_scroll['sub'] >
 	>
-	type $mol_textarea__hint_hyoo_lingua_app_34 = $mol_type_enforce<
+	type $mol_textarea__hint_hyoo_lingua_app_37 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_textarea['hint'] >
 	>
-	type $mol_textarea__value_hyoo_lingua_app_35 = $mol_type_enforce<
+	type $mol_textarea__value_hyoo_lingua_app_38 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_text'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_textarea__submit_hyoo_lingua_app_36 = $mol_type_enforce<
+	type $mol_textarea__submit_hyoo_lingua_app_39 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['foreign_translate_activate'] >
 		,
 		ReturnType< $mol_textarea['submit'] >
 	>
-	type $mol_scroll__sub_hyoo_lingua_app_37 = $mol_type_enforce<
+	type $mol_scroll__sub_hyoo_lingua_app_40 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_scroll['sub'] >
 	>
-	type $mol_book2__bring_hyoo_lingua_app_38 = $mol_type_enforce<
+	type $mol_book2__bring_hyoo_lingua_app_41 = $mol_type_enforce<
 		ReturnType< $hyoo_lingua_app['bring'] >
 		,
 		ReturnType< $mol_book2['bring'] >
 	>
-	type $mol_book2__Placeholder_hyoo_lingua_app_39 = $mol_type_enforce<
+	type $mol_book2__Placeholder_hyoo_lingua_app_42 = $mol_type_enforce<
 		any
 		,
 		ReturnType< $mol_book2['Placeholder'] >
 	>
-	type $mol_book2__pages_hyoo_lingua_app_40 = $mol_type_enforce<
+	type $mol_book2__pages_hyoo_lingua_app_43 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_book2['pages'] >
 	>
 	export class $hyoo_lingua_app extends $mol_page {
 		Theme( ): $mol_theme_auto
+		clear( next?: any ): any
+		Clear_icon( ): $mol_icon_trash_can_outline
+		Clear( ): $mol_button_minor
 		Source( ): $mol_link_source
 		Lights( ): $mol_lights_toggle
 		Native_copy( ): $mol_button_copy
@@ -3711,7 +3759,7 @@ declare namespace $ {
 		foreign_translate( next?: any ): any
 		foreign_translate_activate( next?: ReturnType< ReturnType< $hyoo_lingua_app['Foreign_translate'] >['event_activate'] > ): ReturnType< ReturnType< $hyoo_lingua_app['Foreign_translate'] >['event_activate'] >
 		Foreign_translate_icon( ): $mol_icon_transfer_left
-		Foreign_translate( ): $mol_button_minor
+		Foreign_translate( ): $mol_button_major
 		Native_tools( ): $mol_view
 		alt_title( id: any): string
 		native_alt_link( id: any): string
@@ -3722,7 +3770,7 @@ declare namespace $ {
 		native_translate( next?: any ): any
 		native_translate_activate( next?: ReturnType< ReturnType< $hyoo_lingua_app['Native_translate'] >['event_activate'] > ): ReturnType< ReturnType< $hyoo_lingua_app['Native_translate'] >['event_activate'] >
 		Native_translate_icon( ): $mol_icon_transfer_right
-		Native_translate( ): $mol_button_minor
+		Native_translate( ): $mol_button_major
 		foreign_lang( next?: string ): string
 		Foreign_lang( ): $mol_select
 		Foreign_copy( ): $mol_button_copy
@@ -3948,6 +3996,7 @@ declare namespace $.$$ {
         alt_title(service: string): string;
         native_alt_link(service: string): string;
         foreign_alt_link(service: string): string;
+        clear(): void;
     }
 }
 
