@@ -71,5 +71,10 @@ namespace $.$$ {
 				.replace( '{text}', encodeURIComponent( this.native_text() ) )
 		}
 		
+		clear() {
+			this.native_text( '' )
+			this.foreign_text( '' )
+		}
+		
 	}
 }

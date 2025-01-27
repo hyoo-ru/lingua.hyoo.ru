@@ -34,10 +34,19 @@ namespace $.$$ {
 				grow: 1,
 			},
 		},
+		
+		Body: {
+			flex: {
+				grow: 0,
+			},
+		},
 
 		Foot: {
 			flex: {
 				wrap: 'wrap',
+			},
+			justify: {
+				content: 'space-between',
 			},
 		},
 		
@@ -48,7 +57,7 @@ namespace $.$$ {
 		Native_bar: {
 			flex: {
 				wrap: 'wrap',
-				basis: '50%',
+				basis: 'calc( 50% - var(--mol_gap_block) )',
 				direction: 'row-reverse',
 			},
 			justify: {
@@ -59,7 +68,7 @@ namespace $.$$ {
 		Foreign_bar: {
 			flex: {
 				wrap: 'wrap',
-				basis: '50%',
+				basis: 'calc( 50% - var(--mol_gap_block) )',
 			},
 			justify: {
 				content: 'flex-end',
