@@ -69,7 +69,7 @@ namespace $.$$ {
 		Foreign_bar: {
 			flex: {
 				wrap: 'wrap',
-				basis: 'calc( 50% - var(--mol_gap_block) )',
+				basis: calc( `50% - var(--mol_gap_block)` ),
 			},
 			justify: {
 				content: 'flex-end',
