@@ -2,7 +2,7 @@ namespace $.$$ {
 	export class $hyoo_lingua_app extends $.$hyoo_lingua_app {
 		
 		langs() {
-			return this.$.$mol_lang_iso639
+			return this.$.$hyoo_lingua_langs
 		}
 		
 		@ $mol_mem
