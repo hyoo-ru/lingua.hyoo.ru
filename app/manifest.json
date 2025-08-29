@@ -1,6 +1,6 @@
 {
-	"short_name": "Lingua",
-	"name": "$hyoo_lingua",
+	"short_name": "HD Translator",
+	"name": "Hyper Translator",
 	"icons": [
 		{
 			"src": "../../../hyoo/lingua/logo/logo.png",
