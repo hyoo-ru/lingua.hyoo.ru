@@ -3552,16 +3552,85 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_array_lottery<Value>(list: readonly Value[]): Value;
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
 }
 
 declare namespace $ {
-    let $mol_array_lottery_sync: typeof $mol_array_lottery;
+    type $mol_type_partial_undefined<Val> = $mol_type_merge<$mol_type_override<Partial<Val>, Pick<Val, {
+        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
+    }[keyof Val]>>>;
 }
 
 declare namespace $ {
-    const $mol_rapidapi_keys: string[];
-    function $mol_rapidapi(this: $, name: string, path: string, query: Record<string, string>, body?: any): any;
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_data_record<Sub extends Record<string, $mol_data_value>>(sub: Sub): ((val: $mol_type_merge<$mol_type_override<Partial<{ [key in keyof Sub]: Parameters<Sub[key]>[0]; }>, Pick<{ [key in keyof Sub]: Parameters<Sub[key]>[0]; }, { [Field in keyof { [key in keyof Sub]: Parameters<Sub[key]>[0]; }]: undefined extends { [key in keyof Sub]: Parameters<Sub[key]>[0]; }[Field] ? never : Field; }[keyof Sub]>>>) => Readonly<$mol_type_merge<$mol_type_override<Partial<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }>, Pick<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }, { [Field_1 in keyof { [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }]: undefined extends { [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }[Field_1] ? never : Field_1; }[keyof Sub]>>>>) & {
+        config: Sub;
+        Value: Readonly<$mol_type_merge<$mol_type_override<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }>, Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, { [Field in keyof { [key in keyof Sub]: ReturnType<Sub[key]>; }]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; }[keyof Sub]>>>>;
+    };
+}
+
+declare namespace $ {
+    class $mol_error_mix<Cause extends {} = {}> extends AggregateError {
+        readonly cause: Cause;
+        name: string;
+        constructor(message: string, cause?: Cause, ...errors: readonly Error[]);
+        static [Symbol.toPrimitive](): string;
+        static toString(): string;
+        static make(...params: ConstructorParameters<typeof $mol_error_mix>): $mol_error_mix<{}>;
+    }
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    function $mol_data_const<const Val>(ref: Val): ((val: Val) => Val) & {
+        config: Val;
+        Value: Val;
+    };
+}
+
+declare namespace $ {
+    let $mol_data_string: (val: string) => string;
+}
+
+declare namespace $ {
+    function $mol_data_nullable<Sub extends $mol_data_value>(sub: Sub): ((val: Parameters<Sub>[0] | null) => ReturnType<Sub> | null) & {
+        config: Sub;
+        Value: ReturnType<Sub> | null;
+    };
+}
+
+declare namespace $ {
+    function $mol_data_optional<Sub extends $mol_data_value, Fallback extends undefined | (() => ReturnType<Sub>)>(sub: Sub, fallback?: Fallback): ((val: Parameters<Sub>[0] | undefined) => ReturnType<Sub> | (Fallback extends undefined ? undefined : ReturnType<Extract<Fallback, () => any>>)) & {
+        config: {
+            sub: Sub;
+            fallback: Fallback | undefined;
+        };
+        Value: ReturnType<Sub> | (Fallback extends undefined ? undefined : ReturnType<Extract<Fallback, () => any>>);
+    };
+}
+
+declare namespace $ {
+    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][]) => readonly ReturnType<Sub>[]) & {
+        config: Sub;
+        Value: readonly ReturnType<Sub>[];
+    };
+}
+
+declare namespace $ {
+    function $mol_data_variant<Sub extends $mol_data_value[]>(...sub: Sub): ((val: Parameters<Sub[number]>[0]) => ReturnType<Sub[number]>) & {
+        config: Sub;
+        Value: ReturnType<Sub[number]>;
+    };
 }
 
 declare namespace $ {
@@ -3570,6 +3639,325 @@ declare namespace $ {
 
 declare namespace $ {
     let $mol_array_shuffle_sync: typeof $mol_array_shuffle;
+}
+
+declare namespace $ {
+    export const $mol_github_model_keys: string[];
+    export const $mol_github_model_polyglots: string[];
+    const Message: ((val: {
+        tool_calls?: readonly {
+            function: {
+                name: string;
+                arguments: string;
+            };
+            id: string;
+            type: "function";
+        }[] | undefined;
+        role: "assistant";
+        content: string | null;
+    } | {
+        role: "user";
+        content: string;
+    } | {
+        role: "tool";
+        content: string;
+        tool_call_id: string;
+    }) => Readonly<{
+        tool_calls?: readonly Readonly<{
+            function: Readonly<{
+                name: string;
+                arguments: string;
+            }>;
+            id: string;
+            type: "function";
+        }>[] | undefined;
+        role: "assistant";
+        content: string | null;
+    }> | Readonly<{
+        role: "user";
+        content: string;
+    }> | Readonly<{
+        role: "tool";
+        content: string;
+        tool_call_id: string;
+    }>) & {
+        config: [((val: {
+            tool_calls?: readonly {
+                function: {
+                    name: string;
+                    arguments: string;
+                };
+                id: string;
+                type: "function";
+            }[] | undefined;
+            role: "assistant";
+            content: string | null;
+        }) => Readonly<{
+            tool_calls?: readonly Readonly<{
+                function: Readonly<{
+                    name: string;
+                    arguments: string;
+                }>;
+                id: string;
+                type: "function";
+            }>[] | undefined;
+            role: "assistant";
+            content: string | null;
+        }>) & {
+            config: {
+                role: ((val: "assistant") => "assistant") & {
+                    config: "assistant";
+                    Value: "assistant";
+                };
+                content: ((val: string | null) => string | null) & {
+                    config: (val: string) => string;
+                    Value: string | null;
+                };
+                tool_calls: ((val: readonly {
+                    function: {
+                        name: string;
+                        arguments: string;
+                    };
+                    id: string;
+                    type: "function";
+                }[] | undefined) => readonly Readonly<{
+                    function: Readonly<{
+                        name: string;
+                        arguments: string;
+                    }>;
+                    id: string;
+                    type: "function";
+                }>[] | undefined) & {
+                    config: {
+                        sub: ((val: readonly {
+                            function: {
+                                name: string;
+                                arguments: string;
+                            };
+                            id: string;
+                            type: "function";
+                        }[]) => readonly Readonly<{
+                            function: Readonly<{
+                                name: string;
+                                arguments: string;
+                            }>;
+                            id: string;
+                            type: "function";
+                        }>[]) & {
+                            config: ((val: {
+                                function: {
+                                    name: string;
+                                    arguments: string;
+                                };
+                                id: string;
+                                type: "function";
+                            }) => Readonly<{
+                                function: Readonly<{
+                                    name: string;
+                                    arguments: string;
+                                }>;
+                                id: string;
+                                type: "function";
+                            }>) & {
+                                config: {
+                                    type: ((val: "function") => "function") & {
+                                        config: "function";
+                                        Value: "function";
+                                    };
+                                    id: (val: string) => string;
+                                    function: ((val: {
+                                        name: string;
+                                        arguments: string;
+                                    }) => Readonly<{
+                                        name: string;
+                                        arguments: string;
+                                    }>) & {
+                                        config: {
+                                            name: (val: string) => string;
+                                            arguments: (val: string) => string;
+                                        };
+                                        Value: Readonly<{
+                                            name: string;
+                                            arguments: string;
+                                        }>;
+                                    };
+                                };
+                                Value: Readonly<{
+                                    function: Readonly<{
+                                        name: string;
+                                        arguments: string;
+                                    }>;
+                                    id: string;
+                                    type: "function";
+                                }>;
+                            };
+                            Value: readonly Readonly<{
+                                function: Readonly<{
+                                    name: string;
+                                    arguments: string;
+                                }>;
+                                id: string;
+                                type: "function";
+                            }>[];
+                        };
+                        fallback: (() => readonly Readonly<{
+                            function: Readonly<{
+                                name: string;
+                                arguments: string;
+                            }>;
+                            id: string;
+                            type: "function";
+                        }>[]) | undefined;
+                    };
+                    Value: readonly Readonly<{
+                        function: Readonly<{
+                            name: string;
+                            arguments: string;
+                        }>;
+                        id: string;
+                        type: "function";
+                    }>[] | undefined;
+                };
+            };
+            Value: Readonly<{
+                tool_calls?: readonly Readonly<{
+                    function: Readonly<{
+                        name: string;
+                        arguments: string;
+                    }>;
+                    id: string;
+                    type: "function";
+                }>[] | undefined;
+                role: "assistant";
+                content: string | null;
+            }>;
+        }, ((val: {
+            role: "user";
+            content: string;
+        }) => Readonly<{
+            role: "user";
+            content: string;
+        }>) & {
+            config: {
+                role: ((val: "user") => "user") & {
+                    config: "user";
+                    Value: "user";
+                };
+                content: (val: string) => string;
+            };
+            Value: Readonly<{
+                role: "user";
+                content: string;
+            }>;
+        }, ((val: {
+            role: "tool";
+            content: string;
+            tool_call_id: string;
+        }) => Readonly<{
+            role: "tool";
+            content: string;
+            tool_call_id: string;
+        }>) & {
+            config: {
+                role: ((val: "tool") => "tool") & {
+                    config: "tool";
+                    Value: "tool";
+                };
+                tool_call_id: (val: string) => string;
+                content: (val: string) => string;
+            };
+            Value: Readonly<{
+                role: "tool";
+                content: string;
+                tool_call_id: string;
+            }>;
+        }];
+        Value: Readonly<{
+            tool_calls?: readonly Readonly<{
+                function: Readonly<{
+                    name: string;
+                    arguments: string;
+                }>;
+                id: string;
+                type: "function";
+            }>[] | undefined;
+            role: "assistant";
+            content: string | null;
+        }> | Readonly<{
+            role: "user";
+            content: string;
+        }> | Readonly<{
+            role: "tool";
+            content: string;
+            tool_call_id: string;
+        }>;
+    };
+    type Primitive<Type extends 'string' | 'number' | 'integer' | 'boolean'> = Readonly<{
+        type: Type;
+        enum?: Type[];
+    }>;
+    type Obj<Params extends Record<string, Type>> = Readonly<{
+        type: 'object';
+        parameters: Params;
+        required: keyof Params;
+    }>;
+    type List<Item extends Type> = Readonly<{
+        type: 'array';
+        items: Item;
+    }>;
+    type Type = Obj<any> | List<any> | Primitive<any>;
+    export class $mol_github_model extends $mol_object {
+        names(): string[];
+        rules(): string;
+        tools(): Map<string, {
+            descr: string;
+            params: Obj<any>;
+            func: Function;
+        }>;
+        params(next?: {}): {};
+        history(next?: typeof Message.Value[]): (Readonly<{
+            tool_calls?: readonly Readonly<{
+                function: Readonly<{
+                    name: string;
+                    arguments: string;
+                }>;
+                id: string;
+                type: "function";
+            }>[] | undefined;
+            role: "assistant";
+            content: string | null;
+        }> | Readonly<{
+            role: "user";
+            content: string;
+        }> | Readonly<{
+            role: "tool";
+            content: string;
+            tool_call_id: string;
+        }>)[];
+        fork(): $mol_github_model;
+        shot(prompt: any, params?: {}): any;
+        ask(text: any): this;
+        answer(id: string, data: any): this;
+        request_body(model: string): string;
+        request(model: string, key: string): Readonly<{
+            choices: readonly Readonly<{
+                message: Readonly<{
+                    tool_calls?: readonly Readonly<{
+                        function: Readonly<{
+                            name: string;
+                            arguments: string;
+                        }>;
+                        id: string;
+                        type: "function";
+                    }>[] | undefined;
+                    role: "assistant";
+                    content: string | null;
+                }>;
+            }>[];
+        }>;
+        response(): any;
+    }
+    export {};
 }
 
 declare namespace $ {

@@ -9807,19 +9807,162 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
-    function $mol_array_lottery(list) {
-        return list[Math.floor(Math.random() * list.length)];
+    function $mol_data_setup(value, config) {
+        return Object.assign(value, {
+            config,
+            Value: null
+        });
     }
-    $.$mol_array_lottery = $mol_array_lottery;
+    $.$mol_data_setup = $mol_data_setup;
 })($ || ($ = {}));
 
 ;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_array_lottery_sync = $mol_wire_sync($mol_array_lottery);
+    function $mol_data_record(sub) {
+        return $mol_data_setup((val) => {
+            let res = {};
+            for (const field in sub) {
+                try {
+                    res[field] =
+                        sub[field](val[field]);
+                }
+                catch (error) {
+                    if (error instanceof Promise)
+                        return $mol_fail_hidden(error);
+                    error.message = `[${JSON.stringify(field)}] ${error.message}`;
+                    return $mol_fail(error);
+                }
+            }
+            return res;
+        }, sub);
+    }
+    $.$mol_data_record = $mol_data_record;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_data_error extends $mol_error_mix {
+    }
+    $.$mol_data_error = $mol_data_error;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_const(ref) {
+        return $mol_data_setup((val) => {
+            if ($mol_compare_deep(val, ref))
+                return ref;
+            return $mol_fail(new $mol_data_error(`${JSON.stringify(val)} is not ${JSON.stringify(ref)}`));
+        }, ref);
+    }
+    $.$mol_data_const = $mol_data_const;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_data_string = (val) => {
+        if (typeof val === 'string')
+            return val;
+        return $mol_fail(new $mol_data_error(`${val} is not a string`));
+    };
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_nullable(sub) {
+        return $mol_data_setup((val) => {
+            if (val === null)
+                return null;
+            return sub(val);
+        }, sub);
+    }
+    $.$mol_data_nullable = $mol_data_nullable;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_optional(sub, fallback) {
+        return $mol_data_setup((val) => {
+            if (val === undefined) {
+                return fallback?.();
+            }
+            return sub(val);
+        }, { sub, fallback });
+    }
+    $.$mol_data_optional = $mol_data_optional;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_array(sub) {
+        return $mol_data_setup((val) => {
+            if (!Array.isArray(val))
+                return $mol_fail(new $mol_data_error(`${val} is not an array`));
+            return val.map((item, index) => {
+                try {
+                    return sub(item);
+                }
+                catch (error) {
+                    if (error instanceof Promise)
+                        return $mol_fail_hidden(error);
+                    error.message = `[${index}] ${error.message}`;
+                    return $mol_fail(error);
+                }
+            });
+        }, sub);
+    }
+    $.$mol_data_array = $mol_data_array;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_variant(...sub) {
+        return $mol_data_setup((val) => {
+            const errors = [];
+            for (const type of sub) {
+                let hidden = $.$mol_fail_hidden;
+                try {
+                    $.$mol_fail = $.$mol_fail_hidden;
+                    return type(val);
+                }
+                catch (error) {
+                    $.$mol_fail = hidden;
+                    if (error instanceof $mol_data_error) {
+                        errors.push(error);
+                    }
+                    else {
+                        return $mol_fail_hidden(error);
+                    }
+                }
+            }
+            return $mol_fail(new $mol_data_error(`${val} is not any of variants`, {}, ...errors));
+        }, sub);
+    }
+    $.$mol_data_variant = $mol_data_variant;
 })($ || ($ = {}));
 
 ;
@@ -9997,29 +10140,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_rapidapi_keys = [
-        'ac9e15b3ffmsh0ca1100d872cde4p10d0a6jsn6d36584cc6c9',
-        '35a6c33051mshcaec4228121469fp1309e2jsn59eaba641870',
-        '2yNSyKBbKsmshVi1ObCaUKWbgTdhp128lDAjsnLwyPk8ZqxN52',
-    ];
-    function $mol_rapidapi(name, path, query, body) {
-        const url = new URL('?' + new URLSearchParams(query), `https://${name}.p.rapidapi.com/${path}`).toString();
-        const headers = {
-            'x-rapidapi-key': $mol_array_lottery_sync($.$mol_rapidapi_keys),
-            'Content-Type': body instanceof URLSearchParams ? 'application/x-www-form-urlencoded' : 'application/json'
-        };
-        const method = body ? 'POST' : 'GET';
-        if (body && !(body instanceof URLSearchParams))
-            body = JSON.stringify(body);
-        return this.$mol_fetch.json(url, { method, headers, body });
-    }
-    $.$mol_rapidapi = $mol_rapidapi;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
     function $mol_array_shuffle(array) {
         const res = array.slice();
         for (let index = res.length - 1; index > 0; index--) {
@@ -10043,39 +10163,217 @@ var $;
 ;
 "use strict";
 var $;
+(function ($) {
+    $.$mol_github_model_keys = [
+        '11AADME3A07jh1teLjee8r_O7MKyAF8rbdIlhk4OwsJHaCnh4CjDNxn1nLNAvW2Hy6OSTIYABWQyp0rOHt',
+        '11AADME3A0q6w8EFz9G9aa_byqEpTuWUa63PKoSAwN1eVi2GyGJ4SxYhm9OhAc2DCTANK2ULBQpQgUu6D9',
+        '11AADME3A0RsfJpmuZfl4r_Nw6G3v7vDgnrqDxmlgF6Gyj9YawDfTqatNUxhwPjzWwYYGIORGETiUtMOmR',
+        '11AADME3A0meTYzVZaOtJF_LrdN2tIDycZHDBN3560V3S2ZWpo07uATZON0XUYF2ZFFC3X2OHSwdUcVfUe',
+        '11AADME3A0myGzFwrNHkV0_InRujMNsqM7cLUWDvKCW5GRy2waC7fHXuSJdzW0mrwvX7VP4I2MoGXRXF6w',
+        '11AADME3A0LF4GM8Qam5xH_LFLHQqgcmudC8eyKLEqc4l5xDPcplSxAcEA3j8BO4MYTAE6FOROqFIuhGfR',
+        '11AADME3A0KUqaRrYVSMzf_rYLJd83byQ1HN8KOIzVnHPBvW6VPei911NJgPucm1hRETR55VB3mdyw2ezI',
+        '11AADME3A0exOKaaQLYR2b_2JKJDHVAWxoqRPlGcugBHNapcZWT9awRic8iBmgOirXRVC5X7ILtz6KDffv',
+        '11AADME3A071WbELDi8THV_v3dkQtbYpSGjUXeWT6dAiPBf5a5b0KDr0E029T6P4CsZOOYO3DPpopBkodL',
+        '11AADME3A0L5oFWUKk62fr_Dcbcn1ZcNBwWaLfbHzlgueGcxBEO5FoOieoowhJ6Q1zIWIIYZBG7XI16O4H',
+    ].map(str => `github_pat_${str}`);
+    $.$mol_github_model_polyglots = [
+        'openai/gpt-4.1-mini',
+        'openai/gpt-4o-mini',
+        'openai/gpt-4.1-nano',
+        'microsoft/Phi-4-mini-instruct',
+        'openai/gpt-4.1',
+        'openai/gpt-4o',
+    ];
+    const System = $mol_data_record({
+        role: $mol_data_const('system'),
+        content: $mol_data_string,
+    });
+    const Assistant = $mol_data_record({
+        role: $mol_data_const('assistant'),
+        content: $mol_data_nullable($mol_data_string),
+        tool_calls: $mol_data_optional($mol_data_array($mol_data_record({
+            type: $mol_data_const('function'),
+            id: $mol_data_string,
+            function: $mol_data_record({
+                name: $mol_data_string,
+                arguments: $mol_data_string,
+            }),
+        }))),
+    });
+    const User = $mol_data_record({
+        role: $mol_data_const('user'),
+        content: $mol_data_string,
+    });
+    const Tool = $mol_data_record({
+        role: $mol_data_const('tool'),
+        tool_call_id: $mol_data_string,
+        content: $mol_data_string,
+    });
+    const Message = $mol_data_variant(Assistant, User, Tool);
+    const Resp = $mol_data_record({
+        choices: $mol_data_array($mol_data_record({
+            message: Assistant,
+        })),
+    });
+    class $mol_github_model extends $mol_object {
+        names() {
+            return this.$.$mol_github_model_polyglots;
+        }
+        rules() {
+            return '';
+        }
+        tools() {
+            return new Map();
+        }
+        params(next) {
+            $mol_wire_solid();
+            return next ?? {};
+        }
+        history(next) {
+            $mol_wire_solid();
+            return next ?? [];
+        }
+        fork() {
+            const fork = $mol_github_model.make({
+                names: $mol_const(this.names()),
+                rules: $mol_const(this.rules()),
+                tools: $mol_const(this.tools()),
+            });
+            fork.params(this.params());
+            fork.history(this.history());
+            return fork;
+        }
+        shot(prompt, params) {
+            const fork = this.fork();
+            if (params)
+                fork.params({ ...this.params(), ...params });
+            fork.ask(prompt);
+            return fork.response();
+        }
+        ask(text) {
+            this.history([
+                ...this.history(),
+                {
+                    role: "user",
+                    content: JSON.stringify(text),
+                }
+            ]);
+            return this;
+        }
+        answer(id, data) {
+            const history = this.history();
+            const index = 1 + history.findIndex(msg => msg.role === 'tool' && msg.tool_call_id === id);
+            if (!index)
+                this.$.$mol_fail(new Error('Wrong tool call id', { cause: id }));
+            this.history([
+                ...history.slice(0, index),
+                {
+                    role: "tool",
+                    tool_call_id: id,
+                    content: JSON.stringify(data),
+                },
+                ...history.slice(index),
+            ]);
+            return this;
+        }
+        request_body(model) {
+            return JSON.stringify({
+                model,
+                stream: false,
+                response_format: { type: 'json_object' },
+                messages: [
+                    { role: 'system', content: this.rules() },
+                    ...this.history(),
+                ],
+                tools: [...this.tools()].map(([name, info]) => ({
+                    type: "function",
+                    function: {
+                        name,
+                        description: info.descr,
+                        strict: true,
+                        parameters: info.params,
+                    },
+                })),
+                ...this.params(),
+            });
+        }
+        request(model, key) {
+            return Resp(this.$.$mol_fetch.json(`https://models.github.ai/inference/chat/completions`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + key,
+                    'Content-Type': 'application/json',
+                },
+                body: this.request_body(model)
+            }));
+        }
+        response() {
+            const history = this.history();
+            const last = history.at(-1);
+            if (last?.role !== 'user')
+                return null;
+            const models = this.names();
+            const keys = this.$.$mol_array_shuffle_sync($.$mol_github_model_keys);
+            for (const model of models)
+                for (const key of keys) {
+                    try {
+                        const resp = this.request(model, key);
+                        const message = resp.choices[0].message;
+                        this.history([...history, message]);
+                        return JSON.parse(message.content ?? 'null');
+                    }
+                    catch (error) {
+                        if ($mol_promise_like(error))
+                            $mol_fail_hidden(error);
+                        $mol_fail_log(error);
+                    }
+                }
+            return this.$.$mol_fail(new Error('No alive model'));
+        }
+    }
+    __decorate([
+        $mol_memo.method
+    ], $mol_github_model.prototype, "names", null);
+    __decorate([
+        $mol_memo.method
+    ], $mol_github_model.prototype, "tools", null);
+    __decorate([
+        $mol_mem
+    ], $mol_github_model.prototype, "params", null);
+    __decorate([
+        $mol_mem
+    ], $mol_github_model.prototype, "history", null);
+    __decorate([
+        $mol_action
+    ], $mol_github_model.prototype, "fork", null);
+    __decorate([
+        $mol_action
+    ], $mol_github_model.prototype, "shot", null);
+    __decorate([
+        $mol_action
+    ], $mol_github_model.prototype, "ask", null);
+    __decorate([
+        $mol_action
+    ], $mol_github_model.prototype, "answer", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_github_model.prototype, "request_body", null);
+    __decorate([
+        $mol_mem
+    ], $mol_github_model.prototype, "response", null);
+    $.$mol_github_model = $mol_github_model;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
 (function ($_1) {
+    const github_llm_translator = $.$mol_github_model.make({
+        rules: () => `You are assistent-translator. User sends you language code and text in JSON format. You must reply with translation of his text to that language. Don't ask any questions or do something other than translation. Be sure translation have same meaning. Output translation as JSON string with correct escaping.`,
+        params: () => ({ temperature: 0 })
+    });
     const $hyoo_lingua_translate_api = [
-        ($, lang, text) => $.$mol_rapidapi('free-google-translator', 'external-api/free-google-translator', {
-            from: 'auto',
-            to: lang,
-            query: text,
-        }, {}).translation,
-        ($, lang, text) => $.$mol_rapidapi('cheapest-google-deep-batch-translate', 'google-translate', {}, {
-            text,
-            to: lang,
-            from: 'auto',
-            keepCurlyBraces: '1',
-        }).data.translations[0],
-        ($, lang, text) => $.$mol_rapidapi('google-translate113', 'api/v1/translator/text', {}, {
-            text,
-            to: lang,
-            from: 'auto',
-        }).trans,
-        ($, lang, text) => $.$mol_rapidapi('google-translate-official', 'translate', {}, new URLSearchParams({
-            texte: text,
-            to_lang: lang,
-            source: 'auto',
-        })).translation_data.translation,
-        ($, lang, text) => $.$mol_rapidapi('unlimited-google-translate1', 'api/translate', {
-            text: text,
-            target: lang,
-            source: 'auto',
-        }).translated_text,
-        ($, lang, text) => $.$mol_rapidapi('translate-plus', 'translate', {}, {
-            text,
-            target: lang,
-            source: 'auto',
-        }).translations.translation,
+        ($, lang, text) => github_llm_translator.shot({ lang, text }).text,
     ];
     function $hyoo_lingua_translate(lang, text) {
         if (!text.trim())
@@ -10244,6 +10542,10 @@ var $;
                     basis: rem(21),
                     grow: 1,
                 },
+                display: 'flex',
+                align: {
+                    items: 'stretch',
+                },
             },
             Native_pane: {
                 padding: $mol_gap.block,
@@ -10251,10 +10553,9 @@ var $;
                     basis: rem(21),
                     grow: 1,
                 },
-            },
-            Body: {
-                flex: {
-                    grow: 0,
+                display: 'flex',
+                align: {
+                    items: 'stretch',
                 },
             },
             Foot: {
