@@ -26,6 +26,10 @@ namespace $.$$ {
 				basis: rem(21),
 				grow: 1,
 			},
+			display: 'flex',
+			align: {
+				items: 'stretch',
+			},
 		},
 		
 		Native_pane: {
@@ -34,14 +38,12 @@ namespace $.$$ {
 				basis: rem(21),
 				grow: 1,
 			},
-		},
-		
-		Body: {
-			flex: {
-				grow: 0,
+			display: 'flex',
+			align: {
+				items: 'stretch',
 			},
 		},
-
+		
 		Foot: {
 			flex: {
 				wrap: 'wrap',
