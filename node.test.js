@@ -9544,7 +9544,7 @@ var $;
 			return obj;
 		}
 		title(){
-			return "$hyoo_lingua";
+			return (this.$.$mol_locale.text("$hyoo_lingua_app_title"));
 		}
 		alt_services(){
 			return {"Google": "https://translate.google.com/?sl=auto&tl={lang}&text={text}", "Yandex": "https://translate.yandex.com/?target_lang={lang}&text={text}"};
