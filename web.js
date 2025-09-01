@@ -4353,7 +4353,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/button/typed/typed.view.css", "[mol_button_typed] {\n\talign-content: center;\n\talign-items: center;\n\tpadding: var(--mol_gap_text);\n\tborder-radius: var(--mol_gap_round);\n\tgap: var(--mol_gap_space);\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[mol_button_typed][disabled] {\n\tpointer-events: none;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus-visible {\n\tbox-shadow: inset 0 0 0 10rem var(--mol_theme_hover);\n}\n\n[mol_button_typed]:active {\n\tcolor: var(--mol_theme_focus);\n}\n\n");
+    $mol_style_attach("mol/button/typed/typed.view.css", "[mol_button_typed] {\n\talign-content: center;\n\talign-items: center;\n\tpadding: var(--mol_gap_text);\n\tborder-radius: var(--mol_gap_round);\n\tgap: var(--mol_gap_space);\n\tuser-select: none;\n\tcursor: pointer;\n}\n\n[mol_button_typed][disabled] {\n\tpointer-events: none;\n}\n\n[mol_button_typed]:hover ,\n[mol_button_typed]:focus-visible {\n\tbox-shadow: inset 0 0 0 100vmax var(--mol_theme_hover);\n}\n\n[mol_button_typed]:active {\n\tcolor: var(--mol_theme_focus);\n}\n\n");
 })($ || ($ = {}));
 
 ;
@@ -9431,14 +9431,14 @@ var $;
         '11AADME3A0exOKaaQLYR2b_2JKJDHVAWxoqRPlGcugBHNapcZWT9awRic8iBmgOirXRVC5X7ILtz6KDffv',
         '11AADME3A071WbELDi8THV_v3dkQtbYpSGjUXeWT6dAiPBf5a5b0KDr0E029T6P4CsZOOYO3DPpopBkodL',
         '11AADME3A0L5oFWUKk62fr_Dcbcn1ZcNBwWaLfbHzlgueGcxBEO5FoOieoowhJ6Q1zIWIIYZBG7XI16O4H',
+        '11ABRVBSY0f8VzkzaCnFmy_PMfBlJqT7DuvxfzbYRUlLOZJenEqBvNpGP7uQKCDOaO6ZKS4DFCG0qYxy2I',
     ].map(str => `github_pat_${str}`);
     $.$mol_github_model_polyglots = [
+        'openai/gpt-4.1',
+        'openai/gpt-4o',
         'openai/gpt-4.1-mini',
         'openai/gpt-4o-mini',
         'openai/gpt-4.1-nano',
-        'microsoft/Phi-4-mini-instruct',
-        'openai/gpt-4.1',
-        'openai/gpt-4o',
     ];
     const System = $mol_data_record({
         role: $mol_data_const('system'),
@@ -9499,10 +9499,12 @@ var $;
             fork.history(this.history());
             return fork;
         }
-        shot(prompt, params) {
+        shot(prompt, context, params) {
             const fork = this.fork();
             if (params)
                 fork.params({ ...this.params(), ...params });
+            if (context)
+                fork.tell(context);
             fork.ask(prompt);
             return fork.response();
         }
@@ -9511,6 +9513,16 @@ var $;
                 ...this.history(),
                 {
                     role: "user",
+                    content: JSON.stringify(text),
+                }
+            ]);
+            return this;
+        }
+        tell(text) {
+            this.history([
+                ...this.history(),
+                {
+                    role: "assistant",
                     content: JSON.stringify(text),
                 }
             ]);
@@ -9568,7 +9580,7 @@ var $;
             const last = history.at(-1);
             if (last?.role !== 'user')
                 return null;
-            const models = this.names();
+            const models = this.$.$mol_array_shuffle_sync(this.names());
             const keys = this.$.$mol_array_shuffle_sync($.$mol_github_model_keys);
             for (const model of models)
                 for (const key of keys) {
@@ -9608,6 +9620,9 @@ var $;
     __decorate([
         $mol_action
     ], $mol_github_model.prototype, "ask", null);
+    __decorate([
+        $mol_action
+    ], $mol_github_model.prototype, "tell", null);
     __decorate([
         $mol_action
     ], $mol_github_model.prototype, "answer", null);
