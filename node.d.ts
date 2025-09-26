@@ -3670,7 +3670,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_array_shuffle<Item>(array: readonly Item[]): Item[];
+    function $mol_array_shuffle<Item>(array: readonly Item[]): any[];
 }
 
 declare namespace $ {
@@ -3998,7 +3998,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $hyoo_lingua_translate(this: $, lang: string, text: string): string;
+    function $hyoo_lingua_translate(this: $, lang: string, text: string): any;
 }
 
 declare namespace $ {
